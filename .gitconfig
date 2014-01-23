@@ -1,0 +1,54 @@
+[user]
+	name = Andrew Lechowicz
+	email = andrew@alecho.com
+[mergetool]
+	keepBackup = true
+[help]
+	autocorrect = 1
+[alias]
+	s = status -s
+	aa = add --all
+	s = status -sb
+	st = status -b
+	sh = show
+	l = "!source ~/.bash/helpers/githelpers.sh && pretty_git_log"
+	r = !git l -20
+	lg = !git l --graph
+	la = !git l --all
+	lag = !git l --graph --all
+	co = checkout
+	c = commit
+	ci = commit -v
+	ca = commit -a -v
+	amend = commit --amend
+	pullall = !git pull && git submodule update --init --recursive
+	fetchall = fetch --all --prune
+	di = diff
+	dt = difftool
+	mt = mergetool
+	review = rebase -i
+	pr = pull --rebase
+	f = fetch
+	b = branch
+	ba = branch -a
+	br = branch -r
+	bd = branch -d
+	bD = branch -D
+	new = checkout -b
+	undo = reset --soft HEAD
+	sup = submodule update --init --recursive
+	close = "!git push && git checkout master && git branch -D $1"
+	mark-prod = "!git tag production HEAD -f && git push --tags"
+[color]
+	ui = true
+[core]
+	excludesfile = /Users/loadsys/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[branch]
+	autosetuprebase = always
+
