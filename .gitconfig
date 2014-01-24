@@ -51,4 +51,5 @@
 	trustExitCode = true
 [branch]
 	autosetuprebase = always
-
+[push]
+        default = tracking
