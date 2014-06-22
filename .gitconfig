@@ -4,7 +4,7 @@
 [mergetool]
 	keepBackup = true
 [help]
-	autocorrect = 1
+	autocorrect = 100
 [alias]
 	s = status -s
 	aa = add --all
@@ -35,10 +35,12 @@
 	bd = branch -d
 	bD = branch -D
 	new = checkout -b
-	undo = reset --soft HEAD
+	undo = reset --soft 'HEAD^'
 	sup = submodule update --init --recursive
 	close = "!git push && git checkout master && git branch -D $1"
 	mark-prod = "!git tag production HEAD -f && git push --tags"
+	rb = rebase
+	rbc = rebase --continue
 [color]
 	ui = true
 [core]
@@ -51,5 +53,9 @@
 	trustExitCode = true
 [branch]
 	autosetuprebase = always
+
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
 [push]
-        default = tracking
+	default = simple
