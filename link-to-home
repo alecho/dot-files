@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+
+if [ ! -e $DIR/$1 ]
+then
+    echo "$DIR/$1 not found!"
+    exit 1
+fi
+
+echo "creating symlink"
+if (( $(ln -s $DIR/$1 $HOME/$1) ))
+then
+    echo "Creating symlink failed."
+    echo "If $HOME/$1 exists, run \`mv $HOME/$1.bak && rm $HOME/$1\`"
+fi
+
+echo "Symlink created:"
+ls -lA $HOME/$1
+
+
+exit 0
+
