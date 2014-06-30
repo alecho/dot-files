@@ -28,6 +28,22 @@ __vcs_name() {
     fi
 }
 
+__git_ahead_behind() {
+    GIT_AHEAD=""
+    GIT_BEHIND=""
+    if [[ "$git_branch_output" =~ .*\[(.*/[^:]*)[]:].* ]]
+    then
+        tracking="${BASH_REMATCH[1]}"
+        if [[ "$git_branch_output" =~ .*\ \[.*/.*:.*\ ahead\ ([0-9]*).*\].* ]]
+        then
+            GIT_AHEAD="+${BASH_REMATCH[1]}"
+        fi
+        if [[ "$git_branch_output" =~ .*\ \[.*/.*:.*\ behind\ ([0-9]*).*\].* ]]
+        then
+            GIT_BEHIND="-${BASH_REMATCH[1]}"
+        fi
+    fi
+}
 # Color!
 export CLICOLOR=1
 black=$(tput -Txterm setaf 0)
@@ -42,7 +58,7 @@ bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
 # Prompt
-export PS1='\n\[$pink\]\w  \[$yellow\]$(__vcs_name) \[$reset\]\n\[$reset\]\$ '
+export PS1='\n\[$pink\]\w  \[$yellow\]$(__vcs_name) \[$reset\] $(__git_ahead_behind)\n\[$reset\]\$ '
 
 # Aliases
 
