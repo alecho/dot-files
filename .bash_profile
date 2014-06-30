@@ -1,6 +1,20 @@
 # PATH
 export PATH=/usr/local/bin:$PATH
 
+
+# Color!
+export CLICOLOR=1
+black=$(tput -Txterm setaf 0)
+red=$(tput -Txterm setaf 1)
+green=$(tput -Txterm setaf 2)
+yellow=$(tput -Txterm setaf 3)
+dk_blue=$(tput -Txterm setaf 4)
+pink=$(tput -Txterm setaf 5)
+lt_blue=$(tput -Txterm setaf 6)
+
+bold=$(tput -Txterm bold)
+reset=$(tput -Txterm sgr0)
+
 #VCS Functions
 __has_parent_dir () {
     # Utility function so we can test for things like .git/.hg without firing up a
@@ -29,6 +43,19 @@ __vcs_name() {
 }
 
 __git_ahead_behind() {
+    GIT_BRANCH=""
+    GIT_AHEAD=""
+    GIT_BEHIND=""
+    GIT_START=""
+    GIT_END=""
+
+    git_status_output=$(git status -s 2> /dev/null) || return 1
+    git_branch_output=$(git branch -vv 2> /dev/null | grep -e '^\*') || return 1
+
+    GIT_START="｢"
+    GIT_END="｣"
+
+    local tracking=""
     GIT_AHEAD=""
     GIT_BEHIND=""
     if [[ "$git_branch_output" =~ .*\[(.*/[^:]*)[]:].* ]]
@@ -36,26 +63,21 @@ __git_ahead_behind() {
         tracking="${BASH_REMATCH[1]}"
         if [[ "$git_branch_output" =~ .*\ \[.*/.*:.*\ ahead\ ([0-9]*).*\].* ]]
         then
-            GIT_AHEAD="+${BASH_REMATCH[1]}"
+            #GIT_AHEAD="+${BASH_REMATCH[1]}"
+            echo "$green+${BASH_REMATCH[1]}"
         fi
         if [[ "$git_branch_output" =~ .*\ \[.*/.*:.*\ behind\ ([0-9]*).*\].* ]]
         then
-            GIT_BEHIND="-${BASH_REMATCH[1]}"
+            #GIT_BEHIND="-${BASH_REMATCH[1]}"
+            echo "$red-${BASH_REMATCH[1]}"
         fi
     fi
-}
-# Color!
-export CLICOLOR=1
-black=$(tput -Txterm setaf 0)
-red=$(tput -Txterm setaf 1)
-green=$(tput -Txterm setaf 2)
-yellow=$(tput -Txterm setaf 3)
-dk_blue=$(tput -Txterm setaf 4)
-pink=$(tput -Txterm setaf 5)
-lt_blue=$(tput -Txterm setaf 6)
 
-bold=$(tput -Txterm bold)
-reset=$(tput -Txterm sgr0)
+    local staged=`echo "$git_status_output" | grep -e "^[MARCDT]. .*" | wc -l`
+    local changed=`echo "$git_status_output" | grep -e "^.[MD] .*" | wc -l`
+    local untracked=`echo "$git_status_output" | grep -e "^?? .*" | wc -l`
+
+}
 
 # Prompt
 export PS1='\n\[$pink\]\w  \[$yellow\]$(__vcs_name) \[$reset\] $(__git_ahead_behind)\n\[$reset\]\$ '
