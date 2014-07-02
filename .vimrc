@@ -4,6 +4,7 @@ set number
 set ruler
 set tabstop=2
 set completeopt=longest,menu,preview
+set hidden
 
 " ===== Vundle Setup - the vim plugin bundler =====
 " This will install Vundle if not installed
@@ -22,10 +23,10 @@ Bundle 'gmarik/vundle'
 
 " My bundles
 Bundle 'https://github.com/kien/ctrlp.vim'
-Bundle 'https://github.com/xolox/vim-session.git'
 Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/rking/ag.vim'
 Bundle 'https://github.com/editorconfig/editorconfig-vim'
+Bundle 'https://github.com/gerw/vim-HiLinkTrace'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
@@ -34,4 +35,8 @@ if iCanHazVundle == 0
     :BundleInstall
 endif
 
+colorscheme Afterglow
+
+" CtrlP
+map <C-b> :CtrlPBuffer<cr>
 
