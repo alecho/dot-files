@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+PROJECTS_DIR='/projects'
+SESSION=${@: -1}
+DIR=$SESSION
+
+#Clean session name
+SESSION="${SESSION//[:\. ]/_}"
+
+while getopts d flag;do
+   case $flag in
+       d)
+					PROJECTS_DIR=$OPTARG
+   esac
+done
+
+if [ -d "$PROJECTS_DIR/$DIR" ]
+then
+	$PROJECTS_DIR/$DIR
+else
+	echo "$DIR does not exist in $PROJECTS_DIR"
+	exit 1
+fi
+
+clear
+tmux has-session -t $SESSION
+if [ $? != 0 ]
+then
+	echo "Creating tmux session '$SESSION'."
+	tmux new-session -s $SESSION -d "cd $PROJECTS_DIR/$DIR; tmux source-file $PROJECTS_DIR/$DIR/.tmux.project" 
+fi
+
+	
+	#echo "Setting up pane 2"
+	#tmux split-window -t $SESSION -v -p 50
+	#tmux send-keys -t $SESSION:1 "cd $PROJECTS_DIR/$SESSION" C-m
+	#tmux send-keys -t $SESSION:1 "clear" C-m
+	#tmux send-keys -t $SESSION:1 "vagrant status" C-m
+
+	#tmux select-pane -t 0 # go back to the first pane
+
+# Load the projects config if it exists
+#if [ -e $PROJECTS_DIR/$SESSION/.tmux.project ]
+#then
+#tmux source-file $PROJECTS_DIR/$SESSION/.tmux.project 
+#fi
+
+echo "Attaching to tmux session '$SESSION'."
+tmux attach-session -t $SESSION
+

@@ -1,10 +1,23 @@
 syntax on
 
+set nocompatible
 set number
 set ruler
+
+" Tabs, indentation and whitespace
 set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set noexpandtab
+"set list
+"set listchars=tab:->
+
 set completeopt=longest,menu,preview
+set selectmode=mouse
 set hidden
+
+" File name at bottom of VIM
+set ls=2
 
 " ===== Vundle Setup - the vim plugin bundler =====
 " This will install Vundle if not installed
