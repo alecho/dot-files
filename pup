@@ -22,27 +22,16 @@ else
 fi
 
 clear
-tmux has-session -t $SESSION
+tmux has-session -t $SESSION 2>/dev/null
 if [ $? != 0 ]
 then
-	echo "Creating tmux session '$SESSION'."
-	tmux new-session -s $SESSION -d "cd $PROJECTS_DIR/$DIR; tmux source-file $PROJECTS_DIR/$DIR/.tmux.project" 
+	echo "Creating new tmux session: $SESSION"
+	tmux new-session -s $SESSION -d "cd $PROJECTS_DIR/$DIR; if [ -e $PROJECTS_DIR/$DIR/.tmux.project ]; then tmux source-file $PROJECTS_DIR/$DIR/.tmux.project; fi"
+  if [ $? != 0 ]
+  then
+    echo "Soemthing went wrong!";
+  fi
 fi
-
-	
-	#echo "Setting up pane 2"
-	#tmux split-window -t $SESSION -v -p 50
-	#tmux send-keys -t $SESSION:1 "cd $PROJECTS_DIR/$SESSION" C-m
-	#tmux send-keys -t $SESSION:1 "clear" C-m
-	#tmux send-keys -t $SESSION:1 "vagrant status" C-m
-
-	#tmux select-pane -t 0 # go back to the first pane
-
-# Load the projects config if it exists
-#if [ -e $PROJECTS_DIR/$SESSION/.tmux.project ]
-#then
-#tmux source-file $PROJECTS_DIR/$SESSION/.tmux.project 
-#fi
 
 echo "Attaching to tmux session '$SESSION'."
 tmux attach-session -t $SESSION

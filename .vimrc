@@ -40,6 +40,8 @@ Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/rking/ag.vim'
 Bundle 'https://github.com/editorconfig/editorconfig-vim'
 Bundle 'https://github.com/gerw/vim-HiLinkTrace'
+Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'https://github.com/scrooloose/nerdtree.git'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
@@ -52,4 +54,8 @@ colorscheme Afterglow
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
+
+" NERD tree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
