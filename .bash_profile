@@ -42,7 +42,7 @@ __vcs_name() {
     if [ -d .svn ]; then
         echo "-[svn]";
     elif __has_parent_dir ".git"; then
-        echo "-[$(__git_ps1 'git %s')]";
+        echo "[$(__git_ps1 '%s')]";
     elif __has_parent_dir ".hg"; then
         echo "-[hg $(hg branch)]"
     fi
@@ -69,13 +69,13 @@ __git_ahead_behind() {
         tracking="${BASH_REMATCH[1]}"
         if [[ "$git_branch_output" =~ .*\ \[.*/.*:.*\ ahead\ ([0-9]*).*\].* ]]
         then
-            #GIT_AHEAD="+${BASH_REMATCH[1]}"
-            echo "$green+${BASH_REMATCH[1]}"
+            GIT_AHEAD="$green+${BASH_REMATCH[1]}"
+            #echo "$green+${BASH_REMATCH[1]}"
         fi
         if [[ "$git_branch_output" =~ .*\ \[.*/.*:.*\ behind\ ([0-9]*).*\].* ]]
         then
-            #GIT_BEHIND="-${BASH_REMATCH[1]}"
-            echo "$red-${BASH_REMATCH[1]}"
+            GIT_BEHIND="$red-${BASH_REMATCH[1]}"
+            #echo "$red-${BASH_REMATCH[1]}"
         fi
     fi
 
@@ -83,10 +83,15 @@ __git_ahead_behind() {
     local changed=`echo "$git_status_output" | grep -e "^.[MD] .*" | wc -l`
     local untracked=`echo "$git_status_output" | grep -e "^?? .*" | wc -l`
 
+		if (true)
+		then
+			echo "$GIT_AHEAD $GIT_BEHIND"
+		fi
+
 }
 
 # Prompt
-export PS1='\n\[$pink\]\w  \[$yellow\]$(__vcs_name) \[$reset\] $(__git_ahead_behind)\n\[$reset\]\$ '
+export PS1='\n\[$dk_blue\]{\h} \[$pink\]\w  \[$yellow\]$(__vcs_name) \[$reset\] $(__git_ahead_behind)\n\[$reset\]\$ '
 
 # Aliases
 
