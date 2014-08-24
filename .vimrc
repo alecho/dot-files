@@ -1,10 +1,24 @@
 syntax on
 
+set nocompatible
 set number
 set ruler
+
+" Tabs, indentation and whitespace
 set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set noexpandtab
+"set list
+"set listchars=tab:->
+
 set completeopt=longest,menu,preview
+set selectmode=mouse
 set hidden
+set clipboard=unnamed
+
+" File name at bottom of VIM
+set ls=2
 
 " ===== Vundle Setup - the vim plugin bundler =====
 " This will install Vundle if not installed
@@ -27,6 +41,8 @@ Bundle 'https://github.com/tpope/vim-fugitive'
 Bundle 'https://github.com/rking/ag.vim'
 Bundle 'https://github.com/editorconfig/editorconfig-vim'
 Bundle 'https://github.com/gerw/vim-HiLinkTrace'
+Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'https://github.com/scrooloose/nerdtree.git'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
@@ -39,4 +55,9 @@ colorscheme Afterglow
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
+
+" NERD tree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let NERDTreeShowHidden=1
 

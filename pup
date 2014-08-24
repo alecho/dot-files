@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+PROJECTS_DIR='/projects'
+SESSION=${@: -1}
+DIR=$SESSION
+
+#Clean session name
+SESSION="${SESSION//[:\. ]/_}"
+
+while getopts d flag;do
+   case $flag in
+       d)
+					PROJECTS_DIR=$OPTARG
+   esac
+done
+
+if [ -d "$PROJECTS_DIR/$DIR" ]
+then
+	$PROJECTS_DIR/$DIR
+else
+	echo "$DIR does not exist in $PROJECTS_DIR"
+	exit 1
+fi
+
+clear
+tmux has-session -t $SESSION 2>/dev/null
+if [ $? != 0 ]
+then
+	echo "Creating new tmux session: $SESSION"
+	tmux new-session -s $SESSION -d "cd $PROJECTS_DIR/$DIR; if [ -e $PROJECTS_DIR/$DIR/.tmux.project ]; then tmux source-file $PROJECTS_DIR/$DIR/.tmux.project; fi"
+  if [ $? != 0 ]
+  then
+    echo "Soemthing went wrong!";
+  fi
+fi
+
+echo "Attaching to tmux session '$SESSION'."
+tmux attach-session -t $SESSION
+
