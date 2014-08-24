@@ -61,3 +61,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeShowHidden=1
 
+" Handlebars syntax
+au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+
