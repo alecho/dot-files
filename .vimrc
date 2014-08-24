@@ -15,6 +15,7 @@ set noexpandtab
 set completeopt=longest,menu,preview
 set selectmode=mouse
 set hidden
+set clipboard=unnamed
 
 " File name at bottom of VIM
 set ls=2
@@ -58,4 +59,5 @@ map <C-b> :CtrlPBuffer<cr>
 " NERD tree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let NERDTreeShowHidden=1
 

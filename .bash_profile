@@ -1,5 +1,11 @@
 # PATH
+# Homebrew in general
 export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
+# Hombrew PHP 55
+export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
+# Composer
+export PATH=~/.composer/vendor/bin:$PATH
 
 
 # Color!
