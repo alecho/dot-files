@@ -43,6 +43,7 @@ Bundle 'https://github.com/editorconfig/editorconfig-vim'
 Bundle 'https://github.com/gerw/vim-HiLinkTrace'
 Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
+Plugin 'https://github.com/mattn/emmet-vim.git'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
