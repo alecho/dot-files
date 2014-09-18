@@ -44,6 +44,7 @@ Bundle 'https://github.com/gerw/vim-HiLinkTrace'
 Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'https://github.com/mattn/emmet-vim.git'
+Plugin 'airblade/vim-gitgutter'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
@@ -52,7 +53,7 @@ if iCanHazVundle == 0
     :BundleInstall
 endif
 
-colorscheme Afterglow
+"colorscheme Afterglow
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
@@ -61,7 +62,15 @@ map <C-b> :CtrlPBuffer<cr>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.swp$']
 
 " Handlebars syntax
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+
+" Git Gutter Signcolumn color
+highlight clear SignColumn
+
+" Syntaxes
+au BufReadPost *.hbs set syntax=html
+au BufReadPost *.ctp set syntax=php
 
