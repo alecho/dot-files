@@ -1,3 +1,6 @@
+# RVM added this
+source ~/.profile
+
 # PATH
 # Homebrew in general
 export PATH=/usr/local/bin:$PATH
@@ -108,3 +111,5 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 
 
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
