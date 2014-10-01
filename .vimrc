@@ -53,7 +53,7 @@ if iCanHazVundle == 0
     :BundleInstall
 endif
 
-"colorscheme Afterglow
+colorscheme Afterglow
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
