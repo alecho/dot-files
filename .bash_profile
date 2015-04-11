@@ -1,6 +1,8 @@
 # RVM added this
 source ~/.profile
 
+source ~/.bash/.pgen_autocomplete.sh
+
 # PATH
 # Homebrew in general
 export PATH=/usr/local/bin:$PATH
@@ -104,12 +106,16 @@ alias ll='ls -lA'
 ## Vagrant
 alias v='vagrant'
 alias vs='vagrant status'
+alias vsus='vagrant suspend'
+alias vh='vagrant halt'
 
 # Hombrew Git Completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
 
+#GitHub's hub tool
+eval "$(hub alias -s)"
 
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

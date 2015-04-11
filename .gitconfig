@@ -4,7 +4,7 @@
 [mergetool]
 	keepBackup = true
 [help]
-	autocorrect = 100
+	autocorrect = 60
 [alias]
 	s = status -s
 	aa = add --all
@@ -41,6 +41,7 @@
 	mark-prod = "!git tag production HEAD -f && git push --tags"
 	rb = rebase
 	rbc = rebase --continue
+	ci = ci-status
 [color]
 	ui = true
 [core]
@@ -53,7 +54,6 @@
 	trustExitCode = true
 [branch]
 	autosetuprebase = always
-
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f

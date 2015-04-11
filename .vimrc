@@ -6,9 +6,8 @@ set ruler
 
 " Tabs, indentation and whitespace
 set tabstop=2
-set softtabstop=2
+"set softtabstop=2
 set shiftwidth=2
-set noexpandtab
 "set list
 "set listchars=tab:->
 
@@ -16,6 +15,8 @@ set completeopt=longest,menu,preview
 set selectmode=mouse
 set hidden
 set clipboard=unnamed
+
+set backspace=indent,eol,start " backspace over everything in insert mode
 
 " File name at bottom of VIM
 set ls=2
@@ -36,15 +37,17 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My bundles
-Bundle 'https://github.com/kien/ctrlp.vim'
-Bundle 'https://github.com/tpope/vim-fugitive'
-Bundle 'https://github.com/rking/ag.vim'
-Bundle 'https://github.com/editorconfig/editorconfig-vim'
-Bundle 'https://github.com/gerw/vim-HiLinkTrace'
-Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'https://github.com/scrooloose/nerdtree.git'
+Plugin 'https://github.com/kien/ctrlp.vim'
+Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'https://github.com/rking/ag.vim'
+Plugin 'https://github.com/editorconfig/editorconfig-vim'
+Plugin 'https://github.com/gerw/vim-HiLinkTrace'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'https://github.com/mattn/emmet-vim.git'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'https://github.com/vadimr/bclose.vim'
+Plugin 'ntpeters/vim-better-whitespace'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
@@ -61,11 +64,20 @@ map <C-b> :CtrlPBuffer<cr>
 " NERD tree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Show hidden files
 let NERDTreeShowHidden=1
+" Ignore swap files
 let NERDTreeIgnore = ['\.swp$']
+" Toggle with <kbd>\</kbd>
+map <silent> <leader>\ :NERDTreeToggle<cr>
 
 " Handlebars syntax
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+
+augroup css
+	autocmd!
+	autocmd BufNewFile,BufRead *.scss,*.sass setlocal et ai sw=2 st=2 sts=2
+augroup END
 
 " Git Gutter Signcolumn color
 highlight clear SignColumn
@@ -73,4 +85,3 @@ highlight clear SignColumn
 " Syntaxes
 au BufReadPost *.hbs set syntax=html
 au BufReadPost *.ctp set syntax=php
-
