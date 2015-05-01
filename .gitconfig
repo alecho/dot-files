@@ -37,10 +37,11 @@
 	new = checkout -b
 	undo = reset --soft 'HEAD^'
 	sup = submodule update --init --recursive
-	close = "!git push && git checkout master && git branch -D $1"
+	close = "!git push && git checkout staging && git branch -D $1"
 	mark-prod = "!git tag production HEAD -f && git push --tags"
 	rb = rebase
 	rbc = rebase --continue
+	rbi = rebase -i
 	ci = ci-status
 [color]
 	ui = true
@@ -48,7 +49,7 @@
 	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
