@@ -4,6 +4,16 @@ set nocompatible
 set number
 set ruler
 
+" Disabled arrow keys N00b!
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+
 " Tabs, indentation and whitespace
 set tabstop=2
 "set softtabstop=2
@@ -20,6 +30,8 @@ set backspace=indent,eol,start " backspace over everything in insert mode
 
 " File name at bottom of VIM
 set ls=2
+
+vnoremap p "_dP
 
 " ===== Vundle Setup - the vim plugin bundler =====
 " This will install Vundle if not installed
@@ -67,7 +79,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Show hidden files
 let NERDTreeShowHidden=1
 " Ignore swap files
-let NERDTreeIgnore = ['\.swp$']
+let NERDTreeIgnore = ['^\.DS_Store$', '\.swp$', '^\.git$', '^\.sass-cache$']
 " Toggle with <kbd>\</kbd>
 map <silent> <leader>\ :NERDTreeToggle<cr>
 
