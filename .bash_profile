@@ -109,6 +109,9 @@ alias vs='vagrant status'
 alias vsus='vagrant suspend'
 alias vh='vagrant halt'
 
+# git related commands
+alias ghostpr='f() { git fetch upstream && git checkout pr/"$1" && npm install && grunt init && npm start; }; f'
+
 # Hombrew Git Completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
