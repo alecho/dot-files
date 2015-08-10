@@ -60,6 +60,8 @@ Plugin 'https://github.com/mattn/emmet-vim.git'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'https://github.com/vadimr/bclose.vim'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'rizzatti/dash.vim'
+Plugin 'fatih/vim-go'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
@@ -72,6 +74,25 @@ colorscheme Afterglow
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
+
+" Configure CtrlP to use The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -li --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ --ignore "puphpet"
+      \ --ignore "tmp"
+      \ -g ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 " NERD tree
 autocmd StdinReadPre * let s:std_in=1

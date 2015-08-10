@@ -26,6 +26,9 @@ lt_blue=$(tput -Txterm setaf 6)
 bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
+# grep's Color output
+export GREP_OPTIONS='--color=auto'
+
 #VCS Functions
 __has_parent_dir () {
     # Utility function so we can test for things like .git/.hg without firing up a
