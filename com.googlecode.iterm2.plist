@@ -7,7 +7,7 @@
 	<key>AllowClipboardAccess</key>
 	<false/>
 	<key>AnimateDimming</key>
-	<false/>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>AppleScrollAnimationEnabled</key>
@@ -664,11 +664,11 @@
 	<key>Default Bookmark Guid</key>
 	<string>55D22E7C-AD58-4966-8145-1529D030D5FF</string>
 	<key>DimBackgroundWindows</key>
-	<false/>
+	<true/>
 	<key>DimInactiveSplitPanes</key>
 	<true/>
 	<key>DimOnlyText</key>
-	<false/>
+	<true/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
 	<key>EnableRendezvous</key>
@@ -719,6 +719,8 @@
 	<string>1, 4</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~</string>
+	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -745,9 +747,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>929 82 445 270 0 0 1440 878 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>335 274 924 485 0 0 1440 900 </string>
+	<string>2502 91 924 485 1440 -540 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>170 164 650 476 0 0 1440 877 </string>
+	<string>1610 -327 650 476 1440 -491 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>146 451 730 426 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
@@ -929,7 +931,7 @@
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
-			<real>2</real>
+			<real>1.9349089860916138</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1485,10 +1487,12 @@
 			<string>/Users/andrewlechowicz</string>
 		</dict>
 	</array>
+	<key>NoSyncNeverRemindPrefsChangesCopy</key>
+	<true/>
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>456067972.33367503</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>457924835.289994</real>
+	<real>461184132.45506799</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1557,17 +1561,19 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-07-07T01:20:26Z</date>
+	<date>2015-08-11T14:10:34Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
+	<key>ShowFullScreenTabBar</key>
+	<true/>
 	<key>ShowPaneTitles</key>
 	<true/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.40000000596046448</real>
+	<real>0.39932891726493835</real>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
