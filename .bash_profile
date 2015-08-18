@@ -1,3 +1,6 @@
+# Specify an editor
+export EDITOR='vim'
+
 # RVM added this
 source ~/.profile
 
