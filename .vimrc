@@ -15,6 +15,7 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 
 " Tabs, indentation and whitespace
+set expandtab
 set tabstop=2
 "set softtabstop=2
 set shiftwidth=2
