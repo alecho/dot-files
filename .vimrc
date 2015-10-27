@@ -4,6 +4,8 @@ set nocompatible
 set number
 set ruler
 
+filetype off
+
 " Disabled arrow keys N00b!
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -63,6 +65,8 @@ Plugin 'https://github.com/vadimr/bclose.vim'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'rizzatti/dash.vim'
 Plugin 'fatih/vim-go'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'plasticboy/vim-markdown'
 
 " === Install Bundles ===
 if iCanHazVundle == 0
@@ -105,8 +109,14 @@ let NERDTreeIgnore = ['^\.DS_Store$', '\.swp$', '^\.git$', '^\.sass-cache$']
 " Toggle with <kbd>\</kbd>
 map <silent> <leader>\ :NERDTreeToggle<cr>
 
+syntax enable
+filetype plugin indent on
+
 " Handlebars syntax
-au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
+au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=mustache
+
+" Handlebars abbreviations
+let g:mustache_abbreviations = 1
 
 augroup css
 	autocmd!
@@ -117,5 +127,4 @@ augroup END
 highlight clear SignColumn
 
 " Syntaxes
-au BufReadPost *.hbs set syntax=html
 au BufReadPost *.ctp set syntax=php
