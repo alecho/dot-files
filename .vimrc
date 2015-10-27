@@ -41,6 +41,9 @@ set ls=2
 
 vnoremap p "_dP
 
+" Set Ag as the ack program
+let g:ackprg = 'ag --vimgrep'
+
 " ===== Vundle Setup - the vim plugin bundler =====
 " This will install Vundle if not installed
 let iCanHazVundle=1
