@@ -31,6 +31,11 @@ set clipboard=unnamed
 
 set backspace=indent,eol,start " backspace over everything in insert mode
 
+" Highlight search results
+set hlsearch
+" Press Space to turn off highlighting and clear any message already displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
 " File name at bottom of VIM
 set ls=2
 
