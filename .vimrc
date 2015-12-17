@@ -130,6 +130,8 @@ augroup css
 	autocmd!
 	autocmd BufNewFile,BufRead *.scss,*.sass setlocal et ai sw=2 st=2 sts=2
 augroup END
+" Markdown folding
+let g:vim_markdown_folding_disabled=1
 
 " Git Gutter Signcolumn color
 highlight clear SignColumn
