@@ -108,6 +108,7 @@ export PS1='\n\[$dk_blue\]{\h} \[$pink\]\w  \[$yellow\]$(__vcs_name) \[$reset\] 
 
 ## General
 alias ll='ls -lA'
+alias nap='pmset sleepnow'
 
 ## Vagrant
 alias v='vagrant'
