@@ -39,6 +39,7 @@
 	undo = reset --soft 'HEAD^'
 	uncommit = reset --soft 'HEAD~'
 	sup = submodule update --init --recursive
+	staged = git diff --staged
 	close = "!git push && git checkout staging && git branch -D $1"
 	mark-prod = "!git tag production HEAD -f && git push --tags"
 	rb = rebase
