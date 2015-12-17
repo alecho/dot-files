@@ -39,6 +39,10 @@ set hlsearch
 " File name at bottom of VIM
 set ls=2
 
+" Explorer Mode
+map <C-E> :Explore<cr>
+let g:netrw_liststyle=3
+
 vnoremap p "_dP
 
 " Set Ag as the ack program
