@@ -15,7 +15,6 @@
 	br = branch -r
 	c = commit
 	ca = commit -a -v
-	ci = ci-status
 	ci = commit -v
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
