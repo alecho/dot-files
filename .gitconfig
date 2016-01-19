@@ -19,6 +19,7 @@
 	ci = commit -v
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
+  cp = cherry-pick
 	di = diff
 	dt = difftool
 	f = fetch
@@ -43,7 +44,7 @@
 	s = status -sb
 	sh = show
 	st = status -b
-	staged = git diff --staged
+	staged = diff --staged
 	sup = submodule update --init --recursive
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'

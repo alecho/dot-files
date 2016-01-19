@@ -15,7 +15,6 @@ export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 # Composer
 export PATH=~/.composer/vendor/bin:$PATH
 
-
 # Color!
 export CLICOLOR=1
 black=$(tput -Txterm setaf 0)
