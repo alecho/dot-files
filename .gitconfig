@@ -19,7 +19,7 @@
 	ci = commit -v
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
-  cp = cherry-pick
+	cp = cherry-pick
 	di = diff
 	dt = difftool
 	f = fetch
