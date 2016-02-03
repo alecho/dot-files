@@ -1,5 +1,3 @@
-# Specify an editor
-export EDITOR='vim'
 
 # RVM added this
 source ~/.profile
@@ -14,6 +12,8 @@ export PATH=/usr/local/sbin:$PATH
 export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 # Composer
 export PATH=~/.composer/vendor/bin:$PATH
+# Postgres.app
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
 # Color!
 export CLICOLOR=1
@@ -108,6 +108,9 @@ export PS1='\n\[$dk_blue\]{\h} \[$pink\]\w  \[$yellow\]$(__vcs_name) \[$reset\] 
 ## General
 alias ll='ls -lA'
 alias nap='pmset sleepnow'
+# OS X's sed causes an issues with bash_completion ssh where
+# hosts that beging with "t" aren't completed properly
+alias sed='gsed'
 
 ## Vagrant
 alias v='vagrant'

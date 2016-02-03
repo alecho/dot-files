@@ -92,7 +92,6 @@ Plugin 'fatih/vim-go'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'elixir-lang/vim-elixir'
-Plugin 'bling/vim-airline'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
@@ -177,7 +176,9 @@ highlight clear SignColumn
 
 " Vim Airline
 set noshowmode " Disable the default mode indicator
-let g:airline_powerline_fonts = 1
-let g:airline_theme='alecho'
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme='alecho'
+" set laststatus=2
+source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
 set laststatus=2
 
