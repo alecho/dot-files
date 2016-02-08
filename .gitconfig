@@ -48,7 +48,7 @@
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
 [color]
-	ui = true
+	ui = auto
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = /usr/local/bin/vim
@@ -69,3 +69,5 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+[rerere]
+	enabled = true

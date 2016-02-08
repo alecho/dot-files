@@ -10,6 +10,7 @@ set nocompatible
 set number
 set ruler
 set timeoutlen=50
+set ttyfast
 "set cursorline
 
 " 256 colors
