@@ -1,5 +1,8 @@
 *~
 .DS_Store
 .*.sw*
+*.sw*
 .tmux.project
+.projectfile
+.elixir_ls
 

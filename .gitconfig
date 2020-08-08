@@ -1,6 +1,7 @@
 [user]
 	name = Andrew Lechowicz
 	email = andrew@alecho.com
+	signingkey = 9C671341E55BE87F4E98C8F01B42243108A704D1
 [mergetool]
 	keepBackup = true
 [help]
@@ -16,17 +17,25 @@
 	c = commit
 	ca = commit -a -v
 	ci = commit -v
+  clear = "!clear"
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
+  cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
 	cp = cherry-pick
+	cpc = cherry-pick --continue
 	di = diff
+	diw = diff --word-diff
 	dt = difftool
 	f = fetch
-	fetchall = fetch --all --prune
+	fap = fetch --all --prune
+  fix = "!f() { ${EDITOR} `git diff --name-only --diff-filter=U`; }; f"
+	fixup = commit --fixup
+  graph = log --graph --oneline --decorate --all
 	l = "!source ~/.bash/helpers/githelpers.sh && pretty_git_log"
 	la = !git l --all
 	lag = !git l --graph --all
 	lg = !git l --graph
+	lol = !git log --oneline
 	mark-prod = "!git tag production HEAD -f && git push --tags"
 	mt = mergetool
 	new = checkout -b
@@ -38,8 +47,11 @@
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbi = rebase -i
-	review = rebase -i
-	s = status -s
+	rbs = rebase --skip
+	review = "!git log --oneline origin/master..HEAD && git diff origin/master --word-diff"
+	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
+  rom = rebase origin/master
+  romi = rebase -i origin/master
 	s = status -sb
 	sh = show
 	st = status -b
@@ -47,11 +59,15 @@
 	sup = submodule update --init --recursive
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
+	whatadded = log --diff-filter=A
+  wip = "!git commit -a -m 'WIP :construction:'"
 [color]
 	ui = auto
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = /usr/local/bin/vim
+[diff]
+	algorithm = histogram
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
@@ -69,5 +85,11 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+[rebase]
+  autoSquash = true
 [rerere]
-	enabled = true
+	enabled = 1
+[gpg]
+	program = gpg
+[commit]
+	gpgsign = true

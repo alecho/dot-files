@@ -6,15 +6,47 @@ else
     let s:editor_root=expand("~/.vim")
 endif
 
+if (has("termguicolors"))
+  set termguicolors
+else
+  " 256 colors
+  set t_Co=256
+endif
+
+set clipboard=unnamed
+
 set nocompatible
+set nobackup
+set nowritebackup
 set number
 set ruler
-set timeoutlen=50
+set timeoutlen=1000
 set ttyfast
+set lazyredraw
+set showcmd
+" Use Vim 7.3 Regex engine
+set regexpengine=1
+" set relativenumber
+" :au FocusLost * :set norelativenumber
+" :au FocusGained * :set relativenumber
+" autocmd InsertEnter * :set norelativenumber
+" autocmd InsertLeave * :set relativenumber
 "set cursorline
 
-" 256 colors
-set t_Co=256
+" Maintain undo history between sessions
+set undofile
+set undodir=~/.vim/undodir
+
+" This does't see to work
+" Tmux is setup to use <C-a> as it's prefix and mutiple <C-a>s in vim will
+" increment the current or next number on a line. This rebinds to <C-l> which
+" is mapped to redraw in vim by default.
+nnoremap <C-a> <C-l>
+
+nnoremap <C-x> :Bclose<CR>
+
+" Toogle paste mode with ctrl + g
+set pastetoggle=<C-g>
 
 filetype off
 
@@ -28,6 +60,16 @@ inoremap <Right> <NOP>
 inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 
+" Remap some vim keys for convenience
+:command Wq wq
+:command W w
+nnoremap ; :
+let mapleader = ","
+
+" New Commands
+" Reverse order of lines under cursor
+:command! -bar -range=% Reverse <line1>,<line2>global/^/m<line1>-1
+
 " Tabs, indentation and whitespace
 set expandtab
 set tabstop=2
@@ -39,7 +81,7 @@ set shiftwidth=2
 set completeopt=longest,menu,preview
 set selectmode=mouse
 set hidden
-set clipboard=unnamed
+
 
 set backspace=indent,eol,start " backspace over everything in insert mode
 
@@ -60,6 +102,9 @@ vnoremap p "_dP
 " Set Ag as the ack program
 let g:ackprg = 'ag --vimgrep'
 
+" bind K to grep word under cursor
+nnoremap K :ag! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 " ===== Vundle Setup - the vim plugin bundler =====
 " This will install Vundle if not installed
 let vundle_installed=1
@@ -79,25 +124,36 @@ Bundle 'gmarik/vundle'
 " My bundles
 Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'https://github.com/tpope/vim-fugitive'
+Plugin 'https://github.com/tpope/vim-rails'
+Plugin 'https://github.com/tpope/vim-endwise'
 Plugin 'https://github.com/rking/ag.vim'
 Plugin 'https://github.com/editorconfig/editorconfig-vim'
-Plugin 'https://github.com/gerw/vim-HiLinkTrace'
-Plugin 'mustache/vim-mustache-handlebars'
+" Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'https://github.com/mattn/emmet-vim.git'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'https://github.com/vadimr/bclose.vim'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'rizzatti/dash.vim'
-Plugin 'fatih/vim-go'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'fatih/vim-go'
+" Plugin 'kchmck/vim-coffee-script'
+" Plugin 'plasticboy/vim-markdown'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'slashmili/alchemist.vim'
 Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
+Plugin 'scrooloose/syntastic'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'ap/vim-css-color'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'ngmy/vim-rubocop'
+Plugin 'mhinz/vim-mix-format'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+" Colors
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'crusoexia/vim-monokai'
+Plugin 'joshdick/onedark.vim'
 
 
 " === Install Bundles ===
@@ -106,6 +162,22 @@ if vundle_installed == 0
     echo ""
     :PluginInstall
 endif
+
+" Install vim-plug if not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+Plug 'elmcast/elm-vim'
+
+call plug#end()
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
@@ -124,6 +196,9 @@ if executable('ag')
       \ --ignore "**/*.pyc"
       \ --ignore "puphpet"
       \ --ignore "tmp"
+      \ --ignore "node_modules"
+      \ --ignore "bower"
+      \ --ignore "deps"
       \ -g ""'
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
@@ -132,6 +207,7 @@ endif
 " NERD tree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 " Show hidden files
 let NERDTreeShowHidden=1
 " Ignore swap files
@@ -141,6 +217,11 @@ map <silent> \ :NERDTreeToggle<cr>
 
 syntax enable
 filetype plugin indent on
+
+" Enable prettier
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#exec_cmd_async = 1
 
 " Handlebars syntax
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=mustache
@@ -156,24 +237,53 @@ augroup END
 " Markdown folding
 let g:vim_markdown_folding_disabled=1
 
-" Syntaxes
-au BufReadPost *.ctp set syntax=php
-
 " NeoComplete
 source $HOME/.vimrc_neocomplete
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" NeoSnippit
-source $HOME/.vimrc_neosnippit
+" UltiShips
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+function! FindConfig(prefix, what, where)
+  let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+  return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+endfunction
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+"autocmd FileType scss let b:syntastic_javascript_eslint_args =
+"      \ get(g:, 'syntastic_javascript_eslint_args', '') .
+"      \ FindConfig('-c', '.eslintrc', expand('<afile>:p:h', 1))
+
+
+let g:syntastic_html_checkers=['']
+let g:syntastic_hbs_checkers=['']
+
+" vim-polyglot
+let g:polyglot_disabled = ['elm']
+
+" Auto format with `mix format` on save
+let g:mix_format_on_save = 1
 
 " Set the colorscheme
-colorscheme monokai
+colorscheme onedark
 
 " Git Gutter Signcolumn color
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 let g:gitgutter_override_sign_column_highlight = 0
-highlight clear SignColumn
-" highlight SignColumn ctermbg=0    " terminal Vim
-" highlight SignColumn guibg=#272727      " gVim/MacVim
+" highlight clear SignColumn
+" highlight SignColumn ctermbg=NONE    " terminal Vim
+" highlight SignColumn guibg=NONE      " gVim/MacVim
 
 " Vim Airline
 set noshowmode " Disable the default mode indicator
@@ -182,4 +292,14 @@ set noshowmode " Disable the default mode indicator
 " set laststatus=2
 source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
 set laststatus=2
+
+let g:ruby_path = system('asdf where ruby')
+
+let g:rspec_runner = "os_x_iterm2"
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 

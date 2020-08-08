@@ -16,16 +16,32 @@ else
   fi
 fi
 
+git_commits_ahead() {
+  if $(echo $(command git status -sb 2> /dev/null) | grep 'ahead' &> /dev/null); then
+    local COMMITS
+    COMMITS=$(command git status -sb 2 > /dev/null | sed -e 's/^.*ahead \([0-9]*\).*/\1/' | head -1)
+    echo "$ZSH_THEME_GIT_COMMITS_AHEAD_PREFIX$COMMITS$ZSH_THEME_GIT_COMMITS_AHEAD_SUFFIX"
+  fi
+}
+
 git_commits_behind() {
   if $(echo $(command git status -sb 2> /dev/null) | grep 'behind' &> /dev/null); then
     local COMMITS
-    COMMITS=$(command git status -sb 2> /dev/null | sed -e 's/^.*behind \([0-9]*\).*/\1/')
+    COMMITS=$(command git status -sb 2> /dev/null | sed -e 's/^.*behind \([0-9]*\).*/\1/' | head -1)
+    echo "$ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX$COMMITS$ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX"
+  fi
+}
+
+git_remote_exists() {
+  if $(echo $(command git status -sb 2> /dev/null) | grep '...' &> /dev/null); then
+    local COMMITS
+    COMMITS=$(command git status -sb 2> /dev/null | sed -e 's/^.*behind \([0-9]*\).*/\1/' | head -1)
     echo "$ZSH_THEME_GIT_COMMITS_BEHIND_PREFIX$COMMITS$ZSH_THEME_GIT_COMMITS_BEHIND_SUFFIX"
   fi
 }
 
 # Must use Powerline font, for \uE0A0 to render.
-ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[magenta]%}\uE0A0 "
+ZSH_THEME_GIT_PROMPT_PREFIX=" \uE0A0 "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%}A%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}D%{$reset_color%}"
@@ -43,12 +59,12 @@ ZSH_THEME_GIT_COMMITS_AHEAD_PREFIX=" %{$fg[green]%}+"
 ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE="$(git_commits_ahead)"
 ZSH_THEME_GIT_COMMITS_AHEAD_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="$(git_commits_ahead) $(git_commits_behind)"
-ZSH_THEME_GIT_PROMPT_REMOTE_EXISTS="...%{$fg[green]%}\u2713"
-ZSH_THEME_GIT_PROMPT_REMOTE_MISSING="...%{$fg[red]%}\u2717"
+ZSH_THEME_GIT_PROMPT_REMOTE_EXISTS="%{$fg[green]%}"
+ZSH_THEME_GIT_PROMPT_REMOTE_MISSING="%{$fg[red]%}"
 
 PROMPT='
-%{$fg_bold[green]%}${PWD/#$HOME/~}%{$reset_color%}
-$ '
+%{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%} $(git_prompt_remote)$(git_prompt_info)$(git_prompt_remote)$(git_commits_ahead)$(git_commits_behind) $(git_prompt_status)%{$reset_color%}
+%{$fg[magenta]%}|>%{$reset_color%}'
 
-RPROMPT='%{$(echotc UP 1)%}$(git_prompt_info)$(git_prompt_remote)$(git_commits_ahead)$(git_commits_behind) $(git_prompt_status)%{$reset_color%}%{$(echotc DO 1)%}'
+RPROMPT='%{$(echotc UP 1)%}%{$(echotc DO 1)%}'
 

@@ -111,4 +111,8 @@ alias nombom='npm cache clear && bower cache clean && rm -rf node_modules bower_
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+## Weather
+alias weather='curl -4 http://wttr.in'
+alias gvlWeather='curl -4 http://wttr.in/Greenville+SC'
+
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
