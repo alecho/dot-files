@@ -12,7 +12,7 @@ export EDITOR='vim'
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/andrewlechowicz/.oh-my-zsh
-export ZSH_CUSTOM=/Users/andrewlechowicz/dot-files/.oh-my-zsh/custom
+export ZSH_CUSTOM=/Users/andrewlechowicz/.oh-my-zsh/custom
 
 # MySQL password
 export DATABASE_PASSWORD=root
