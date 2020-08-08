@@ -1,10 +1,30 @@
+# /etc/profile run the `path_helper` utility and it causes
+# `/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin` to be prepended
+# to PATH.
+if [ -n "$TMUX" ]; then
+  if [ -f /etc/profile ]; then
+      PATH=""
+      source /etc/profile
+  fi
+fi
 # Specify an editor
 export EDITOR='vim'
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/andrewlechowicz/.oh-my-zsh
+export ZSH_CUSTOM=/Users/andrewlechowicz/dot-files/.oh-my-zsh/custom
 
-. /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+# MySQL password
+export DATABASE_PASSWORD=root
+
+# GPG tty
+export GPG_TTY=$(tty)
+
+# Erlang Flags
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+ . /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+#. /Users/andrewlechowicz/Library/Python/3.6/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 # extend fpath to poain to pgen complation script
 fpath=(~/.zsh/ $fpath)
 
@@ -37,7 +57,7 @@ DISABLE_AUTO_TITLE="true"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -56,22 +76,16 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler osx rake ruby)
+plugins=(git bundler osx rake ruby mix brew tmux cargo yarn)
 
 # User configuration
 
-export PATH="/Users/andrewlechowicz/.rvm/gems/ruby-1.9.3-p392/bin:/Users/andrewlechowicz/.rvm/gems/ruby-1.9.3-p392@global/bin:/Users/andrewlechowicz/.rvm/rubies/ruby-1.9.3-p392/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/andrewlechowicz/.rvm/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/usr/local/sbin:$PATH"
 # Homebrew in general
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
-# Hombrew PHP 55
-#export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
-# Composer
-export PATH=~/.composer/vendor/bin:$PATH
 # Postgres.app
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+# export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,23 +110,38 @@ source $ZSH/oh-my-zsh.sh
 ## General
 alias ll='ls -lA'
 alias nap='pmset sleepnow'
-
-## Vagrant
-alias v='vagrant'
-alias vs='vagrant status'
-alias vsus='vagrant suspend'
-alias vh='vagrant halt'
+alias ssaver='open -a ScreenSaverEngine'
+alias lcat='lolcat'
 
 # git related commands
-alias ghostpr='f() { git fetch upstream && git checkout pr/"$1" && npm install && grunt init && npm start; }; f'
+alias gits='git status -sb'
 
-# Node and NPM
-alias nombom='npm cache clear && bower cache clean && rm -rf node_modules bower_components && npm install && bower install'
+bindkey '^h' vi-backward-char
+bindkey '^k' up-line-or-beginning-search
+bindkey '^l' vi-forward-char
+bindkey '^j' down-line-or-beginning-search
+bindkey '^r' history-incremental-search-backward
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# Go
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
 
-## Weather
-alias weather='curl -4 http://wttr.in'
-alias gvlWeather='curl -4 http://wttr.in/Greenville+SC'
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# MySQL
+export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
+export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
+export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+
+# asdf-vm
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+# Tmuxinator
+source ~/.bin/tmuxinator.zsh
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
