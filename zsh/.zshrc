@@ -8,7 +8,9 @@ if [ -n "$TMUX" ]; then
   fi
 fi
 # Specify an editor
-export EDITOR='vim'
+export EDITOR='nvim'
+alias vim='nvim'
+
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/andrewlechowicz/.oh-my-zsh
@@ -76,7 +78,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git bundler osx rake ruby mix brew tmux cargo yarn)
+plugins=(git osx mix tmux yarn asdf)
 
 # User configuration
 
@@ -145,3 +147,10 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 # Tmuxinator
 source ~/.bin/tmuxinator.zsh
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+# Terraform
+alias tfp='terraform plan -out=current.plan'
+alias tfa='terraform apply -input=true current.plan'
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/andrewlechowicz/.asdf/installs/terraform/0.12.29/bin/terraform terraform

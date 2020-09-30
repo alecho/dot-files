@@ -8,6 +8,12 @@ rbenv_version() {
   rbenv version 2>/dev/null | awk '{print $1}'
 }
 
+function prompt_time() {
+  local the_time="%{$fg[white]%}%T"
+
+  echo "${the_time}"
+}
+
 if [ -e ~/.rvm/bin/rvm-prompt ]; then
   RPROMPT='%{$fg_bold[red]%}‹$(rvm_current)›%{$reset_color%}'
 else
@@ -63,7 +69,7 @@ ZSH_THEME_GIT_PROMPT_REMOTE_EXISTS="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_REMOTE_MISSING="%{$fg[red]%}"
 
 PROMPT='
-%{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%} $(git_prompt_remote)$(git_prompt_info)$(git_prompt_remote)$(git_commits_ahead)$(git_commits_behind) $(git_prompt_status)%{$reset_color%}
+$(prompt_time) %{$fg_bold[blue]%}${PWD/#$HOME/~}%{$reset_color%} $(git_prompt_remote)$(git_prompt_info)$(git_prompt_remote)$(git_commits_ahead)$(git_commits_behind) $(git_prompt_status)%{$reset_color%}
 %{$fg[magenta]%}|>%{$reset_color%}'
 
 RPROMPT='%{$(echotc UP 1)%}%{$(echotc DO 1)%}'

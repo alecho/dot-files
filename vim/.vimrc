@@ -1,5 +1,11 @@
 syntax on
 
+let g:ruby_path = system('asdf where ruby')
+
+let g:rspec_runner = "os_x_iterm2"
+
+let g:python3_host_prog = '/Users/andrewlechowicz/.asdf/installs/python/3.7.2/bin/python3'
+
 if has('nvim')
     let s:editor_root=expand("~/.nvim")
 else
@@ -13,8 +19,6 @@ else
   set t_Co=256
 endif
 
-set clipboard=unnamed
-
 set nocompatible
 set nobackup
 set nowritebackup
@@ -24,6 +28,10 @@ set timeoutlen=1000
 set ttyfast
 set lazyredraw
 set showcmd
+" Give more space for displaying messages.
+set cmdheight=2
+set colorcolumn=80
+set clipboard=unnamedplus
 " Use Vim 7.3 Regex engine
 set regexpengine=1
 " set relativenumber
@@ -32,6 +40,10 @@ set regexpengine=1
 " autocmd InsertEnter * :set norelativenumber
 " autocmd InsertLeave * :set relativenumber
 "set cursorline
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
 
 " Maintain undo history between sessions
 set undofile
@@ -48,7 +60,7 @@ nnoremap <C-x> :Bclose<CR>
 " Toogle paste mode with ctrl + g
 set pastetoggle=<C-g>
 
-filetype off
+filetype plugin indent on
 
 " Disabled arrow keys N00b!
 noremap <Up> <NOP>
@@ -81,7 +93,6 @@ set shiftwidth=2
 set completeopt=longest,menu,preview
 set selectmode=mouse
 set hidden
-
 
 set backspace=indent,eol,start " backspace over everything in insert mode
 
@@ -124,37 +135,24 @@ Bundle 'gmarik/vundle'
 " My bundles
 Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/tpope/vim-rails'
 Plugin 'https://github.com/tpope/vim-endwise'
 Plugin 'https://github.com/rking/ag.vim'
 Plugin 'https://github.com/editorconfig/editorconfig-vim'
-" Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'https://github.com/mattn/emmet-vim.git'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'https://github.com/vadimr/bclose.vim'
 Plugin 'ntpeters/vim-better-whitespace'
-" Plugin 'fatih/vim-go'
-" Plugin 'kchmck/vim-coffee-script'
-" Plugin 'plasticboy/vim-markdown'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'slashmili/alchemist.vim'
-Plugin 'Shougo/neocomplete'
 Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'ap/vim-css-color'
+
+Plugin 'https://github.com/tpope/vim-rails'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'ngmy/vim-rubocop'
-Plugin 'mhinz/vim-mix-format'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 
 " Colors
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'crusoexia/vim-monokai'
 Plugin 'joshdick/onedark.vim'
-
 
 " === Install Bundles ===
 if vundle_installed == 0
@@ -176,6 +174,45 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 Plug 'elmcast/elm-vim'
+
+" Completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-html',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'neoclide/coc-json',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'fannheyward/coc-rome',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'neoclide/coc-snippets',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+
+Plug 'preservim/nerdtree' |
+            \ Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'vim-airline/vim-airline'
+
+" Snippets
+Plug 'honza/vim-snippets'
+
+" Tmux
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+
+" Elixir
+Plug 'elixir-lang/vim-elixir'
+Plug 'slashmili/alchemist.vim'
+Plug 'mhinz/vim-mix-format'
 
 call plug#end()
 
@@ -215,19 +252,10 @@ let NERDTreeIgnore = ['^\.DS_Store$', '\.swp$', '^\.git$', '^\.sass-cache$']
 " Toggle with <kbd>\</kbd>
 map <silent> \ :NERDTreeToggle<cr>
 
-syntax enable
-filetype plugin indent on
-
 " Enable prettier
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
 let g:prettier#exec_cmd_async = 1
-
-" Handlebars syntax
-au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=mustache
-
-" Handlebars abbreviations
-let g:mustache_abbreviations = 1
 
 augroup css
 	autocmd!
@@ -237,10 +265,14 @@ augroup END
 " Markdown folding
 let g:vim_markdown_folding_disabled=1
 
-" NeoComplete
-source $HOME/.vimrc_neocomplete
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" Markdown 80 characeter limit
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
+" Spell checking
+" Markdown
+autocmd BufRead,BufNewFile *.md setlocal spell
+" Git Commit messages
+autocmd FileType gitcommit setlocal spell
 
 " UltiShips
 " If you want :UltiSnipsEdit to split your window.
@@ -285,17 +317,16 @@ let g:gitgutter_override_sign_column_highlight = 0
 " highlight SignColumn ctermbg=NONE    " terminal Vim
 " highlight SignColumn guibg=NONE      " gVim/MacVim
 
-" Vim Airline
-set noshowmode " Disable the default mode indicator
-" let g:airline_powerline_fonts = 1
-" let g:airline_theme='alecho'
-" set laststatus=2
-source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
-set laststatus=2
-
-let g:ruby_path = system('asdf where ruby')
-
-let g:rspec_runner = "os_x_iterm2"
+if has('nvim')
+  " Vim Airline
+  set noshowmode " Disable the default mode indicator
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme='onedark'
+  set laststatus=2
+else
+  source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
+  set laststatus=2
+endif
 
 " RSpec.vim mappings
 map <Leader>t :call RunCurrentSpecFile()<CR>

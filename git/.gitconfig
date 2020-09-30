@@ -61,11 +61,12 @@
 	undo = reset --soft 'HEAD^'
 	whatadded = log --diff-filter=A
   wip = "!git commit -a -m 'WIP :construction:'"
+  worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 [color]
 	ui = auto
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = /usr/local/bin/vim
+	editor = /usr/local/bin/nvim
 [diff]
 	algorithm = histogram
 [difftool "sourcetree"]
