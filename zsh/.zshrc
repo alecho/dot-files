@@ -141,6 +141,7 @@ export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
 # asdf-vm
+export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="/Users/andrewlechowicz/dot-files/asdf/.tool-versions"
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 
