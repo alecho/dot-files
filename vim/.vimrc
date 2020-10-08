@@ -183,6 +183,8 @@ Plug 'neoclide/coc-json',  {'do': 'yarn install --frozen-lockfile && yarn run bu
 Plug 'neoclide/coc-snippets',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -195,7 +197,6 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
-
 
 Plug 'preservim/nerdtree' |
             \ Plug 'Xuyuanp/nerdtree-git-plugin'
