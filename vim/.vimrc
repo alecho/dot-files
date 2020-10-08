@@ -180,7 +180,6 @@ Plug 'tpope/vim-endwise'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-html',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 Plug 'neoclide/coc-json',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
-Plug 'fannheyward/coc-rome',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 Plug 'neoclide/coc-snippets',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
