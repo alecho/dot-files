@@ -116,31 +116,6 @@ let g:ackprg = 'ag --vimgrep'
 " bind K to grep word under cursor
 nnoremap K :ag! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-" ===== Vundle Setup - the vim plugin bundler =====
-" This will install Vundle if not installed
-let vundle_installed=1
-let vundle_readme=s:editor_root . '/bundle/vundle/README.md'
-if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    " silent execute "! mkdir -p ~/." . s:editor_path_name . "/bundle"
-    silent call mkdir(s:editor_root . '/bundle', "p")
-    silent execute "!git clone https://github.com/gmarik/vundle " . s:editor_root . "/bundle/vundle"
-    let vundle_installed=0
-endif
-let &rtp = &rtp . ',' . s:editor_root . '/bundle/vundle/'
-call vundle#rc(s:editor_root . '/bundle')
-Bundle 'gmarik/vundle'
-
-" My bundles
-
-" === Install Bundles ===
-if vundle_installed == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :PluginInstall
-endif
-
 " Install vim-plug if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
