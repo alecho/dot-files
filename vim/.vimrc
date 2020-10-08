@@ -323,9 +323,6 @@ if has('nvim')
   let g:airline_powerline_fonts = 1
   let g:airline_theme='onedark'
   set laststatus=2
-else
-  source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
-  set laststatus=2
 endif
 
 " RSpec.vim mappings

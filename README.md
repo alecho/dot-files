@@ -12,7 +12,7 @@ stow](https://alexpearce.me/2016/02/managing-dotfiles-with-stow/).
 ```bash
 $ git clone git@github.com:alecho/dot-files.git ~/.dotfiles
 $ cd ~/.dotfiles
-$ stow asdf git iTerm powerline tmux vim zsh
+$ stow asdf git iTerm tmux vim zsh
 ```
 
 License

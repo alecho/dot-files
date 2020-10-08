@@ -25,8 +25,6 @@ export GPG_TTY=$(tty)
 # Erlang Flags
 export ERL_AFLAGS="-kernel shell_history enabled"
 
- . /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-#. /Users/andrewlechowicz/Library/Python/3.6/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 # extend fpath to poain to pgen complation script
 fpath=(~/.zsh/ $fpath)
 
