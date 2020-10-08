@@ -146,10 +146,6 @@ Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'ap/vim-css-color'
 
-Plugin 'https://github.com/tpope/vim-rails'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'ngmy/vim-rubocop'
-
 " Colors
 Plugin 'joshdick/onedark.vim'
 
@@ -214,6 +210,11 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'mhinz/vim-mix-format'
+
+" Ruby
+Plug 'tpope/vim-rails'
+Plug 'thoughtbot/vim-rspec'
+Plug 'ngmy/vim-rubocop'
 
 call plug#end()
 
