@@ -133,21 +133,6 @@ call vundle#rc(s:editor_root . '/bundle')
 Bundle 'gmarik/vundle'
 
 " My bundles
-Plugin 'https://github.com/kien/ctrlp.vim'
-Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/rking/ag.vim'
-Plugin 'https://github.com/editorconfig/editorconfig-vim'
-Plugin 'https://github.com/scrooloose/nerdtree.git'
-Plugin 'https://github.com/mattn/emmet-vim.git'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'https://github.com/vadimr/bclose.vim'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'scrooloose/syntastic'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'ap/vim-css-color'
-
-" Colors
-Plugin 'joshdick/onedark.vim'
 
 " === Install Bundles ===
 if vundle_installed == 0
@@ -165,12 +150,31 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Editor-like plugins
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'rking/ag.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'preservim/nerdtree' |
+            \ Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'https://github.com/vadimr/bclose.vim'
+Plug 'ntpeters/vim-better-whitespace'
+
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 Plug 'elmcast/elm-vim'
 Plug 'tpope/vim-endwise'
 
+" Syntax and highlighing
+Plug 'scrooloose/syntastic'
+
+" vim-polyglot
+let g:polyglot_disabled = ['elm']
+Plug 'sheerun/vim-polyglot'
+Plug 'ap/vim-css-color'
 
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -194,9 +198,6 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-Plug 'preservim/nerdtree' |
-            \ Plug 'Xuyuanp/nerdtree-git-plugin'
-
 Plug 'vim-airline/vim-airline'
 
 " Snippets
@@ -215,6 +216,9 @@ Plug 'mhinz/vim-mix-format'
 Plug 'tpope/vim-rails'
 Plug 'thoughtbot/vim-rspec'
 Plug 'ngmy/vim-rubocop'
+
+" Colors
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
@@ -302,9 +306,6 @@ let g:syntastic_javascript_checkers = ['eslint']
 
 let g:syntastic_html_checkers=['']
 let g:syntastic_hbs_checkers=['']
-
-" vim-polyglot
-let g:polyglot_disabled = ['elm']
 
 " Auto format with `mix format` on save
 let g:mix_format_on_save = 1
