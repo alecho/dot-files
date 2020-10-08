@@ -135,7 +135,6 @@ Bundle 'gmarik/vundle'
 " My bundles
 Plugin 'https://github.com/kien/ctrlp.vim'
 Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/tpope/vim-endwise'
 Plugin 'https://github.com/rking/ag.vim'
 Plugin 'https://github.com/editorconfig/editorconfig-vim'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
@@ -174,6 +173,8 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 Plug 'elmcast/elm-vim'
+Plug 'tpope/vim-endwise'
+
 
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
