@@ -173,7 +173,10 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ }
 
 " Snippets
 Plug 'honza/vim-snippets'
