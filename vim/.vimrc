@@ -49,11 +49,13 @@ set updatetime=300
 set undofile
 set undodir=~/.vim/undodir
 
-" This does't see to work
-" Tmux is setup to use <C-a> as it's prefix and mutiple <C-a>s in vim will
-" increment the current or next number on a line. This rebinds to <C-l> which
-" is mapped to redraw in vim by default.
-nnoremap <C-a> <C-l>
+" Tmux is setup to use <C-a> as it's prefix and white mutiple <C-a>s in vim will
+" increment the current or next number on a line I find it's easier to user
+" Alt + a and Alt + x to increment and decrement numbers to avoid having to
+" double press Ctrl + a from within tmux.
+noremap <C-a> <NOP>
+nnoremap å <C-a>
+nnoremap ≈ <C-x>
 
 nnoremap <C-x> :Bclose<CR>
 
