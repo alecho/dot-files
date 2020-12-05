@@ -26,7 +26,7 @@ export GPG_TTY=$(tty)
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # extend fpath to poain to pgen complation script
-fpath=(~/.zsh/ $fpath)
+fpath=(~/.zsh/ $(brew --prefix)/share/zsh/site-functions $fpath)
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -76,7 +76,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx mix tmux yarn asdf)
+plugins=(git gitfast osx mix tmux yarn asdf)
 
 # User configuration
 
