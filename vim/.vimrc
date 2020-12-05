@@ -174,10 +174,6 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 Plug 'itchyny/lightline.vim'
-let g:lightline = {
-      \ 'colorscheme': 'onedark',
-      \ }
-
 " Snippets
 Plug 'honza/vim-snippets'
 
@@ -197,8 +193,15 @@ Plug 'ngmy/vim-rubocop'
 
 " Colors
 Plug 'joshdick/onedark.vim'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'drewtempelmeyer/palenight.vim'
 
 call plug#end()
+
+" Set the colorscheme
+colorscheme onedark
+let g:lightline = {'colorscheme' : 'onedark'}
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
@@ -288,14 +291,12 @@ let g:syntastic_hbs_checkers=['']
 " Auto format with `mix format` on save
 let g:mix_format_on_save = 1
 
-" Set the colorscheme
-colorscheme onedark
-
 " Git Gutter Signcolumn color
 set signcolumn=yes
 let g:gitgutter_override_sign_column_highlight = 0
-" highlight clear SignColumn
-" highlight SignColumn ctermbg=NONE    " terminal Vim
+let g:gitgutter_set_sign_backgrounds = 1
+highlight clear SignColumn
+" highlight SignColumn ctermbg=NONE   " terminal Vim
 " highlight SignColumn guibg=NONE      " gVim/MacVim
 
 if has('nvim')
