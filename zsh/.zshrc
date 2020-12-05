@@ -153,3 +153,4 @@ alias tfa='terraform apply -input=true current.plan'
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/andrewlechowicz/.asdf/installs/terraform/0.12.29/bin/terraform terraform
+eval "$(direnv hook zsh)"
