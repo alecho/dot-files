@@ -17,10 +17,10 @@
 	c = commit
 	ca = commit -a -v
 	ci = commit -v
-  clear = "!clear"
+	clear = "!clear"
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
-  cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
+	cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
 	cp = cherry-pick
 	cpc = cherry-pick --continue
 	di = diff
@@ -28,9 +28,10 @@
 	dt = difftool
 	f = fetch
 	fap = fetch --all --prune
-  fix = "!f() { ${EDITOR} `git diff --name-only --diff-filter=U`; }; f"
+	fix = "!f() { ${EDITOR} `git diff --name-only --diff-filter=U`; }; f"
 	fixup = commit --fixup
-  graph = log --graph --oneline --decorate --all
+	graph = log --graph --oneline --decorate --all
+	gca = gc --aggressive
 	l = "!source ~/.bash/helpers/githelpers.sh && pretty_git_log"
 	la = !git l --all
 	lag = !git l --graph --all
@@ -48,10 +49,10 @@
 	rbc = rebase --continue
 	rbi = rebase -i
 	rbs = rebase --skip
-	review = "!git log --oneline origin/master..HEAD && git diff origin/master --word-diff"
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
-  rom = rebase origin/master
-  romi = rebase -i origin/master
+	review = "!git log --oneline origin/master..HEAD && git diff origin/master --word-diff"
+	rom = rebase origin/master
+	romi = rebase -i origin/master
 	s = status -sb
 	sh = show
 	st = status -b
@@ -60,8 +61,8 @@
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
 	whatadded = log --diff-filter=A
-  wip = "!git commit -a -m 'WIP :construction:'"
-  worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
+	wip = "!git commit -m 'WIP :construction:'"
+	worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 [color]
 	ui = auto
 [core]
