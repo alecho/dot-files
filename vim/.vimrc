@@ -282,10 +282,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
-"autocmd FileType scss let b:syntastic_javascript_eslint_args =
-"      \ get(g:, 'syntastic_javascript_eslint_args', '') .
-"      \ FindConfig('-c', '.eslintrc', expand('<afile>:p:h', 1))
-
 
 let g:syntastic_html_checkers=['']
 let g:syntastic_hbs_checkers=['']
