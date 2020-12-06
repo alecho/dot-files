@@ -110,6 +110,9 @@ set ls=2
 map <C-E> :Explore<cr>
 let g:netrw_liststyle=3
 
+" Remap the p command in visual mode so that it first deletes to the black hole
+" register. This prevents pasting over visually selected text from overwriting
+" the paste board.
 vnoremap p "_dP
 
 " Set Ag as the ack program
