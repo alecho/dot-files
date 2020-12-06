@@ -206,7 +206,19 @@ call plug#end()
 
 " Set the colorscheme
 colorscheme onedark
-let g:lightline = {'colorscheme' : 'onedark'}
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'filename': '%f'
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 " CtrlP
 map <C-b> :CtrlPBuffer<cr>
