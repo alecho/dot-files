@@ -117,7 +117,7 @@ vnoremap p "_dP
 let g:ackprg = 'ag --vimgrep'
 
 " bind K to grep word under cursor
-nnoremap K :ag! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Ag "<C-R><C-W>"<CR>:cw<CR>
 
 " Install vim-plug if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
