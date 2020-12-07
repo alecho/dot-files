@@ -75,8 +75,6 @@ inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 
 " Remap some vim keys for convenience
-:command Wq wq
-:command W w
 nnoremap ; :
 let mapleader = ","
 
