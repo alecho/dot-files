@@ -53,14 +53,15 @@ set undodir=~/.vim/undodir
 " increment the current or next number on a line I find it's easier to user
 " Alt + a and Alt + x to increment and decrement numbers to avoid having to
 " double press Ctrl + a from within tmux.
-noremap <C-a> <NOP>
-nnoremap å <C-a>
-nnoremap ≈ <C-x>
+" nnoremap <C-k> <C-a>
+" nnoremap <C-j> <C-x>
 
 nnoremap <C-x> :Bclose<CR>
+nnoremap <C-X> :Bclose!<CR>
 
 " Toogle paste mode with ctrl + g
-set pastetoggle=<C-g>
+" 2021-02-16 This is conflicting with Coc completion
+" set pastetoggle=<C-g>
 
 filetype plugin indent on
 
@@ -139,12 +140,14 @@ Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'https://github.com/vadimr/bclose.vim'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'tpope/vim-surround'
+let g:surround_61 = "<%= \r %>"
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 Plug 'elmcast/elm-vim'
-Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-endwise'
 
 " Syntax and highlighing
 Plug 'scrooloose/syntastic'
@@ -163,18 +166,29 @@ Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+
+" Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>= coc#on_enter() \<CR>"
 
 Plug 'itchyny/lightline.vim'
 " Snippets
@@ -203,9 +217,9 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 " Set the colorscheme
-colorscheme onedark
+colorscheme dracula
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'dracula',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]

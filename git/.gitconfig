@@ -17,9 +17,11 @@
 	c = commit
 	ca = commit -a -v
 	ci = commit -v
+	cm = commit -m
 	clear = "!clear"
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
+	com = checkout main
 	cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
 	cp = cherry-pick
 	cpc = cherry-pick --continue
@@ -40,6 +42,7 @@
 	mark-prod = "!git tag production HEAD -f && git push --tags"
 	mt = mergetool
 	new = checkout -b
+	p = push
 	pr = pull --rebase
 	publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 	pullall = !git pull && git submodule update --init --recursive
@@ -50,9 +53,9 @@
 	rbi = rebase -i
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
-	review = "!git log --oneline origin/master..HEAD && git diff origin/master --word-diff"
-	rom = rebase origin/master
-	romi = rebase -i origin/master
+	review = "!git log --oneline origin/main..HEAD && git diff origin/main --word-diff"
+	rom = rebase origin/main
+	romi = rebase -i origin/main
 	s = status -sb
 	sh = show
 	st = status -b
@@ -84,9 +87,10 @@
 [push]
 	default = simple
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
 [rebase]
   autoSquash = true
 [rerere]
@@ -95,3 +99,8 @@
 	program = gpg
 [commit]
 	gpgsign = true
+[merge "npm-merge-driver"]
+	name = automatically merge npm lockfiles
+	driver = npx npm-merge-driver merge %A %O %B %P
+[init]
+	defaultBranch = main

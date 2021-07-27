@@ -24,6 +24,13 @@ export GPG_TTY=$(tty)
 
 # Erlang Flags
 export ERL_AFLAGS="-kernel shell_history enabled"
+# When installing an erlang version, compile docs for
+# reference within IEx.
+export KERL_BUILD_DOCS=yes
+# But don't build html docs or man pages to save space
+export KERL_INSTALL_HTMLDOCS=no
+export KERL_INSTALL_MANPAGES=no
+
 
 # extend fpath to poain to pgen complation script
 fpath=(~/.zsh/ $(brew --prefix)/share/zsh/site-functions $fpath)
@@ -45,7 +52,7 @@ ZSH_THEME="alecho"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -81,11 +88,9 @@ plugins=(git gitfast osx mix tmux yarn asdf)
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
-# Homebrew in general
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
+
 # Postgres.app
-# export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
 source $ZSH/oh-my-zsh.sh
 
@@ -123,11 +128,11 @@ bindkey '^j' down-line-or-beginning-search
 bindkey '^r' history-incremental-search-backward
 
 # Go
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+# export PATH=$PATH:/usr/local/opt/go/libexec/bin
+# export GOPATH=$HOME/go
+# export GOROOT=/usr/local/opt/go/libexec
+# export PATH=$PATH:$GOPATH/bin
+# export PATH=$PATH:$GOROOT/bin
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -139,9 +144,8 @@ export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
 # asdf-vm
+# Completion and inclution handled by omz asdf plugin above
 export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="/Users/andrewlechowicz/dot-files/asdf/.tool-versions"
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
 
 # Tmuxinator
 source ~/.bin/tmuxinator.zsh
@@ -151,6 +155,11 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
 
+# Homebrew in general
+export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
+
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/andrewlechowicz/.asdf/installs/terraform/0.12.29/bin/terraform terraform
 eval "$(direnv hook zsh)"
+
