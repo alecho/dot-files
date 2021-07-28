@@ -13,8 +13,8 @@ alias vim='nvim'
 
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/andrewlechowicz/.oh-my-zsh
-export ZSH_CUSTOM=/Users/andrewlechowicz/.oh-my-zsh/custom
+export ZSH=$HOME/.oh-my-zsh
+export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 # MySQL password
 export DATABASE_PASSWORD=root
