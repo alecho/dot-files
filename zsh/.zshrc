@@ -148,8 +148,8 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="/Users/andrewlechowicz/dot-files/asdf/.tool-versions"
 
 # Tmuxinator
-source ~/.bin/tmuxinator.zsh
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+# source ~/.bin/tmuxinator.zsh
+# export PATH="/usr/local/opt/mysql@8.7/bin:$PATH"
 
 # Terraform
 alias tfp='terraform plan -out=current.plan'
