@@ -163,3 +163,19 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/andrewlechowicz/.asdf/installs/terraform/0.12.29/bin/terraform terraform
 eval "$(direnv hook zsh)"
 
+# Zendesk
+
+## Aliases
+alias code='cd ~/Code/';
+alias work='cd ~/Code/zendesk/';
+alias classic='cd ~/Code/zendesk/zendesk';
+
+## Variables
+export DOCKER_HOST_IP="192.168.42.45";
+export MYSQL_URL=mysql://admin:123456@$DOCKER_HOST_IP:3306
+/zendesk_development
+export REDIS_URL=redis://$DOCKER_HOST_IP:6379
+export SMTP_URL=smtp://$DOCKER_HOST_IP:1025/
+export ZENDESK_DOORMAN_ENABLED=1 # Monitor
+export DEDICATED_DOCKER_DISK=1
+
