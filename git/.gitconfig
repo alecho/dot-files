@@ -1,7 +1,7 @@
 [user]
 	name = Andrew Lechowicz
 	email = andrew@alecho.com
-	signingkey = 0x16E59EA1D9C75057
+	signingkey = 0x5E4557D62FEC35E5
 [mergetool]
 	keepBackup = true
 [help]
