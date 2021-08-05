@@ -145,7 +145,7 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
 # asdf-vm
 # Completion and inclution handled by omz asdf plugin above
-export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="/Users/andrewlechowicz/dot-files/asdf/.tool-versions"
+export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="$HOME/dot-files/asdf/.tool-versions"
 
 # Tmuxinator
 # source ~/.bin/tmuxinator.zsh
@@ -160,7 +160,7 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /Users/andrewlechowicz/.asdf/installs/terraform/0.12.29/bin/terraform terraform
+complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terraform
 eval "$(direnv hook zsh)"
 
 # Zendesk
