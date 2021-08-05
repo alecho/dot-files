@@ -4,7 +4,7 @@ let g:ruby_path = system('asdf where ruby')
 
 let g:rspec_runner = "os_x_iterm2"
 
-let g:python3_host_prog = '/Users/andrewlechowicz/.asdf/installs/python/3.7.2/bin/python3'
+let g:python3_host_prog = '$HOME/.asdf/installs/python/3.7.2/bin/python3'
 
 if has('nvim')
     let s:editor_root=expand("~/.nvim")
@@ -46,8 +46,8 @@ set regexpengine=1
 set updatetime=300
 
 " Maintain undo history between sessions
+set undodir=$HOME/.vim/undodir
 set undofile
-set undodir=~/.vim/undodir
 
 " Tmux is setup to use <C-a> as it's prefix and white mutiple <C-a>s in vim will
 " increment the current or next number on a line I find it's easier to user
