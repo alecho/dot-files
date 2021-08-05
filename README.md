@@ -14,6 +14,19 @@ $ git clone git@github.com:alecho/dot-files.git ~/.dotfiles
 $ cd ~/.dotfiles
 $ stow asdf git iTerm tmux vim zsh homebrew
 ```
+Symlink neovim's init.vim to ~/.vimrc
+```bash
+mkdir -p ~/.config/nvim/init.vim
+ln -s $HOME/.vimrc $HOME/.config/nvim/init.vim
+
+```
+
+Install vim-plug for neovim
+```bash
+# Neovim (~/.local/share/nvim/site/autoload)
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
 
 License
 -------
