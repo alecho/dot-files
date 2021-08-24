@@ -120,6 +120,8 @@ alias lcat='lolcat'
 
 alias notes='nb shell'
 
+alias t='tmuxinator'
+
 # git related commands
 alias gits='git status -sb'
 
@@ -148,10 +150,6 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 # asdf-vm
 # Completion and inclution handled by omz asdf plugin above
 export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="$HOME/dot-files/asdf/.tool-versions"
-
-# Tmuxinator
-# source ~/.bin/tmuxinator.zsh
-# export PATH="/usr/local/opt/mysql@8.7/bin:$PATH"
 
 # Terraform
 alias tfp='terraform plan -out=current.plan'
