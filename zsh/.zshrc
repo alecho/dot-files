@@ -169,13 +169,21 @@ eval "$(direnv hook zsh)"
 alias code='cd ~/Code/';
 alias work='cd ~/Code/zendesk/';
 alias classic='cd ~/Code/zendesk/zendesk';
+alias api='cd ~/Code/zendesk/zendesk_api_tests';
+alias browser='cd ~/Code/zendesk/zendesk_browser_tests';
 
 ## Variables
 export DOCKER_HOST_IP="192.168.42.45";
-export MYSQL_URL=mysql://admin:123456@$DOCKER_HOST_IP:3306
-/zendesk_development
+export MYSQL_URL=mysql://admin:123456@$DOCKER_HOST_IP:3306/zendesk_development
 export REDIS_URL=redis://$DOCKER_HOST_IP:6379
 export SMTP_URL=smtp://$DOCKER_HOST_IP:1025/
 export ZENDESK_DOORMAN_ENABLED=1 # Monitor
 export DEDICATED_DOCKER_DISK=1
 
+## Google Cloud SDK
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+# BEGIN ZDI
+source /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh
+# END ZDI
