@@ -118,6 +118,8 @@ alias nap='pmset sleepnow'
 alias ssaver='open -a ScreenSaverEngine'
 alias lcat='lolcat'
 
+alias notes='nb shell'
+
 # git related commands
 alias gits='git status -sb'
 
