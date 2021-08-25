@@ -1,4 +1,3 @@
-tap "d13frosted/emacs-plus"
 tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -8,61 +7,63 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "neovim/neovim"
 tap "tldr-pages/tldr"
-brew "automake"
-brew "coreutils"
 brew "asdf"
+brew "automake"
+brew "aws-elasticbeanstalk"
 brew "bats"
 brew "boost"
-brew "glib"
-brew "pkg-config"
-brew "lzo"
 brew "chromedriver"
+brew "coreutils"
 brew "curl"
 brew "direnv"
 brew "elasticsearch", restart_service: true
 brew "exercism"
-brew "fribidi"
-brew "gobject-introspection"
-brew "harfbuzz"
 brew "fontforge"
+brew "fribidi"
 brew "fwup"
 brew "gdk-pixbuf"
 brew "git"
+brew "glib"
 brew "gnupg"
-#brew "hugo"
-brew "libheif"
-#brew "python@3.8"
+brew "gobject-introspection"
+brew "harfbuzz"
+brew "hashicorp/tap/packer"
+brew "hugo"
 brew "imagemagick"
 brew "irssi"
 brew "libcroco"
+brew "libheif"
 brew "librsvg"
 brew "libssh2"
 brew "libxml2"
 brew "libzip"
 brew "lolcat"
 brew "lsd"
+brew "lzo"
 brew "mas"
-#brew "memcached"
-#brew "mysql@5.7"
+brew "memcached"
+brew "mysql@5.7"
 brew "neovim"
 brew "nginx"
 brew "nmap"
-brew "node", link: false
+brew "node"
 brew "openssh"
 brew "pandoc"
 brew "perl"
-brew "ruby-build"
-#brew "rbenv"
+brew "pkg-config"
+brew "python@3.8"
 brew "reattach-to-user-namespace"
 brew "ruby"
+brew "ruby-build"
 brew "sdl2"
 brew "shellcheck"
 brew "sphinx-doc"
 brew "ssh-copy-id", link: true
-#brew "stockfish"
+brew "stockfish"
 brew "stow"
 brew "the_silver_searcher"
 brew "tig"
+brew "tldr-pages/tldr/tldr"
 brew "tmux"
 brew "ttfautohint"
 brew "vim"
@@ -74,13 +75,8 @@ brew "ykman"
 brew "zlib"
 brew "zola"
 brew "zsh"
-brew "d12frosted/emacs-plus/emacs-plus@27"
-brew "hashicorp/tap/packer"
-brew "tldr-pages/tldr/tldr"
 cask "ballast"
-cask "chromedriver"
 cask "etcher"
-cask "font-fira-code"
 cask "font-victor-mono"
 cask "visual-studio-code"
 cask "xquartz"
@@ -88,11 +84,21 @@ mas "AdGuard for Safari", id: 1440147259
 mas "Color Palette from Image", id: 950112142
 mas "Dark Reader for Safari", id: 1438243180
 mas "Deckset", id: 847496013
+mas "Deliveries", id: 924726344
+mas "GarageBand", id: 682658836
 mas "GIPHY CAPTURE", id: 668208984
+mas "Keynote", id: 409183694
+mas "Mimeo Photos", id: 1282504627
+mas "NextDNS", id: 1464122853
+mas "Numbers", id: 409203825
+mas "Owly", id: 882812218
+mas "Pages", id: 409201541
 mas "Paprika Recipe Manager 3", id: 1303222628
 mas "Pixelmator", id: 407963104
 mas "Slack", id: 803453959
 mas "Tabs Saver for Safari", id: 1440006971
 mas "Telegram", id: 747648890
 mas "Throttle", id: 1482466653
+mas "Toggl Track", id: 957734279
+mas "Type Fu", id: 509818877
 mas "Xcode", id: 497799835
