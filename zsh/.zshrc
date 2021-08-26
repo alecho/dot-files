@@ -181,9 +181,15 @@ export ZENDESK_DOORMAN_ENABLED=1 # Monitor
 export DEDICATED_DOCKER_DISK=1
 
 ## Google Cloud SDK
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+if [ -f "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
+  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+fi
+if [ -f "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]; then
+  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+fi
 
 # BEGIN ZDI
-source /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh
+if [ -f /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh ]; then
+  source /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh
+fi
 # END ZDI
