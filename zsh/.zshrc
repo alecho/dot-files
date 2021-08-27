@@ -31,6 +31,9 @@ export KERL_BUILD_DOCS=yes
 export KERL_INSTALL_HTMLDOCS=no
 export KERL_INSTALL_MANPAGES=no
 
+# Python fix for maxOS 11
+export ASDF_PYTHON_PATCH_URL="https://github.com/python/cpython/commit/8ea6353.patch?full_index=1"
+
 
 # extend fpath to poain to pgen complation script
 fpath=(~/.zsh/ $(brew --prefix)/share/zsh/site-functions $fpath)
