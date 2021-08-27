@@ -3,8 +3,8 @@
 	email = andrew@alecho.com
 	signingKey = 1B42243108A704D1
 # Zendesk laptop uses the andrew.lechowicz user.
-[includeIf "gitdir:**/andrew.lechowicz/"]
-	path = config.zendesk
+[includeIf "gitdir:**/andrew.lechowicz/**"]
+	path = ~/dot-files/git/zendesk.config
 [mergetool]
 	keepBackup = true
 [help]
