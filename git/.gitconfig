@@ -1,7 +1,10 @@
 [user]
 	name = Andrew Lechowicz
 	email = andrew@alecho.com
-	signingkey = 0x5E4557D62FEC35E5
+	signingKey = 1B42243108A704D1
+# Zendesk laptop uses the andrew.lechowicz user.
+[includeIf "gitdir:**/andrew.lechowicz/"]
+	path = config.zendesk
 [mergetool]
 	keepBackup = true
 [help]
