@@ -92,13 +92,13 @@
 	required = true
 	process = git-lfs filter-process
 [rebase]
-  autoSquash = true
+	autosquash = true
 [rerere]
 	enabled = 1
 [gpg]
 	program = gpg
 [commit]
-	gpgsign = true
+	gpgSign = true
 [merge "npm-merge-driver"]
 	name = automatically merge npm lockfiles
 	driver = npx npm-merge-driver merge %A %O %B %P
