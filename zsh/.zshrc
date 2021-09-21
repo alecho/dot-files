@@ -123,8 +123,6 @@ alias lcat='lolcat'
 
 alias notes='nb shell'
 
-alias t='tmuxinator'
-
 # git related commands
 alias gits='git status -sb'
 
@@ -157,6 +155,10 @@ export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="$HOME/dot-files/asdf/.tool-versions"
 # Terraform
 alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
+
+# Tmuxinator
+alias t='tmuxinator'
+export TMUXINATOR_CONFIG="$HOME/dot-files/tmuxinator/"
 
 # Homebrew in general
 export PATH=/usr/local/bin:$PATH
