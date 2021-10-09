@@ -30,6 +30,7 @@
 	cpc = cherry-pick --continue
 	di = diff
 	diw = diff --word-diff
+	word-diff = diff --word-diff
 	dt = difftool
 	f = fetch
 	fap = fetch --all --prune
