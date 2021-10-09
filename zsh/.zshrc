@@ -113,6 +113,8 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+export LSCOLORS="excxbxdxBxEgEdxbxgxcxd"
+
 # Aliases
 
 ## General
