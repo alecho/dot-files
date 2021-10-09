@@ -165,15 +165,6 @@ Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn r
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -324,6 +315,7 @@ let g:syntastic_hbs_checkers=['']
 let g:mix_format_on_save = 1
 
 " Git Gutter Signcolumn color
+set signcolumn=yes
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_set_sign_backgrounds = 1
 highlight clear SignColumn
