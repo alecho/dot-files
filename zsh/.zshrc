@@ -124,6 +124,12 @@ alias nap='pmset sleepnow'
 alias ssaver='open -a ScreenSaverEngine'
 alias lcat='lolcat'
 
+## Edit rc files
+alias vimt='vim ~/.tmux.conf'
+alias vimv='vim ~/.vimrc'
+alias vimz='vim ~/.zshrc'
+alias reload='source ~/.zshrc'
+
 alias notes='nb shell'
 
 # git related commands
