@@ -152,7 +152,6 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
 # asdf-vm
 # Completion and inclution handled by omz asdf plugin above
-export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME="$HOME/dot-files/asdf/.tool-versions"
 
 # Terraform
 alias tfp='terraform plan -out=current.plan'
