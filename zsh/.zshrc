@@ -207,5 +207,10 @@ if [ -f /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh ]; then
 fi
 # END ZDI
 
+# Ensure a few things are running.
+tmux start
+gpg-agent
+clear
+
 # Show Apple logo and info
 neofetch
