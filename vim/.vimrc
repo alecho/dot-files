@@ -4,8 +4,6 @@ let g:ruby_path = system('asdf where ruby')
 
 let g:rspec_runner = "os_x_iterm2"
 
-let g:python3_host_prog = '$HOME/.asdf/installs/python/3.7.2/bin/python3'
-
 if has('nvim')
     let s:editor_root=expand("~/.nvim")
 else
