@@ -199,3 +199,6 @@ if [ -f /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh ]; then
   source /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh
 fi
 # END ZDI
+
+# Show Apple logo and info
+neofetch
