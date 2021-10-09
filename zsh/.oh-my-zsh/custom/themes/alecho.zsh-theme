@@ -53,7 +53,7 @@ ZSH_THEME_GIT_PROMPT_REMOTE_EXISTS="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_REMOTE_MISSING="%{$fg[red]%}"
 
 PROMPT='
-$(prompt_time) ${PWD/#$HOME/~}%{$reset_color%} $(git_prompt_remote)$(git_prompt_info)$(git_prompt_remote)$(git_commits_ahead)$(git_commits_behind) $(git_prompt_status)%{$reset_color%}
+$(prompt_time) %{$fg[blue]%}${PWD/#$HOME/~}%{$reset_color%} $(git_prompt_remote)$(git_prompt_info)$(git_prompt_remote)$(git_commits_ahead)$(git_commits_behind) $(git_prompt_status)%{$reset_color%}
 %{$fg[blue]%}|> %{$reset_color%}'
 
 RPROMPT='%{$(echotc UP 1)%}%{$(echotc DO 1)%}'
