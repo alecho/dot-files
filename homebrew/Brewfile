@@ -184,6 +184,8 @@ cask "font-victor-mono"
 cask "keycastr"
 # Open-source code editor
 cask "visual-studio-code"
+# Mastodon, Pleroma and Misskey client
+cask "whalebird"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
 mas "2048 Game", id: 871033113
