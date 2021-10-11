@@ -179,6 +179,7 @@ cask "ballast"
 # Automated testing of webapps for Google Chrome
 cask "chromedriver"
 cask "etcher"
+cask "font-hack-nerd-font"
 cask "font-victor-mono"
 # Open-source keystroke visualizer
 cask "keycastr"
