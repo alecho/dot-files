@@ -119,10 +119,15 @@ export LSCOLORS="excxbxdxBxEgEdxbxgxcxd"
 # Aliases
 
 ## General
-alias ll='ls -lA'
 alias nap='pmset sleepnow'
 alias ssaver='open -a ScreenSaverEngine'
 alias lcat='lolcat'
+
+## pretty print things thanks to colorls gem.
+alias ll='colorls -Al --sd --dark --gs'
+alias ld='colorls -Ad --dark'
+alias lf='colorls -Af --dark'
+alias lt='colorls -A --dark --tree'
 
 ## Edit rc files
 alias vimt='vim ~/.tmux.conf'
