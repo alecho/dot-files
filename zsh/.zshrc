@@ -221,7 +221,7 @@ gpg-agent
 clear
 
 # Show Apple logo and info
-if [[ SKIP_NEOFETCH ]]; then
+if [[ -v $SKIP_NEOFETCH ]]; then
 else
   neofetch
   export SKIP_NEOFETCH=true
