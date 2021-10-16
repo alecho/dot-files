@@ -181,6 +181,9 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terraform
 eval "$(direnv hook zsh)"
 
+# iTerm2 shell integration
+source ~/.iterm2_shell_integration.zsh
+
 # Zendesk
 
 ## Aliases
