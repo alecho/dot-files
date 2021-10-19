@@ -58,6 +58,8 @@ brew "pango"
 brew "fontforge"
 # Configurable embedded Linux firmware update creator and runner
 brew "fwup"
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # Toolkit for image loading and pixel buffer manipulation
 brew "gdk-pixbuf"
 # Distributed revision control system

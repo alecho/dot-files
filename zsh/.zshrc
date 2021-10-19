@@ -35,6 +35,10 @@ export KERL_INSTALL_MANPAGES=no
 export ASDF_PYTHON_PATCH_URL="https://github.com/python/cpython/commit/8ea6353.patch?full_index=1"
 
 
+# FZF Colors
+export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+
+
 # extend fpath to poain to pgen complation script
 fpath=(~/.zsh/ $(brew --prefix)/share/zsh/site-functions $fpath)
 
@@ -226,3 +230,5 @@ else
   neofetch
   export SKIP_NEOFETCH=true
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

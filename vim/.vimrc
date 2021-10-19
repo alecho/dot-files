@@ -129,6 +129,10 @@ call plug#begin('~/.vim/plugged')
 
 " Editor-like plugins
 Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" ctrl-f opens fzf window
+nnoremap <silent> <C-f> :Files<CR>
 Plug 'tpope/vim-fugitive'
 Plug 'rking/ag.vim'
 Plug 'editorconfig/editorconfig-vim'
