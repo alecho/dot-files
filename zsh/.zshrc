@@ -186,38 +186,14 @@ complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terr
 eval "$(direnv hook zsh)"
 
 # iTerm2 shell integration
-source ~/.iterm2_shell_integration.zsh
-
-# Zendesk
-
-## Aliases
-alias code='cd ~/Code/';
-alias work='cd ~/Code/zendesk/';
-alias classic='cd ~/Code/zendesk/zendesk';
-alias api='cd ~/Code/zendesk/zendesk_api_tests';
-alias browser='cd ~/Code/zendesk/zendesk_browser_tests';
-
-## Variables
-export DOCKER_HOST_IP="192.168.42.45";
-export MYSQL_URL=mysql://admin:123456@$DOCKER_HOST_IP:3306/zendesk_development
-export REDIS_URL=redis://$DOCKER_HOST_IP:6379
-export SMTP_URL=smtp://$DOCKER_HOST_IP:1025/
-export ZENDESK_DOORMAN_ENABLED=1 # Monitor
-export DEDICATED_DOCKER_DISK=1
-
-## Google Cloud SDK
-if [ -f "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
-  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-fi
-if [ -f "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]; then
-  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+if [ -f ~/.iterm2_shell_integration.zsh ]; then
+  source ~/.iterm2_shell_integration.zsh
 fi
 
-# BEGIN ZDI
-if [ -f /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh ]; then
-  source /Users/andrew.lechowicz/Code/zendesk/zdi/dockmaster/zdi.sh
+# Machine specific zshrc sourced here.
+if [ -f ~/.zshrc.local ]; then
+  source ~/.zshrc.local
 fi
-# END ZDI
 
 # Ensure a few things are running.
 tmux start
@@ -225,7 +201,7 @@ gpg-agent
 clear
 
 # Show Apple logo and info
-if [[ -v $SKIP_NEOFETCH ]]; then
+if [[ -n $SKIP_NEOFETCH ]]; then
 else
   neofetch
   export SKIP_NEOFETCH=true
