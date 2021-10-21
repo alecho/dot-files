@@ -30,8 +30,6 @@ brew "glib"
 brew "pkg-config"
 # Real-time data compression library
 brew "lzo"
-# Tool for automated testing of webapps across many browsers
-brew "chromedriver"
 # C library implementing the SSH2 protocol
 brew "libssh2"
 # Open source suite of directory software
