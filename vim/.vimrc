@@ -216,6 +216,10 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'drewtempelmeyer/palenight.vim'
 
+" Filetype Icons
+" keep this last
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 " Set the colorscheme
