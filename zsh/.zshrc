@@ -127,8 +127,14 @@ alias nap='pmset sleepnow'
 alias ssaver='open -a ScreenSaverEngine'
 alias lcat='lolcat'
 
-## pretty print things thanks to colorls gem.
-alias ll='colorls -Al --sd --dark --gs'
+## Pretty print things thanks to colorls gem.
+
+### But first, save some original ls commands as backup under the `o` prefix.
+alias ols='ls'
+alias oll='ls -Algosh'
+
+alias ll='colorls -Alog --sd --dark --gs'
+alias lll='colorls -Al --sd --dark --gs'
 alias ld='colorls -Ad --dark'
 alias lf='colorls -Af --dark'
 alias lt='colorls -A --dark --tree'
