@@ -187,6 +187,10 @@ export TMUXINATOR_CONFIG="$HOME/dot-files/tmuxinator/"
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 
+# Chromedriver
+# Run the following to remove the quarantine on chromedriver.
+# xattr -d com.apple.quarantine /usr/local/bin/chromedriver
+
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terraform
 eval "$(direnv hook zsh)"
