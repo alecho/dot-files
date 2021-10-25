@@ -211,8 +211,7 @@ gpg-agent
 clear
 
 # Show Apple logo and info
-if [[ -n $SKIP_NEOFETCH ]]; then
-else
+if ! [ -n $SKIP_NEOFETCH ] && [ -n "$TMUX" ]; then
   neofetch
   export SKIP_NEOFETCH=true
 fi
