@@ -6,6 +6,7 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
+tap "jakehilborn/jakehilborn"
 tap "neovim/neovim"
 tap "superfly/tap"
 tap "tldr-pages/tldr"
@@ -170,6 +171,8 @@ brew "zsh"
 brew "gigalixir/brew/gigalixir"
 # Packer
 brew "hashicorp/tap/packer"
+# macOS command line utility to configure multi-display resolutions and arrangements. Essentially XRandR for macOS.
+brew "jakehilborn/jakehilborn/displayplacer"
 brew "superfly/tap/flyctl"
 # Simplified and community-driven man pages
 brew "tldr-pages/tldr/tldr"
