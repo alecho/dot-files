@@ -7,10 +7,15 @@ if [ -n "$TMUX" ]; then
       source /etc/profile
   fi
 fi
+
+# Add dot-files scripts to PATH
+if [ -d ~/bin ]; then
+  PATH="$HOME/bin:$PATH"
+fi
+
 # Specify an editor
 export EDITOR='nvim'
 alias vim='nvim'
-
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
