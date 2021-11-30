@@ -27,6 +27,9 @@ export DATABASE_PASSWORD=root
 # GPG tty
 export GPG_TTY=$(tty)
 
+# bat
+export BAT_THEME=Dracula
+
 # Erlang Flags
 export ERL_AFLAGS="-kernel shell_history enabled"
 # When installing an erlang version, compile docs for
