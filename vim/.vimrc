@@ -1,6 +1,7 @@
 syntax on
 
 let g:ruby_path = system('asdf where ruby')
+let g:python3_host_prog = '/Users/andrewlechowicz/.asdf/shims/python'
 
 let g:rspec_runner = "os_x_iterm2"
 
@@ -31,7 +32,7 @@ set cmdheight=2
 set colorcolumn=80
 set clipboard=unnamedplus
 " Use Vim 7.3 Regex engine
-set regexpengine=1
+set regexpengine=0
 " set relativenumber
 " :au FocusLost * :set norelativenumber
 " :au FocusGained * :set relativenumber
@@ -39,9 +40,13 @@ set regexpengine=1
 " autocmd InsertLeave * :set relativenumber
 "set cursorline
 
+set signcolumn=yes
+
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
+
+let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Maintain undo history between sessions
 set undodir=$HOME/.vim/undodir
@@ -118,6 +123,9 @@ let g:ackprg = 'ag --vimgrep'
 " bind K to grep word under cursor
 nnoremap K :Ag "<C-R><C-W>"<CR>:cw<CR>
 
+" Insert a pipe operator with ctrl-\ in insert mode
+imap <c-\> \|><space>
+
 " Install vim-plug if not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -128,11 +136,11 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Editor-like plugins
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" ctrl-f opens fzf window
-nnoremap <silent> <C-f> :Files<CR>
+" ctrl-p opens fzf window
+nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles! --exclude-standard --others --cached')."\<cr>"
 Plug 'tpope/vim-fugitive'
 Plug 'rking/ag.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -143,16 +151,28 @@ Plug 'airblade/vim-gitgutter'
 Plug 'https://github.com/vadimr/bclose.vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-surround'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Easier vim session management
+Plug 'tpope/vim-obsession'
+" `ysiw;` Map/keyword atom view value
+let g:surround_59 = "\r: "
+" Is this needed?
 let g:surround_61 = "<%= \r %>"
+
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'html'] }
 Plug 'elmcast/elm-vim'
 " Plug 'tpope/vim-endwise'
 
 " Syntax and highlighing
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+
+" Tyescript and JSX
+Plug 'HerringtonDarkholme/yats'
 
 " vim-polyglot
 let g:polyglot_disabled = ['elm']
@@ -164,22 +184,33 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-html',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 Plug 'neoclide/coc-json',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 Plug 'neoclide/coc-snippets',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
-Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+Plug 'neoclide/coc-solargraph'
+Plug 'neoclide/coc-tsserver'
+Plug 'neoclide/coc-eslint'
 Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'pantharshit00/vim-prisma'
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 " Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <cr> coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() :
+        \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -188,9 +219,23 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>= coc#on_enter() \<CR>"
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 Plug 'itchyny/lightline.vim'
 " Snippets
@@ -202,7 +247,8 @@ Plug 'roxma/vim-tmux-clipboard'
 
 " Elixir
 Plug 'elixir-lang/vim-elixir'
-Plug 'slashmili/alchemist.vim'
+
+" Plug 'slashmili/alchemist.vim'
 Plug 'mhinz/vim-mix-format'
 
 " Ruby
@@ -222,6 +268,82 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
+" Neovim Lanuage Server
+lua <<EOF
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
+require'lspconfig'.elixirls.setup{
+    cmd = { "/Users/andrewlechowicz/.elixir-ls/release/language_server.sh" };
+}
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the four listed parsers should always be installed)
+  ensure_installed = { "c", "lua", "vim", "help", "elixir", "eex", "heex" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+  ignore_install = { "javascript" },
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    -- disable = function(lang, buf)
+    --     local max_filesize = 100 * 1024 -- 100 KB
+    --     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+    --     if ok and stats and stats.size > max_filesize then
+    --         return true
+    --     end
+    -- end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    -- additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
 " Set the colorscheme
 colorscheme dracula
 let g:lightline = {
@@ -238,30 +360,16 @@ let g:lightline = {
       \ },
       \ }
 
-" CtrlP
-map <C-b> :CtrlPBuffer<cr>
+" Coc Popup Menu colors
 
-" Configure CtrlP to use The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+hi! Pmenu guifg=#f8f8f2 guibg=#44475a
+hi! CocPumMenu guifg=#f8f8f2 guibg=#44475a
+hi! PmenuSel guifg=#282a36 guibg=#bd93f9
+hi! CocMenuSel guifg=#282a36 guibg=#bd93f9
+hi! CocPumSearch guifg=#50fa7b ctermbg=NONE cterm=underline
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -li --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ --ignore "puphpet"
-      \ --ignore "tmp"
-      \ --ignore "node_modules"
-      \ --ignore "bower"
-      \ --ignore "deps"
-      \ -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
+" fzf buffer
+map <C-b> :Buffer<cr>
 
 " NERD tree
 autocmd StdinReadPre * let s:std_in=1
@@ -272,9 +380,13 @@ let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['^\.DS_Store$', '\.swp$', '^\.git$', '^\.sass-cache$']
 " Toggle with <kbd>\</kbd>
 map <silent> \ :NERDTreeToggle<cr>
+" Sort files and folders together
+let NERDTreeSortOrder = ['*', '\.swp$',  '\.bak$', '\~$']
+" Numbers are sorted as numbers not strings
+let NERDTreeNaturalSort = 1
 
 " Enable prettier
-let g:prettier#autoformat = 1
+let g:prettier#autoformat = 0
 let g:prettier#autoformat_require_pragma = 0
 let g:prettier#exec_cmd_async = 1
 
@@ -294,10 +406,6 @@ au BufRead,BufNewFile *.md setlocal textwidth=80
 autocmd BufRead,BufNewFile *.md setlocal spell
 " Git Commit messages
 autocmd FileType gitcommit setlocal spell
-
-" UltiShips
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -322,10 +430,9 @@ let g:syntastic_hbs_checkers=['']
 let g:mix_format_on_save = 1
 
 " Git Gutter Signcolumn color
-set signcolumn=yes
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_set_sign_backgrounds = 1
-highlight clear SignColumn
+" highlight clear SignColumn
 " highlight SignColumn ctermbg=NONE   " terminal Vim
 " highlight SignColumn guibg=NONE      " gVim/MacVim
 
