@@ -1,2 +1,5 @@
 bundler
 colorls
+colorize
+thor
+solargraph
