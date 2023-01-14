@@ -1,0 +1,47 @@
+# /Users/andrewlechowicz/dot-files/tmuxinator/grace-hill.yml
+
+name: grace-hill
+root: ~/Code/grace_hill/
+
+# Project hooks
+
+# Runs on project start, always
+# on_project_start: command
+
+# Run on project start, the first time
+on_project_first_start: open -a docker
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+
+# Run on project stop
+on_project_stop: docker compose down
+
+windows:
+  - RubyVision:
+      root: ~/Code/grace_hill/RubyVision/
+      layout: even-horizontal
+      panes:
+        - editor:
+          - vim -S
+        - shell:
+          - git fap
+          - git s
+  - Frontend:
+      root: ~/Code/grace_hill/Frontend/
+      layout: even-horizontal
+      panes:
+        - editor:
+          - vim -S
+        - shell:
+          - git fap
+          - git s
+  - Docker:
+      root: ~/Code/grace_hill/
+      layout: main-vertical
+      panes:
+        - docker compose up -d
+  - Notes: notes

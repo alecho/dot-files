@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/.config/tmuxinator/sb-marketing.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator//go-work.yml
 
-name: sb-marketing
-root: ~/Code/sb-marketing/
+name: go-work
+root: ~/Code/go-work/
 
 # Optional tmux socket
 # socket_name: foo
@@ -46,9 +46,12 @@ root: ~/Code/sb-marketing/
 
 windows:
   - editor:
-      layout: 7f7c,272x75,0,0{135x75,0,0,17,136x75,136,0[136x37,136,0,19,136x37,136,38,20]}
+      layout: main-vertical
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
       panes:
         - vim
-        -
-        - mix hex.outdated
-  - server: mix phx.server
+        - guard
+  - server: bundle exec rails s
+  - logs: tail -f log/development.log

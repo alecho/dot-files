@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/.config/tmuxinator/sb-marketing.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator//caremessage.yml
 
-name: sb-marketing
-root: ~/Code/sb-marketing/
+name: caremessage
+root: ~/Code/hiring-app-andrew-l
 
 # Optional tmux socket
 # socket_name: foo
@@ -45,10 +45,20 @@ root: ~/Code/sb-marketing/
 # attach: false
 
 windows:
-  - editor:
-      layout: 7f7c,272x75,0,0{135x75,0,0,17,136x75,136,0[136x37,136,0,19,136x37,136,38,20]}
+  - rails:
+      root: ~/Code/hiring-app-andrew-l/rails-app
+      layout: even-horizontal
       panes:
-        - vim
-        -
-        - mix hex.outdated
-  - server: mix phx.server
+        - vim -S
+        - git s
+  - editor:
+      root: ~/Code/hiring-app-andrew-l/react-app
+      layout: even-horizontal
+      panes:
+        - vim -S
+        - yarn test
+  - servers:
+      layout: even-vertical
+      panes:
+        - cd rails-app; bundle exec rails s
+        - cd react-app; yarn start

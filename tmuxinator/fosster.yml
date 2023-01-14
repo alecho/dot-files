@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/.config/tmuxinator/sb-marketing.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator/fosster.yml
 
-name: sb-marketing
-root: ~/Code/sb-marketing/
+name: fosster
+root: ~/Code/fosster/
 
 # Optional tmux socket
 # socket_name: foo
@@ -12,7 +12,7 @@ root: ~/Code/sb-marketing/
 # Project hooks
 
 # Runs on project start, always
-# on_project_start: command
+on_project_start: git fap
 
 # Run on project start, the first time
 # on_project_first_start: command
@@ -46,9 +46,8 @@ root: ~/Code/sb-marketing/
 
 windows:
   - editor:
-      layout: 7f7c,272x75,0,0{135x75,0,0,17,136x75,136,0[136x37,136,0,19,136x37,136,38,20]}
+      layout: even-horizontal
       panes:
         - vim
-        -
-        - mix hex.outdated
-  - server: mix phx.server
+        - mix test.watch --stale
+  - server: iex -S mix

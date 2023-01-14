@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/.config/tmuxinator/sb-marketing.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator/dracula-tmux.yml
 
-name: sb-marketing
-root: ~/Code/sb-marketing/
+name: dracula-tmux
+root: ~/Code/dracula-tmux
 
 # Optional tmux socket
 # socket_name: foo
@@ -15,7 +15,7 @@ root: ~/Code/sb-marketing/
 # on_project_start: command
 
 # Run on project start, the first time
-# on_project_first_start: command
+on_project_first_start: export SKIP_NEOFETCH=true
 
 # Run on project start, after the first time
 # on_project_restart: command
@@ -46,9 +46,7 @@ root: ~/Code/sb-marketing/
 
 windows:
   - editor:
-      layout: 7f7c,272x75,0,0{135x75,0,0,17,136x75,136,0[136x37,136,0,19,136x37,136,38,20]}
+      layout: even-horizontal
       panes:
         - vim
-        -
-        - mix hex.outdated
-  - server: mix phx.server
+        - git s

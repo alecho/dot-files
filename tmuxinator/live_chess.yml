@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/.config/tmuxinator/sb-marketing.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator//doma.yml
 
-name: sb-marketing
-root: ~/Code/sb-marketing/
+name: live_chess
+root: ~/Code/live_chess/
 
 # Optional tmux socket
 # socket_name: foo
@@ -46,9 +46,11 @@ root: ~/Code/sb-marketing/
 
 windows:
   - editor:
-      layout: 7f7c,272x75,0,0{135x75,0,0,17,136x75,136,0[136x37,136,0,19,136x37,136,38,20]}
+      layout: even-horizontal
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
       panes:
         - vim
         -
-        - mix hex.outdated
   - server: mix phx.server
