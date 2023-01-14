@@ -2,9 +2,6 @@
 	name = Andrew Lechowicz
 	email = andrew@alecho.com
 	signingKey = 1B42243108A704D1
-# Zendesk laptop uses the andrew.lechowicz user.
-[includeIf "gitdir:**/andrew.lechowicz/**"]
-	path = ~/dot-files/git/zendesk.config
 [mergetool]
 	keepBackup = true
 [help]
@@ -14,16 +11,21 @@
 	amend = commit --amend
 	b = branch
 	bD = branch -D
+	bDf = "!git branch -D $(git branch | fzf)"
 	ba = branch -a
 	bd = branch -d
+	bdf = "!git branch -d $(git branch | fzf)"
 	br = branch -r
 	c = commit
 	ca = commit -a -v
 	ci = commit -v
 	cm = commit -m
+	cnv = commit --no-verify
+	cnvm = commit --no-verify -m
 	clear = "!clear"
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
+	cof = "!git checkout $(git branch | fzf)"
 	com = checkout main
 	cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
 	cp = cherry-pick
@@ -34,8 +36,10 @@
 	dt = difftool
 	f = fetch
 	fap = fetch --all --prune
+	faprom = "!git fap && git rom"
 	fix = "!f() { ${EDITOR} `git diff --name-only --diff-filter=U`; }; f"
 	fixup = commit --fixup
+	fixupf = "!git commit --fixup $(git log --oneline | fzf | awk '{print $1}')"
 	graph = log --graph --oneline --decorate --all
 	gca = gc --aggressive
 	l = "!source ~/.bash/helpers/githelpers.sh && pretty_git_log"
@@ -47,6 +51,7 @@
 	mt = mergetool
 	new = checkout -b
 	p = push
+	pf = push --force
 	pr = pull --rebase
 	publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 	pullall = !git pull && git submodule update --init --recursive
@@ -60,10 +65,13 @@
 	review = "!git log --oneline origin/main..HEAD && git diff origin/main --word-diff"
 	rom = rebase origin/main
 	romi = rebase -i origin/main
+	rop = rebase origin/production
+	ropi = rebase -i origin/production
 	s = status -sb
 	sh = show
 	st = status -b
 	staged = diff --staged
+	ds = diff --staged
 	sup = submodule update --init --recursive
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
@@ -90,6 +98,7 @@
 	smudge = git-media-smudge %f
 [push]
 	default = simple
+	autoSetupRemote = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
