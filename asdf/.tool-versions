@@ -7,3 +7,4 @@ elm 0.19.1
 terraform 0.12.29
 yarn 1.9.4
 golang 1.18.1
+direnv 2.32.2
