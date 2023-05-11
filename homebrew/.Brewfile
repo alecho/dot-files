@@ -14,10 +14,14 @@ tap "nextdns/tap"
 tap "superfly/tap"
 tap "tldr-pages/tldr"
 tap "xwmx/taps"
+# Color management engine supporting ICC profiles
+brew "little-cms2"
 # Image format providing lossless and lossy compression for web images
 brew "webp"
 # New file format for still image compression
 brew "jpeg-xl"
+# Codec library for encoding and decoding AV1 video streams
+brew "aom"
 # Automatic configure script builder
 brew "autoconf"
 # Tool for generating GNU Standards-compliant Makefiles
@@ -76,6 +80,8 @@ brew "harfbuzz"
 brew "pango"
 # Command-line outline and bitmap font editor/converter
 brew "fontforge"
+# XSL-FO print formatter for making PDF or PS documents
+brew "fop"
 # Multi-format archive and compression library
 brew "libarchive"
 # Configurable embedded Linux firmware update creator and runner
@@ -84,12 +90,14 @@ brew "fwup"
 brew "fzf"
 # Toolkit for image loading and pixel buffer manipulation
 brew "gdk-pixbuf"
-# Color management engine supporting ICC profiles
-brew "little-cms2"
+# GitHub command-line tool
+brew "gh"
 # Interpreter for PostScript and PDF
 brew "ghostscript"
 # Distributed revision control system
 brew "git"
+# Tcl/Tk UI for the git revision control system
+brew "git-gui"
 # Open-source GitLab command-line tool
 brew "glab"
 # GNU Ubiquitous Intelligent Language for Extensions
@@ -132,6 +140,8 @@ brew "libcroco"
 brew "libfido2"
 # GNOME XML library
 brew "libxml2"
+# C XSLT library for GNOME
+brew "libxslt"
 # C library for reading, creating, and modifying zip archives
 brew "libzip"
 # Rainbows and unicorns in your console!
@@ -198,10 +208,14 @@ brew "watch"
 brew "watchman"
 # Internet file retriever
 brew "wget"
+# Cross-platform C++ GUI toolkit
+brew "wxwidgets"
 # Cross-platform C++ GUI toolkit - Stable Release
 brew "wxwidgets@3.0"
 # Tool for managing your YubiKey configuration
 brew "ykman"
+# Plain text note-taking assistant
+brew "zk"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Fish shell like syntax highlighting for zsh
@@ -248,16 +262,15 @@ cask "raycast"
 cask "shortcat"
 # Open-source code editor
 cask "visual-studio-code"
-# Mastodon, Pleroma and Misskey client
+# Mastodon, Pleroma, and Misskey client
 cask "whalebird"
 # Mind mapping and brainstorming tool
 cask "xmind"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
-mas "2048 Game", id: 871033113
+mas "1Password for Safari", id: 1569813296
 mas "AdGuard for Safari", id: 1440147259
 mas "Amphetamine", id: 937984704
-mas "Butter Royale", id: 1464649839
 mas "Cascadea", id: 1432182561
 mas "Color Palette from Image", id: 950112142
 mas "Dark Reader for Safari", id: 1438243180
@@ -267,12 +280,13 @@ mas "GarageBand", id: 682658836
 mas "Hush", id: 1544743900
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
+mas "Keynote", id: 409183694
 mas "LimeChat", id: 414030210
 mas "Mimeo Photos", id: 1282504627
-mas "Mini Motorways", id: 1456188526
 mas "NextDNS", id: 1464122853
 mas "Numbers", id: 409203825
-mas "Owly", id: 882812218
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 mas "Pages", id: 409201541
 mas "Paprika Recipe Manager", id: 451907568
 mas "Paprika Recipe Manager 3", id: 1303222628
@@ -282,9 +296,7 @@ mas "Session", id: 1521432881
 mas "Shush", id: 496437906
 mas "Slack", id: 803453959
 mas "Telegram", id: 747648890
-mas "TheOregonTrail", id: 1502228492
 mas "Throttle", id: 1482466653
-mas "Toggl Track", id: 957734279
 mas "Type Fu", id: 509818877
 mas "Type to Learn", id: 1401007562
 mas "Vimari", id: 1480933944
