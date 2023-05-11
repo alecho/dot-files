@@ -1,0 +1,9 @@
+autoloading
+npm
+config
+Gemfile
+#emfile
+gemfile/!
+Rspec
+frontend
+Ecto

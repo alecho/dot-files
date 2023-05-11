@@ -1,0 +1,13 @@
+{
+  "html.format.enable": true,
+  "snippets.extends": {
+    "cpp": ["c"],
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript"],
+    "elixir": ["eelixir"]
+  },
+  "eslint.autoFixOnSave": true,
+  "tailwindCSS.headwind.runOnSave": false,
+  "codeLens.enable": true,
+  "suggest.noselect": false
+}
