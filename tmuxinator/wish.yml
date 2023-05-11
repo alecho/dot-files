@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/dot-files/tmuxinator//chex.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator//wish.yml
 
-name: chex
-root: ~/Code/chex/
+name: wish
+root: ~/Code/wish
 
 # Optional tmux socket
 # socket_name: foo
@@ -52,4 +52,5 @@ windows:
       # synchronize: after
       panes:
         - vim
-        - mix test.interactive
+        -
+  - server: mix phx.server

@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/dot-files/tmuxinator//chex.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator//mash.yml
 
-name: chex
-root: ~/Code/chex/
+name: mash
+root: ~/Code/mash/
 
 # Optional tmux socket
 # socket_name: foo
@@ -45,11 +45,6 @@ root: ~/Code/chex/
 # attach: false
 
 windows:
-  - editor:
-      layout: main-vertical
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
-      panes:
-        - vim
-        - mix test.interactive
+  - editor: vim
+  - console: mix test
+  - server: mix phx.server
