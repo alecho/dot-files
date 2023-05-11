@@ -16,12 +16,11 @@
 	bd = branch -d
 	bdf = "!git branch -d $(git branch | fzf)"
 	br = branch -r
-	c = commit
-	ca = commit -a -v
-	ci = commit -v
-	cm = commit -m
-	cnv = commit --no-verify
-	cnvm = commit --no-verify -m
+	c = commit -v
+	ca = commit -a --v
+	cm = commit -v -m
+	cnv = commit -v --no-verify
+	cnvm = commit -v --no-verify -m
 	clear = "!clear"
 	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
@@ -59,6 +58,7 @@
 	rb = rebase
 	rba = rebase --abort
 	rbc = rebase --continue
+	rbp = rebase --show-current-patch
 	rbi = rebase -i
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
@@ -76,7 +76,7 @@
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
 	whatadded = log --diff-filter=A
-	wip = "!git commit -m 'WIP :construction:'"
+	wip = "!git commit --no-verify -m 'WIP :construction:'"
 	worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 [color]
 	ui = auto
@@ -117,3 +117,14 @@
 	driver = npx npm-merge-driver merge %A %O %B %P
 [init]
 	defaultBranch = main
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[log]
+  date = relative
+[format]
+  pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(8,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
+[mailmap]
+  file = '/Users/andrewlechowicz/.mailmap'
