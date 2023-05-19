@@ -295,6 +295,11 @@ function M.setup()
       end
     }
 
+    use {
+      'glacambre/firenvim',
+      run = function() vim.fn['firenvim#install'](0) end 
+    }
+
     -- Pomodoro
     use {
       'wthollingsworth/pomodoro.nvim',
