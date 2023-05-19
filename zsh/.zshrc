@@ -8,10 +8,8 @@ if [ -n "$TMUX" ]; then
   fi
 fi
 
-# Add workflow to PATH
-if [ -d ~/bin ]; then
-  PATH="$HOME/Code/workflow/bin:$PATH"
-fi
+## Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Specify an editor
 export EDITOR='nvim'
@@ -23,9 +21,6 @@ export NOTES_DIR=$HOME/Documents/Notes/
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
-
-# MySQL password
-export DATABASE_PASSWORD=root
 
 # GPG tty
 export GPG_TTY=$(tty)
@@ -108,9 +103,6 @@ asdfi() {
   fi
 }
 
-# 1Password completion
-eval $(op completion zsh)
-
 fixup() {
   local selected=$(git lol | fzf --reverse --no-sort | awk '{print $1}')
   git fixup $selected
@@ -135,9 +127,6 @@ function cd() {
         builtin cd "$dir" &> /dev/null
     done
 }
-
-# extend fpath to poain to pgen complation script
-fpath=(~/.zsh/ $(brew --prefix)/share/zsh/site-functions $fpath)
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -232,15 +221,6 @@ alias code='cd ~/Code'
 ### `$ ag -c --no-filename some_string `
 alias sm="awk 'NF{sum+=\$1} END {print sum}'"
 
-# Siri via cliclick
-siri(){
-  set -- "${1:-$(</dev/stdin)}" "${@:2}"
-
-  cliclick kd:alt kp:space ku:alt t:"$1" kp:return
-}
-
-alias wrk=workflow
-
 ## Pretty print things thanks to colorls gem.
 
 ### But first, save some original ls commands as backup under the `o` prefix.
@@ -280,24 +260,14 @@ bindkey '^l' vi-forward-char
 bindkey '^j' down-line-or-beginning-search
 bindkey '^r' history-incremental-search-backward
 
-# Go
-# Installed with asdf.
-
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
-
-# MySQL
-# export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
-# export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
-# export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
-# export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
 # Ruby Gem
 alias gin="cat ~/.default-gems | xargs gem install"
 alias gup=gin
 alias gun="gem uninstall"
 alias gli="gem list"
-#alias =""
 
 ## Terraform
 alias tfp='terraform plan -out=current.plan'
@@ -307,27 +277,22 @@ alias tfa='terraform apply -input=true current.plan'
 alias tx='tmuxinator'
 alias txs='tmuxinator start'
 alias txo='tmuxinator open'
+alias txe='tmuxinator open'
 alias txn='tmuxinator new'
 alias txl='tmuxinator list'
 
 export TMUXINATOR_CONFIG="$HOME/dot-files/tmuxinator/"
 
-## One Password
-### Completion
-# eval "$(op completion zsh)"; compdef _op op
-
-## Timeclock
-### Clockify
-source <(clockify-cli completion zsh)
-alias clockify='clockify-cli'
-alias tc='clockify'
-
-## Homebrew in general
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-
 ## asdf-vm
-. /usr/local/opt/asdf/libexec/asdf.sh
+. $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+
+# Set JAVA_HOME
+if [ -f ~/.asdf/plugins/java/set-java-home.zsh ]; then
+  source ~/.asdf/plugins/java/set-java-home.zsh
+fi
+
+## 1Password
+eval $(op completion zsh)
 
 # Chromedriver
 # Run the following to remove the quarantine on chromedriver.
@@ -335,6 +300,7 @@ export PATH=/usr/local/sbin:$PATH
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terraform
+
 eval "$(direnv hook zsh)"
 
 _fzf_complete_mix() {
@@ -367,7 +333,7 @@ if ! [ -n $SKIP_NEOFETCH ] && [ -n "$TMUX" ]; then
   export SKIP_NEOFETCH=true
 fi
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
