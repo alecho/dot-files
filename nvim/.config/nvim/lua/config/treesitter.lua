@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup()
   require("nvim-treesitter.configs").setup {
-    ensure_installed = { "elixir", "eex", "heex", "lua", "vim", "help" },
+    ensure_installed = { "elixir", "eex", "heex", "lua", "vim", "vimdoc" },
 
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
