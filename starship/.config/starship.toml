@@ -47,6 +47,10 @@ format = '[with](italic) [$symbol($version \(OTP $otp_version\) )]($style)'
 [golang]
 symbol = " "
 
+[terraform]
+symbol = '󱁢 '
+disabled = true
+
 [time]
 style = "white"
 format = "[$time]($style) "
