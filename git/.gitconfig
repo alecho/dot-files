@@ -82,7 +82,7 @@
 	ui = auto
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = /usr/local/bin/nvim
+	editor = nvim
 [diff]
 	algorithm = histogram
 [difftool "sourcetree"]
