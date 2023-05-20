@@ -149,7 +149,7 @@ ZSH_THEME="alecho"
 export UPDATE_ZSH_DAYS=60
 
 # Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+DISABLE_LS_COLORS="true"
 
 # Comment the following line to enable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -221,24 +221,23 @@ alias code='cd ~/Code'
 ### `$ ag -c --no-filename some_string `
 alias sm="awk 'NF{sum+=\$1} END {print sum}'"
 
-## Pretty print things thanks to colorls gem.
-
 ### But first, save some original ls commands as backup under the `o` prefix.
 alias ols='ls'
 alias oll='ls -Algosh'
 
-alias ll='colorls -Alog --sd --dark --gs'
-alias lll='colorls -Al --sd --dark --gs'
-alias ld='colorls -Ad --dark'
-alias lf='colorls -Af --dark'
-alias lt='colorls -A --dark --tree'
-alias llt='colorls -A --dark --tree=2'
-alias lllt='colorls -A --dark --tree=3'
-alias llllt='colorls -A --dark --tree=4'
-alias lllllt='colorls -A --dark --tree=5'
-alias llllllt='colorls -A --dark --tree=6'
-alias lllllllt='colorls -A --dark --tree=7'
-alias llllllllt='colorls -A --dark --tree=8'
+alias l='lsd -A'
+alias ll='lsd -Al'
+alias lll='lsd -Al'
+alias ld='lsd -Ad'
+alias lf='lsd -Af'
+alias lt='lsd -A --tree --depth=1'
+alias llt='lsd -A --tree --depth=2'
+alias lllt='lsd -A --tree --depth=3'
+alias llllt='lsd -A --tree --depth=4'
+alias lllllt='lsd -A --tree --depth=5'
+alias llllllt='lsd -A --tree --depth=6'
+alias lllllllt='lsd -A --tree --depth=7'
+alias llllllllt='lsd -A --tree --depth=8'
 
 ## Edit rc files
 alias vime='vim .envrc'
