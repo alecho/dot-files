@@ -285,11 +285,6 @@ export TMUXINATOR_CONFIG="$HOME/dot-files/tmuxinator/"
 ## asdf-vm
 . $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
-# Set JAVA_HOME
-if [ -f ~/.asdf/plugins/java/set-java-home.zsh ]; then
-  source ~/.asdf/plugins/java/set-java-home.zsh
-fi
-
 ## 1Password
 eval $(op completion zsh)
 
