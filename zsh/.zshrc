@@ -217,6 +217,7 @@ alias lcat='lolcat'
 alias vim='nvim'
 alias c='clear'
 alias code='cd ~/Code'
+alias dot='cd ~/dot-files'
 
 ## Tools
 ### Sum the value of the number on each line.
