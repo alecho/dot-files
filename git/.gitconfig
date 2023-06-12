@@ -22,7 +22,6 @@
 	cnv = commit -v --no-verify
 	cnvm = commit -v --no-verify -m
 	clear = "!clear"
-	close = "!git push && git checkout staging && git branch -D $1"
 	co = checkout
 	cof = "!git checkout $(git branch | fzf)"
 	com = checkout main
@@ -46,7 +45,6 @@
 	lag = !git l --graph --all
 	lg = !git l --graph
 	lol = !git log --oneline
-	mark-prod = "!git tag production HEAD -f && git push --tags"
 	mt = mergetool
 	new = checkout -b
 	p = push
