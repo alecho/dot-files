@@ -48,7 +48,7 @@
 	mt = mergetool
 	new = checkout -b
 	p = push
-	pf = push --force
+	pf = push --force-with-lease
 	pr = pull --rebase
 	publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 	pullall = !git pull && git submodule update --init --recursive
