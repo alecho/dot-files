@@ -81,8 +81,18 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  light = false
+  theme = dracula
+[merge]
+    conflictstyle = diff3
 [diff]
 	algorithm = histogram
+  colorMoved = default
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
