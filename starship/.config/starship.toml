@@ -1,6 +1,9 @@
-## All instructions can be found at [draculatheme.com](https://draculatheme.com/).
+## Starship Config
+## Docs: https://starship.rs/config/
 ##
 ## ## Color Palette
+##
+## All instructions can be found at [draculatheme.com](https://draculatheme.com/).
 ##
 ## | Palette      | Hex       | RGB           | HSL             | ![Color Picker Boxes](https://draculatheme.com/static/img/color-boxes/eyedropper.png)   |
 ## | ------------ | --------- | ------------- | --------------- | --------------------------------------------------------------------------------------- |
@@ -18,7 +21,93 @@
 ## | Yellow       | `#f1fa8c` | `241 250 140` | `65° 92% 76%`   | ![Yellow Color](https://draculatheme.com/static/img/color-boxes/yellow.png)             |
 ##
 ## For more details about how to apply these different colors to represent different code symbols, please see the [Dracula Specification](https://spec.draculatheme.com).
-format = "$time$all"
+
+format = """
+$time\
+$username\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$fossil_branch\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$pijul_channel\
+$docker_context\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$ruby\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$nix_shell\
+$conda\
+$meson\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$status\
+$os\
+$container\
+$shell\
+$character"""
+
 right_format = """$cmd_duration"""
 command_timeout = 2000
 
@@ -38,6 +127,9 @@ min_time_to_notify = 120_000
 
 [directory]
 style = "italic blue"
+
+[docker_context]
+disabled = true
 
 [elixir]
 style = "blue"
@@ -81,11 +173,11 @@ style = "bold bright-yellow"
 format = '[$state]($style italic)[( $progress_current/$progress_total)]($style) '
 
 [nodejs]
-format = "[with](italic) [$symbol($version )]($style)"
+format = "[$symbol($version )]($style)"
 
 [ruby]
 symbol = " "
-format = "[with](italic) [$symbol($version )]($style)"
+format = "[$symbol($version )]($style)"
 
 [package]
 disabled = true

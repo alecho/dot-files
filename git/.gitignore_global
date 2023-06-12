@@ -84,6 +84,7 @@ Temporary Items
 /test/tmp/
 /test/version_tmp/
 /tmp/
+.solargraph.yml
 
 # Used by dotenv library to load environment variables.
 # .env
