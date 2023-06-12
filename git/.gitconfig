@@ -24,7 +24,7 @@
 	clear = "!clear"
 	co = checkout
 	cof = "!git checkout $(git branch | fzf)"
-	com = checkout main
+	com = checkout master
 	cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
 	cp = cherry-pick
 	cpc = cherry-pick --continue
@@ -60,9 +60,9 @@
 	rbi = rebase -i
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
-	review = "!git log --oneline origin/main..HEAD && git diff origin/main --word-diff"
-	rom = rebase origin/main
-	romi = rebase -i origin/main
+	review = "!git log --oneline origin/master..HEAD && git diff origin/master --word-diff"
+	rom = rebase origin/master
+	romi = rebase -i origin/master
 	rop = rebase origin/production
 	ropi = rebase -i origin/production
 	s = status -sb
