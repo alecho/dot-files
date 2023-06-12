@@ -41,11 +41,11 @@ function M.setup()
 
     -- Notification
     use {
-    "rcarriga/nvim-notify",
-    event = "VimEnter",
-    config = function()
-	    vim.notify = require "notify"
-    end,
+      "rcarriga/nvim-notify",
+      event = "VimEnter",
+      config = function()
+        vim.notify = require "notify"
+      end,
     }
 
     -- Colorscheme
@@ -64,6 +64,11 @@ function M.setup()
       end,
     }
 
+    -- Icons
+    use {
+      'nvim-tree/nvim-web-devicons'
+    }
+
     -- Status line
     use {
       'nvim-lualine/lualine.nvim',
@@ -74,9 +79,6 @@ function M.setup()
     }
 
     -- Tabline
-    use {
-      'nvim-tree/nvim-web-devicons'
-    }
     use {
       'romgrk/barbar.nvim',
       requires = { 'nvim-tree/nvim-web-devicons', opt = true },
@@ -116,7 +118,7 @@ function M.setup()
       config = function()
         require("auto-session").setup {
           log_level = "error",
-          auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+          auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
         }
       end
     }
@@ -176,8 +178,8 @@ function M.setup()
 
     use {
       "zbirenbaum/copilot-cmp",
-      after = { "copilot.lua" },
-      config = function ()
+      after = { "copilot.lua", "nvim-cmp" },
+      config = function()
         require("copilot_cmp").setup()
       end
     }
@@ -211,21 +213,28 @@ function M.setup()
       disable = false,
     }
 
-    use { "onsails/lspkind.nvim" }
-
     -- LSP
+    use {
+      "williamboman/mason.nvim",
+      config = function()
+        require("mason").setup()
+      end,
+    }
+    use {
+      "williamboman/mason-lspconfig.nvim",
+      config = function()
+        require("mason-lspconfig").setup()
+      end,
+    }
     use {
       "neovim/nvim-lspconfig",
       opt = true,
       event = "BufReadPre",
-      wants = { "nvim-lsp-installer" },
       config = function()
         require("config.lsp").setup()
       end,
-      requires = {
-        "williamboman/nvim-lsp-installer",
-      },
     }
+    use { "onsails/lspkind.nvim" }
 
     -- nvim-tree
     use {
@@ -274,12 +283,12 @@ function M.setup()
     -- Notes
     use {
       "mickael-menu/zk-nvim", config = function()
-        require("zk").setup({
-          -- can be "telescope"", "fzf" or "select" (`vim.ui.select`)
-          -- it's recommended to use "telescope" or "fzf"
-          picker = "telescope",
-        })
-      end,
+      require("zk").setup({
+        -- can be "telescope"", "fzf" or "select" (`vim.ui.select`)
+        -- it's recommended to use "telescope" or "fzf"
+        picker = "telescope",
+      })
+    end,
     }
 
     -- GitHub
@@ -290,28 +299,22 @@ function M.setup()
         'nvim-telescope/telescope.nvim',
         'nvim-tree/nvim-web-devicons',
       },
-      config = function ()
-        require"octo".setup()
+      config = function()
+        require "octo".setup()
       end
     }
 
     use {
       'glacambre/firenvim',
-      run = function() vim.fn['firenvim#install'](0) end 
-    }
-
-    -- Pomodoro
-    use {
-      'wthollingsworth/pomodoro.nvim',
-      requires = 'MunifTanjim/nui.nvim'
+      run = function() vim.fn['firenvim#install'](0) end
     }
 
     --Fun
     use 'eandrju/cellular-automaton.nvim'
 
     if packer_bootstrap then
-	    print "Restart Neovim required after installation!"
-	    require("packer").sync()
+      print "Restart Neovim required after installation!"
+      require("packer").sync()
     end
   end
 
