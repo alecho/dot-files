@@ -11,6 +11,9 @@ fi
 ## Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+### Completions
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
 # Specify an editor
 export EDITOR='nvim'
 alias vim='nvim'
