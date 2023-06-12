@@ -36,9 +36,6 @@ function M.setup()
   local function plugins(use)
     use { "wbthomason/packer.nvim" }
 
-    -- Editorconfig
-    use { "gpanders/editorconfig.nvim" }
-
     -- Notification
     use {
       "rcarriga/nvim-notify",
