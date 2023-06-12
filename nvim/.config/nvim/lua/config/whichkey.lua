@@ -89,7 +89,7 @@ function M.setup()
         l = { "<Cmd>BufferCloseBuffersLeft<CR>", "All on the Left"},
         r = { "<Cmd>BufferCloseBuffersRight<CR>", "All on the Right"},
       },
-      s = { "<Cmd>DeleteSession<CR>", "Delete Session"},
+      s = { "<Cmd>SessionDelete<CR>", "Delete Session"},
     },
 
     z = {
