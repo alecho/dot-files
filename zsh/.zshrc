@@ -213,8 +213,6 @@ export LSCOLORS="excxbxdxBxEgEdxbxgxcxd"
 # Aliases
 
 ## General
-alias nap='pmset sleepnow'
-alias ssaver='open -a ScreenSaverEngine'
 alias lcat='lolcat'
 alias vim='nvim'
 alias c='clear'
