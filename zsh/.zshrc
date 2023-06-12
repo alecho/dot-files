@@ -30,6 +30,7 @@ export GPG_TTY=$(tty)
 
 # bat
 export BAT_THEME=Dracula
+alias cat="bat"
 
 # Erlang Flags
 export ERL_AFLAGS="-kernel shell_history enabled"
