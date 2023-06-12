@@ -1,13 +1,5 @@
 local M = {}
 
-local servers = {
-  html = {},
-  jsonls = {},
-  lua_ls = {},
-  tsserver = {},
-  vimls = {},
-}
-
 local function on_attach(client, bufnr)
   -- Enable completion triggered by <C-X><C-O>
   -- See `:help omnifunc` and `:help ins-completion` for more information.
@@ -37,12 +29,17 @@ local opts = {
 }
 
 function M.setup()
-  require 'lspconfig'.elixirls.setup {
-    cmd = { "/Users/andrewlechowicz/.elixir-ls/release/language_server.sh" };
-    on_attach = on_attach
+  require("mason-lspconfig").setup_handlers {
+    -- default handler
+    function(server_name) -- default handler (optional)
+      require("lspconfig")[server_name].setup(opts)
+    end,
+    -- Next, you can provide a dedicated handler for specific servers.
+    -- For example, a handler override for the `rust_analyzer`:
+    -- ["rust_analyzer"] = function ()
+    --     require("rust-tools").setup {}
+    -- end
   }
-
-  require("config.lsp.installer").setup(servers, opts)
 end
 
 return M
