@@ -315,6 +315,14 @@ function M.setup()
       run = function() vim.fn['firenvim#install'](0) end
     }
 
+    -- Markdown
+    use {
+      'ellisonleao/glow.nvim',
+      config = function()
+        require("glow").setup()
+      end
+    }
+
     --Fun
     use 'eandrju/cellular-automaton.nvim'
 
