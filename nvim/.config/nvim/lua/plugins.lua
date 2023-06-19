@@ -264,6 +264,9 @@ function M.setup()
       "ibhagwan/fzf-lua",
       event = "BufEnter",
       wants = "nvim-web-devicons",
+      config = function()
+        require("config.fzf").setup()
+      end
     }
 
     -- User interface
