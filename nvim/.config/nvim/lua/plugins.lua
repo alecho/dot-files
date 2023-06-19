@@ -98,6 +98,12 @@ function M.setup()
     }
     use { 'f-person/git-blame.nvim' }
     use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+    use {
+      'lewis6991/gitsigns.nvim',
+      config = function()
+        require('gitsigns').setup()
+      end,
+    }
 
     -- Key Mapping
     -- WhichKey
