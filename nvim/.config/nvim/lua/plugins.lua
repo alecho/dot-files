@@ -288,13 +288,13 @@ function M.setup()
 
     -- Notes
     use {
-      "mickael-menu/zk-nvim", config = function()
-      require("zk").setup({
-        -- can be "telescope"", "fzf" or "select" (`vim.ui.select`)
-        -- it's recommended to use "telescope" or "fzf"
-        picker = "telescope",
-      })
-    end,
+      "mickael-menu/zk-nvim",
+      requires = {
+        "folke/which-key.nvim",
+      },
+      config = function()
+        require("config.zk").setup()
+      end,
     }
 
     -- GitHub
