@@ -284,7 +284,11 @@ function M.setup()
     }
 
     -- Telescope
-    use { "nvim-telescope/telescope.nvim", module = "telescope", as = "telescope" }
+    use {
+      "nvim-telescope/telescope.nvim",
+      module = "telescope",
+      as = "telescope"
+    }
 
     -- Notes
     use {
@@ -302,7 +306,7 @@ function M.setup()
       'pwntester/octo.nvim',
       requires = {
         'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope.nvim',
+        'telescope',
         'nvim-tree/nvim-web-devicons',
       },
       config = function()
