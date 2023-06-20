@@ -66,6 +66,15 @@ function M.setup()
       'nvim-tree/nvim-web-devicons'
     }
 
+    -- Auto save
+    use({
+      "Pocco81/auto-save.nvim",
+      config = function()
+        require("auto-save").setup {
+        }
+      end,
+    })
+
     -- Status line
     use {
       'nvim-lualine/lualine.nvim',
