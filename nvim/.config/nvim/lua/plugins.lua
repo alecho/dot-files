@@ -87,6 +87,21 @@ function M.setup()
       end
     }
 
+    -- Colorcolumn
+    use {
+      'Bekaboo/deadcolumn.nvim',
+      config = function()
+        require("deadcolumn").setup({
+          modes = { 'n', 'i', 'ic', 'ix', 'R', 'Rc', 'Rx', 'Rv', 'Rvc', 'Rvx' },
+          warning = {
+            alpha = 0.6,
+            colorcode = '#ff5555',
+          },
+        })
+      end
+
+    }
+
     -- Status line
     use {
       'nvim-lualine/lualine.nvim',
