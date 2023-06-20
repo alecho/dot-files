@@ -12,10 +12,8 @@ function M.setup()
   local cmp = require "cmp"
   local lspkind = require "lspkind"
 
-
   cmp.setup {
     completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
-    experimental = { native_menu = false, ghost_text = false },
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
