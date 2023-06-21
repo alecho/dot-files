@@ -121,6 +121,15 @@ function M.setup()
 
     }
 
+    -- Indentation
+    use {
+      "lukas-reineke/indent-blankline.nvim",
+      config = function()
+        require("indent_blankline").setup {
+        }
+      end,
+    }
+
     -- Folding
     use {
       "kevinhwang91/nvim-ufo",
