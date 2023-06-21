@@ -121,6 +121,40 @@ function M.setup()
 
     }
 
+    -- Folding
+    use {
+      "kevinhwang91/nvim-ufo",
+      opt = true,
+      event = { "BufReadPre" },
+      wants = { "promise-async" },
+      requires = "kevinhwang91/promise-async",
+      config = function()
+        require("ufo").setup {
+        }
+        vim.o.foldcolumn = '0'
+        vim.o.foldlevel = 99
+        vim.o.foldlevelstart = 99
+        vim.o.foldenable = true
+        vim.o.fillchars = 'foldopen:,foldclose:'
+        vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+        vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+      end,
+    }
+    use {
+      'yaocccc/nvim-foldsign',
+      event = 'CursorHold',
+      config = function()
+        require("nvim-foldsign").setup({
+          offset = -2,
+          foldsigns = {
+            open = '',
+            close = '',
+            seps = { '', '' },
+          }
+        })
+      end
+    }
+
     -- Git
     use {
       "TimUntersberger/neogit",

@@ -20,6 +20,12 @@ end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+-- Tell language servers that we understand folding
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
+
 local opts = {
   on_attach = on_attach,
   capabilities = capabilities,
