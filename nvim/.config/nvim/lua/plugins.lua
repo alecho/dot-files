@@ -72,8 +72,8 @@ function M.setup()
       config = function()
         require('cinnamon').setup({
           extra_keymaps = true,
-          max_length = 500,
-          scroll_limit = -1,
+          max_length = 400,
+          scroll_limit = 3000,
         })
       end
     }
