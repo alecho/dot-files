@@ -113,8 +113,8 @@ function M.setup()
     ["<C-b>"] = { "<Cmd>FzfLua buffers<CR>", "Buffer List" },
     ["<C-p>"] = { "<Cmd>FzfLua git_files<CR>", "Find files" },
     ["<C-x>"] = { "<Cmd>bd!<Cr>", "Close current buffer" },
-    ["<C-j"] = { '<Cmd>BufferPrevious<CR>', "Previous Buffer" },
-    ["<C-k"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
+    ["<C-,>"] = { '<Cmd>BufferPrevious<CR>', "Previous Buffer" },
+    ["<C-.>"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
   }
 
   whichkey.register(control_mappings, control_opts)
