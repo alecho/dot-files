@@ -217,6 +217,15 @@ function M.setup()
       end
     })
 
+    -- Batch editing
+    use({
+      "ray-x/sad.nvim",
+      requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+      config = function()
+        require("sad").setup {}
+      end,
+    })
+
     -- Machine Learning Code completion
     use {
       "zbirenbaum/copilot.lua",
