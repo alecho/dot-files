@@ -66,15 +66,6 @@ function M.setup()
       'nvim-tree/nvim-web-devicons'
     }
 
-    -- Auto save
-    use({
-      "Pocco81/auto-save.nvim",
-      config = function()
-        require("auto-save").setup {
-        }
-      end,
-    })
-
     -- Smooth scrolling
     use {
       'declancm/cinnamon.nvim',
@@ -128,40 +119,6 @@ function M.setup()
         require("indent_blankline").setup {
         }
       end,
-    }
-
-    -- Folding
-    use {
-      "kevinhwang91/nvim-ufo",
-      opt = true,
-      event = { "BufReadPre" },
-      wants = { "promise-async" },
-      requires = "kevinhwang91/promise-async",
-      config = function()
-        require("ufo").setup {
-        }
-        vim.o.foldcolumn = '0'
-        vim.o.foldlevel = 99
-        vim.o.foldlevelstart = 99
-        vim.o.foldenable = true
-        vim.o.fillchars = 'foldopen:,foldclose:'
-        vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-        vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-      end,
-    }
-    use {
-      'yaocccc/nvim-foldsign',
-      event = 'CursorHold',
-      config = function()
-        require("nvim-foldsign").setup({
-          offset = -2,
-          foldsigns = {
-            open = '',
-            close = '',
-            seps = { '', '' },
-          }
-        })
-      end
     }
 
     -- Git
