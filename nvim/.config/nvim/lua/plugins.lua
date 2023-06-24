@@ -83,6 +83,7 @@ function M.setup()
       'Bekaboo/deadcolumn.nvim',
       config = function()
         require("deadcolumn").setup({
+          scope = 'visible',
           modes = { 'n', 'i', 'ic', 'ix', 'R', 'Rc', 'Rx', 'Rv', 'Rvc', 'Rvx' },
           warning = {
             alpha = 0.6,
