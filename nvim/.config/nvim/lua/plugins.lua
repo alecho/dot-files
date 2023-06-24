@@ -337,7 +337,7 @@ function M.setup()
           },
         }
       end,
-      disable = true,
+      disable = false,
     }
 
     -- Telescope
