@@ -22,8 +22,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protoc
 
 -- Tell language servers that we understand folding
 capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
+  dynamicRegistration = false,
+  lineFoldingOnly = true
 }
 
 local opts = {
@@ -32,6 +32,17 @@ local opts = {
   flags = {
     debounce_text_changes = 150,
   },
+  settings = {
+    eslint = {
+      autoFixOnSave = true,
+      format = { enable = true },
+    },
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
 }
 
 function M.setup()
@@ -45,18 +56,6 @@ function M.setup()
     -- ["rust_analyzer"] = function ()
     --     require("rust-tools").setup {}
     -- end
-
-    ["lua_ls"] = function()
-      require("lspconfig").lua_ls.setup {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' }
-            }
-          }
-        }
-      }
-    end
   }
 end
 
