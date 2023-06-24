@@ -12,7 +12,8 @@ function M.setup()
   }
 
   local mappings = {
-    ["w"] = { "<cmd>update!<CR>", "Save" },
+    [" "] = { "<Cmd>Legendary<CR>", "Legendary" },
+    ["w"] = { "<Cmd>update!<CR>", "Save" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
     ["fml"] = { "<cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" },
     ["gol"] = { "<cmd>CellularAutomaton game_of_life<CR>", "Conway's Game of Life" },
