@@ -206,6 +206,45 @@ function M.setup()
       end
     }
 
+    -- Movement
+    use {
+      'smoka7/hop.nvim',
+      tag = '*', -- optional but strongly recommended
+      config = function()
+        local hop = require('hop')
+        local directions = require('hop.hint').HintDirection
+        hop.setup {}
+        vim.keymap.set('', 'f', function()
+          hop.hint_char1({
+            direction = directions.AFTER_CURSOR,
+            current_line_only = true
+          })
+        end, { remap = true })
+        vim.keymap.set('', 'F', function()
+          hop.hint_char1({
+            direction = directions.BEFORE_CURSOR,
+            current_line_only = true
+          })
+        end, { remap = true })
+        vim.keymap.set('', 't', function()
+          hop.hint_char1({
+            direction = directions.AFTER_CURSOR,
+            current_line_only = true,
+            hint_offset = -1
+          })
+        end, { remap = true })
+        vim.keymap.set('', 'T', function()
+          hop.int_char1({
+            direction = directions.BEFORE_CURSOR,
+            current_line_only = true,
+            hint_offset = 1
+          })
+        end, { remap = true })
+        vim.keymap.set('', 'W', hop.hint_words, { remap = true })
+        vim.keymap.set('', '\\', hop.hint_patterns, { remap = true })
+      end
+    }
+
     -- Surround
     use({
       "kylechui/nvim-surround",
