@@ -263,12 +263,12 @@ function M.setup()
         { "hrsh7th/cmp-nvim-lsp", module = { "cmp_nvim_lsp" } },
         {
           "L3MON4D3/LuaSnip",
-          wants = "friendly-snippets",
+          wants = "vim-snippets",
           config = function()
             require("config.luasnip").setup()
           end,
         },
-        "rafamadriz/friendly-snippets",
+        "honza/vim-snippets",
       },
       disable = false,
     }
