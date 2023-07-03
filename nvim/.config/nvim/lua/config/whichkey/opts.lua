@@ -2,6 +2,15 @@ local M = {
 
   normal = {
     mode = "n",
+    prefix = "",
+    buffer = nil,
+    silent = true,
+    noremap = true,
+    nowait = false,
+  },
+
+  leader = {
+    mode = "n",
     prefix = "<leader>",
     buffer = nil,
     silent = true,

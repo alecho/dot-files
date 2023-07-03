@@ -4,14 +4,16 @@ function M.setup()
   local whichkey = require "which-key"
   local opts = require "config.whichkey.opts"
 
-  local conf = {
+  whichkey.setup({
     window = {
       border = "single",   -- none, single, double, shadow
       position = "bottom", -- bottom, top
     },
-  }
+  })
 
-  local mappings = {
+  -- Normal mode with leader key
+
+  local leader = {
     [" "] = { "<Cmd>Legendary<CR>", "Legendary" },
     ["w"] = { "<Cmd>update!<CR>", "Save" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
@@ -103,13 +105,11 @@ function M.setup()
     },
   }
 
-  whichkey.setup(conf)
-  whichkey.register(mappings, opts.normal)
+  -- Normal Mode
 
-  local control_opts = opts.normal
-  control_opts.prefix = nil
+  whichkey.register(leader, opts.leader)
 
-  local control_mappings = {
+  local normal = {
     ["<C-b>"] = { "<Cmd>FzfLua buffers<CR>", "Buffer List" },
     ["<C-p>"] = { "<Cmd>FzfLua git_files<CR>", "Find files" },
     ["<C-x>"] = { "<Cmd>bd!<Cr>", "Close current buffer" },
@@ -117,18 +117,18 @@ function M.setup()
     ["<C-.>"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
   }
 
-  whichkey.register(control_mappings, control_opts)
+  whichkey.register(normal, opts.nomal)
 
-  local v_mappings = {
+  local visual = {
     n = {
-      name = "New",
+      name = "New Note with",
       t = { "<Cmd>'<,'>ZkNewFromTitleSelection<CR>", "Title from selection" },
       c = { "<Cmd>'<,'>ZkNewFromContentSelection<CR>", "Content from selection" },
       s = { "<Cmd>'<,'>ZkMatch<CR>", "Search" },
     },
   }
 
-  whichkey.register(v_mappings, opts.visual)
+  whichkey.register(visual, opts.visual)
 end
 
 return M
