@@ -4,7 +4,7 @@ function M.setup()
   local luasnip = require "LuaSnip"
 
   luasnip.config.set_config {
-    history = false,
+    history = true,
     updateevents = "TextChanged,TextChangedI",
   }
 
