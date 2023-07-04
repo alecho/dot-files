@@ -23,6 +23,7 @@ function M.setup()
       end
     }
   end, { remap = true })
+  vim.keymap.set('n', '<leader>rs', '<Cmd>source ~/.config/nvim/lua/config/luasnip.lua<CR>', { remap = true })
 end
 
 return M
