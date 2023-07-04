@@ -17,8 +17,8 @@ function M.setup()
     [" "] = { "<Cmd>Legendary<CR>", "Legendary" },
     ["w"] = { "<Cmd>update!<CR>", "Save" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
-    ["fml"] = { "<cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" },
-    ["gol"] = { "<cmd>CellularAutomaton game_of_life<CR>", "Conway's Game of Life" },
+    ["1"] = { "<Cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" },
+    ["2"] = { "<Cmd>CellularAutomaton game_of_life<CR>", "Conway's Game of Life" },
 
     f = {
       name = "Find",
