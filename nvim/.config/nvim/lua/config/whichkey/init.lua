@@ -28,8 +28,8 @@ function M.setup()
       h = { "<Cmd>FzfLua oldfiles<CR>", "History" },
       g = { "<Cmd>FzfLua live_grep<CR>", "Live grep" },
       c = { "<Cmd>FzfLua commands<CR>", "Commands" },
-      p = { "<Cmd>lua require('utils.finder').find_files()<CR>", "Files (find_files())" },
       e = { "<Cmd>NvimTreeToggle<CR>", "Explorer" },
+      s = { "<Cmd>Oil<CR>", "File System (Oil.nvim)" },
     },
 
     g = {

@@ -347,6 +347,14 @@ function M.setup()
       end,
     }
 
+    -- File system
+    use {
+      'stevearc/oil.nvim',
+      config = function()
+        require('oil').setup()
+      end
+    }
+
     -- Aerial
     use {
       'stevearc/aerial.nvim',
