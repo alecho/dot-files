@@ -1,1 +1,0 @@
-/projects/the-one-theme/zsh/TheOne.zsh-theme
