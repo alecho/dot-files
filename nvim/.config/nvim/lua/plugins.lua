@@ -262,6 +262,15 @@ function M.setup()
       end
     })
 
+    -- Code toggle (split and join)
+    use({
+      'Wansmer/treesj',
+      requires = { 'nvim-treesitter' },
+      config = function()
+        require('treesj').setup()
+      end,
+    })
+
     -- Batch editing
     use({
       "ray-x/sad.nvim",
