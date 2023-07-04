@@ -20,18 +20,6 @@ function M.setup()
     ["fml"] = { "<cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" },
     ["gol"] = { "<cmd>CellularAutomaton game_of_life<CR>", "Conway's Game of Life" },
 
-    b = {
-      name = "Buffer",
-      -- Move to previous/next
-      j = { "<Cmd>BufferPrevious<CR>", "Left" },
-      k = { "<Cmd>BufferNext<CR>", "Right" },
-      -- Re-order to previous/next
-      J = { "<Cmd>BufferMovePrevious<CR>", "Move Left" },
-      K = { "<Cmd>BufferMoveNext<CR>", "Move Right" },
-      c = { "<Cmd>bd!<Cr>", "Close current buffer" },
-      f = { "<cmd>FzfLua buffers<cr>", "List" },
-    },
-
     f = {
       name = "Find",
       f = { "<Cmd>FzfLua git_files<CR>", "Files" },
@@ -115,6 +103,8 @@ function M.setup()
     ["<C-x>"] = { "<Cmd>bd!<Cr>", "Close current buffer" },
     ["<C-,>"] = { '<Cmd>BufferPrevious<CR>', "Previous Buffer" },
     ["<C-.>"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
+    ["<C-<>"] = { '<Cmd>BufferMovePrevious<CR>', "Previous Buffer" },
+    ["<C->>"] = { '<Cmd>BufferMoveNext<CR>', "Next Buffer" },
   }
 
   whichkey.register(normal, opts.nomal)
