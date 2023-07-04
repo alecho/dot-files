@@ -18,6 +18,7 @@ function M.setup()
   local function packer_init()
     local fn = vim.fn
     local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+
     if fn.empty(fn.glob(install_path)) > 0 then
       packer_bootstrap = fn.system {
         "git",
@@ -169,7 +170,12 @@ function M.setup()
       config = function()
         require("auto-session").setup {
           log_level = "error",
-          auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+          auto_session_suppress_dirs = {
+            "~/",
+            "~/Projects",
+            "~/Downloads",
+            "/",
+          },
         }
       end
     }

@@ -34,10 +34,10 @@ function M.setup()
 
     g = {
       name = "Git",
-      c = { "<cmd>FzfLua git_commits<CR>", "Commits" },
-      s = { "<cmd>FzfLua git_status<CR>", "Status" },
-      r = { "<cmd>FzfLua git_branches<CR>", "Branches" },
-      t = { "<cmd>FzfLua git_stash<CR>", "Stash" },
+      c = { "<Cmd>FzfLua git_commits<CR>", "Commits" },
+      s = { "<Cmd>FzfLua git_status<CR>", "Status" },
+      r = { "<Cmd>FzfLua git_branches<CR>", "Branches" },
+      t = { "<Cmd>FzfLua git_stash<CR>", "Stash" },
       b = {
         name = "Blame",
         t = { "<cmd>GitBlameToggle<CR>", "Toggle" },
