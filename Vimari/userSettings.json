@@ -1,0 +1,31 @@
+{
+  "excludedUrls": "web.brewfather.app,monkeytype.com,app.clickup.com",
+  "linkHintCharacters": "asdfjklqwerzxc",
+  "detectByCursorStyle": true,
+  "scrollSize": 333,
+  "openTabUrl": "",
+  "modifier": "",
+  "smoothScroll": true,
+  "scrollDuration": 33,
+  "transparentBindings": true,
+  "bindings": {
+      "hintToggle": "f",
+      "newTabHintToggle": "shift+f",
+      "scrollUp": "k",
+      "scrollDown": "j",
+      "scrollLeft": "h",
+      "scrollRight": "l",
+      "scrollUpHalfPage": "ctrl+u",
+      "scrollDownHalfPage": "ctrl+d",
+      "goToPageTop": "g g",
+      "goToPageBottom": "shift+g",
+      "goToFirstInput": "g i",
+      "goBack": "ctrl+h",
+      "goForward": "ctrl+l",
+      "reload": "ctrl+r",
+      "tabForward": ["ctrl+."],
+      "tabBack":  ["ctrl+,"],
+      "closeTab": "ctrl+x",
+      "openTab": "t"
+  }
+}
