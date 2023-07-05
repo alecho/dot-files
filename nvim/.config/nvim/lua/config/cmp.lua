@@ -8,7 +8,7 @@ function M.setup()
     return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
   end
 
-  local luasnip = require "luaSnip"
+  local luasnip = require "luasnip"
   local cmp = require "cmp"
   local lspkind = require "lspkind"
 
