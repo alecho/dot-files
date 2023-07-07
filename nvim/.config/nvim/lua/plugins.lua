@@ -104,19 +104,8 @@ return {
     "folke/which-key.nvim",
     event = "VimEnter",
     config = function()
-      require('legendary').setup({
-        which_key = {
-          auto_register = true,
-        },
-      })
       require("config.whichkey").setup()
     end,
-  },
-  -- Legendary
-  {
-    'mrjones2014/legendary.nvim',
-    -- To use frequency sorting
-    dependencies = { 'kkharji/sqlite.lua' },
   },
 
   -- Session

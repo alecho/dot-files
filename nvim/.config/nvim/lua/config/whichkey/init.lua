@@ -14,7 +14,6 @@ function M.setup()
   -- Normal mode with leader key
 
   local leader = {
-    [" "] = { "<Cmd>Legendary<CR>", "Legendary" },
     ["w"] = { "<Cmd>update!<CR>", "Save" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
     ["1"] = { "<Cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" },
