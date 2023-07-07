@@ -45,6 +45,7 @@
 	lag = !git l --graph --all
 	lg = !git l --graph
 	lol = !git log --oneline
+	lom = log origin/master
 	mt = mergetool
 	new = checkout -b
 	p = push
