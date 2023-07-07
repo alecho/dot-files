@@ -81,15 +81,7 @@ function M.setup()
       s = { "<Cmd>SessionDelete<CR>", "Delete Session" },
     },
 
-    z = {
-      name = "Packer",
-      c = { "<Cmd>PackerCompile<cr>", "Compile" },
-      i = { "<Cmd>PackerInstall<cr>", "Install" },
-      p = { "<Cmd>PackerProfile<cr>", "Profile" },
-      s = { "<Cmd>PackerSync<cr>", "Sync" },
-      S = { "<Cmd>PackerStatus<cr>", "Status" },
-      u = { "<Cmd>PackerUpdate<cr>", "Update" },
-    },
+    z = { "<Cmd>Lazy<CR>", "Update" },
   }
 
   -- Normal Mode
