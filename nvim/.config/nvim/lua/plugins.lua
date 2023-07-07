@@ -188,7 +188,7 @@ return {
           hint_offset = 1
         })
       end, { remap = true })
-      vim.keymap.set('', 'W', hop.hint_words, { remap = true })
+      vim.keymap.set('', 'gw', hop.hint_words, { remap = true })
       vim.keymap.set('', '\\', hop.hint_patterns, { remap = true })
     end
   },

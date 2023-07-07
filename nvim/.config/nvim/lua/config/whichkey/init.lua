@@ -89,13 +89,14 @@ function M.setup()
   whichkey.register(leader, opts.leader)
 
   local normal = {
-    ["<C-b>"] = { "<Cmd>FzfLua buffers<CR>", "Buffer List" },
+    -- ["<C-b>"] = { "<Cmd>FzfLua buffers<CR>", "Buffer List" },
+    ["<C-b>"] = { "<Cmd>BufferPick<CR>", "Buffer List" },
     ["<C-p>"] = { "<Cmd>FzfLua git_files<CR>", "Find files" },
     ["<C-x>"] = { "<Cmd>bd!<Cr>", "Close current buffer" },
     ["<C-,>"] = { '<Cmd>BufferPrevious<CR>', "Previous Buffer" },
     ["<C-.>"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
-    ["<C-<>"] = { '<Cmd>BufferMovePrevious<CR>', "Previous Buffer" },
-    ["<C->>"] = { '<Cmd>BufferMoveNext<CR>', "Next Buffer" },
+    ["<C-<>"] = { '<Cmd>BufferMovePrevious<CR>', "Move Buffer Left" },
+    ["<C->>"] = { '<Cmd>BufferMoveNext<CR>', "Move Buffer Right" },
   }
 
   whichkey.register(normal, opts.nomal)
