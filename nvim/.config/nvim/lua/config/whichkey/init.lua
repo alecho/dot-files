@@ -16,8 +16,6 @@ function M.setup()
   local leader = {
     ["w"] = { "<Cmd>update!<CR>", "Save" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
-    ["1"] = { "<Cmd>CellularAutomaton make_it_rain<CR>", "Make it Rain" },
-    ["2"] = { "<Cmd>CellularAutomaton game_of_life<CR>", "Conway's Game of Life" },
 
     f = {
       name = "Find",

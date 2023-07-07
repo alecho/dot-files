@@ -14,15 +14,23 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+  defaults = {
+    lazy = true,
+  },
+  ui = {
+    border = "rounded",
+  },
+})
 
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
 vim.opt.autowrite = true
 vim.opt.clipboard = "unnamedplus"
-
+vim.opt.termguicolors = true
 
 vim.cmd([[
+colorscheme dracula
 
 " Default to 80 character limit
 autocmd FileType * setlocal colorcolumn=81

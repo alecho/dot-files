@@ -1,9 +1,9 @@
 return {
   "mickael-menu/zk-nvim",
-  dependencies = {
-    "folke/which-key.nvim",
-  },
+  cmd = { "ZkNew", "ZkNotes", "ZkInsertLink" },
   config = function()
-    require("config.zk").setup()
+    require("zk").setup({
+      picker = "telescope",
+    })
   end,
 }
