@@ -47,4 +47,5 @@ autocmd FileType gitcommit setlocal colorcolumn=51
 
 " Startup screen
 autocmd FileType alpha setlocal colorcolumn=0
+autocmd FileType alpha setlocal laststatus=0
 ]])
