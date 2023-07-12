@@ -1,3 +1,7 @@
+local function datetime()
+  return os.date "\n %d-%m-%Y  %H:%M:%S"
+end
+
 return {
   'goolord/alpha-nvim',
   event = "VimEnter",
@@ -62,15 +66,14 @@ return {
       dashboard.button("h", "󰋚  Recent files", ":FzfLua oldfiles<CR>"),
       dashboard.button("n", "  Notes", ":ZkNotes"),
       dashboard.button("N", "  New Note", ":ZkNew"),
-      dashboard.button("p", "  Plugins", ":e ~/.config/nvim/lua/plugins.lua<CR>"),
+      dashboard.button("p", "  Plugins", ":Oil ~/.config/nvim/lua/plugins<CR>"),
       dashboard.button("q", "󰐥  Quit Neovim", ":qa<CR>"),
     }
 
     local function footer()
       -- Number of plugins
       local stats = require("lazy").stats()
-      local datetime = os.date "%d-%m-%Y  %H:%M:%S"
-      local plugins_text = "\t" .. stats.count .. " plugins  " .. datetime
+      local plugins_text = "\t" .. stats.count .. " plugins " .. datetime()
 
       -- Quote
       local fortune = require "alpha.fortune"
@@ -108,7 +111,7 @@ return {
       callback = function()
         local stats = require("lazy").stats()
         local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-        dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+        dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms" .. datetime()
         pcall(vim.cmd.AlphaRedraw)
       end,
     })
