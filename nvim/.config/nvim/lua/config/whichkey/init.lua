@@ -79,7 +79,7 @@ function M.setup()
       s = { "<Cmd>SessionDelete<CR>", "Delete Session" },
     },
 
-    z = { "<Cmd>Lazy<CR>", "Update" },
+    z = { "<Cmd>Lazy<CR>", "Lazy" },
   }
 
   -- Normal Mode
