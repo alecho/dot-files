@@ -2,7 +2,7 @@ return {
   -- Movement
   {
     'smoka7/hop.nvim',
-    event = 'BufRead',
+    lazy = false,
     version = '*',
     config = function()
       local hop = require('hop')
@@ -35,7 +35,9 @@ return {
         })
       end, { remap = true })
       vim.keymap.set('', 'gw', hop.hint_words, { remap = true })
+      vim.keymap.set('', '<leader>j', hop.hint_words, { remap = true, desc = "Jump words" })
       vim.keymap.set('', '\\', hop.hint_patterns, { remap = true })
+      vim.keymap.set('', '<leader>p', hop.hint_patterns, { remap = true, desc = "Jump pattern" })
     end
   },
 
@@ -47,7 +49,7 @@ return {
       extra_keymaps = true,
       max_length = 400,
       scroll_limit = 3000,
-    }
+    },
   },
 
 }

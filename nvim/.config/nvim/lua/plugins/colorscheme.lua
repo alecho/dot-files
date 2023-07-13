@@ -9,7 +9,7 @@ return {
         IndentBlanklineChar = { fg = colors.nontext },
 
         -- Hop
-        HopNextKey          = { fg = colors.pink, bold = true },
+        HopNextKey          = { fg = colors.orange, bold = true },
         HopNextKey1         = { fg = colors.purple, bold = true },
         HopNextKey2         = { fg = colors.bright_blue },
 
