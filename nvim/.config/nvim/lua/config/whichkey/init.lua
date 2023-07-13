@@ -26,7 +26,7 @@ function M.setup()
       g = { "<Cmd>FzfLua live_grep<CR>", "Live grep" },
       c = { "<Cmd>FzfLua commands<CR>", "Commands" },
       e = { "<Cmd>NvimTreeToggle<CR>", "Explorer" },
-      s = { "<Cmd>Oil<CR>", "File System (Oil.nvim)" },
+      s = { "<Cmd>Oil --float<CR>", "File System (Oil.nvim)" },
     },
 
     g = {
