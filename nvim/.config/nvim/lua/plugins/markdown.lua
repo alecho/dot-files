@@ -1,6 +1,7 @@
 return {
   {
     'ellisonleao/glow.nvim',
-    event = 'BufRead *.md',
+    cmd = "Glow",
+    opts = {},
   }
 }
