@@ -23,7 +23,7 @@ require("lazy").setup("plugins", {
   },
 })
 
-vim.opt.spell = true
+vim.opt.spell = false
 vim.opt.spelllang = "en_us"
 vim.opt.autowrite = true
 vim.opt.clipboard = "unnamedplus"
