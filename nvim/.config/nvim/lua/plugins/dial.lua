@@ -1,9 +1,18 @@
+local inc_keymap = "<C-=>"
+local dec_keymap = "<C-->"
+
 return {
   "monaqa/dial.nvim",
+  lazy = false,
   config = function()
     local augend = require("dial.augend")
-    require("dial.config").augends:register_group {
-      -- default augends used when no group name is specified
+    local config = require("dial.config")
+
+    vim.keymap.set("n", inc_keymap, require("dial.map").inc_normal(), { noremap = true })
+    vim.keymap.set("n", dec_keymap, require("dial.map").dec_normal(), { noremap = true })
+
+
+    config.augends:register_group {
       default = {
         augend.integer.alias.decimal, -- nonnegative decimal number (0, 1, 2, 3, ...)
         augend.integer.alias.hex,
@@ -12,22 +21,6 @@ return {
         augend.date.alias["%m/%d"],
         augend.date.alias["%H:%M"],
         augend.constant.alias.bool,
-        -- todays date
-        "06/10/2732",
-        -- For git interactive rebase, filetype: git-rebase-todo
-        augend.constant.new {
-          elements = {
-            "pick",
-            "squash",
-            "edit",
-            "reword",
-            "fixup",
-            "exec",
-            "drop",
-          },
-          word = true,
-          cyclic = true,
-        },
         -- English week day name
         augend.constant.new {
           elements = {
@@ -68,7 +61,9 @@ return {
           cyclic = true,
         },
       },
-      -- For Elixir filetype: elixir, eelixir, heex
+    }
+    -- Loaded automatically on filetype
+    config.augends:on_filetype {
       elixir = {
         augend.constant.new {
           elements = { "def", "defp" },
@@ -81,10 +76,22 @@ return {
           cyclic = false,
         },
       },
+      gitrebase = {
+        augend.constant.new {
+          elements = {
+            "pick",
+            "squash",
+            "edit",
+            "reword",
+            "fixup",
+            "exec",
+            "drop",
+          },
+          word = true,
+          cyclic = false,
+        },
+      },
     }
   end,
-  keys = {
-    { "<C-=>" },
-    { "<C-->" },
-  },
+  keys = { inc_keymap, dec_keymap },
 }

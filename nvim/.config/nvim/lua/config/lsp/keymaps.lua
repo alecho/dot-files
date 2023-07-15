@@ -16,8 +16,6 @@ local function keymappings(client, bufnr)
   keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
   keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>", opts)
-  vim.keymap.set("n", "<C-=>", require("dial.map").inc_normal(), { noremap = true })
-  vim.keymap.set("n", "<C-->", require("dial.map").dec_normal(), { noremap = true })
 
   -- Whichkey
   local keymap_l = {
