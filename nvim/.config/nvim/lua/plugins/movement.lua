@@ -35,9 +35,9 @@ return {
         })
       end, { remap = true })
       vim.keymap.set('', 'gw', hop.hint_words, { remap = true })
-      vim.keymap.set('', '<leader>j', hop.hint_words, { remap = true, desc = "Jump words" })
+      vim.keymap.set('', '<leader>h', hop.hint_words, { remap = true, desc = "Hop to a word" })
       vim.keymap.set('', '\\', hop.hint_patterns, { remap = true })
-      vim.keymap.set('', '<leader>p', hop.hint_patterns, { remap = true, desc = "Jump pattern" })
+      vim.keymap.set('', '<leader>p', hop.hint_patterns, { remap = true, desc = "Hop to a pattern" })
     end
   },
 
