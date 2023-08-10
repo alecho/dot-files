@@ -24,7 +24,7 @@
 	clear = "!clear"
 	co = checkout
 	cof = "!git checkout $(git branch | fzf)"
-	com = checkout master
+	com = "!git checkout $(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
 	cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
 	cp = cherry-pick
 	cpc = cherry-pick --continue
@@ -45,7 +45,7 @@
 	lag = !git l --graph --all
 	lg = !git l --graph
 	lol = !git log --oneline
-	lom = log origin/master
+	lom = "!git log origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
 	mt = mergetool
 	new = checkout -b
 	p = push
@@ -61,9 +61,8 @@
 	rbi = rebase -i
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
-	review = "!git log --oneline origin/master..HEAD && git diff origin/master --word-diff"
-	rom = rebase origin/master
-	romi = rebase -i origin/master
+	rom = "!git rebase origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
+	rom = "!git rebase -i origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
 	rop = rebase origin/production
 	ropi = rebase -i origin/production
 	s = status -sb
