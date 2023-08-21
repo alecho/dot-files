@@ -51,4 +51,10 @@ return {
       require("sad").setup {}
     end,
   },
+
+  -- Bullets & lists
+  {
+    "dkarter/bullets.vim",
+    event = "BufRead",
+  },
 }
