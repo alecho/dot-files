@@ -62,7 +62,7 @@
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
 	rom = "!git rebase origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
-	rom = "!git rebase -i origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
+	romi = "!git rebase -i origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
 	rop = rebase origin/production
 	ropi = rebase -i origin/production
 	s = status -sb
