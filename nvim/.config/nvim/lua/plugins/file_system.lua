@@ -16,7 +16,7 @@ return {
         show_hidden = true,
         -- This function defines what will never be shown, even when `show_hidden` is set
         is_always_hidden = function(name, bufnr)
-          if name:match("^%.git") then
+          if name:match("^%.git$") then
             return true
           end
 
