@@ -81,6 +81,12 @@ function M.setup()
 
     rn = { "<Cmd>lua vim.lsp.buf.rename()<CR>", "Rename (LSP)" },
 
+    s = {
+      name = "Session",
+      l = { "<Cmd>Telescope persisted<CR>", "List" },
+      d = { "<Cmd>SessionDelete<CR>", "Delete" },
+    },
+
     z = { "<Cmd>Lazy<CR>", "Lazy" },
   }
 
