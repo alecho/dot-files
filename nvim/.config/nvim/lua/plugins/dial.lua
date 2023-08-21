@@ -64,6 +64,18 @@ return {
     }
     -- Loaded automatically on filetype
     config.augends:on_filetype {
+      ruby = {
+        augend.integer.alias.decimal,
+        augend.constant.new {
+          elements = { "debug", "info", "warning", "error" },
+          word = true,
+          cyclic = true
+        },
+      },
+      markdown = {
+        augend.integer.alias.decimal,
+        augend.misc.markdown_header,
+      },
       elixir = {
         augend.constant.new {
           elements = { "def", "defp" },
