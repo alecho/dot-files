@@ -9,6 +9,7 @@ function M.setup()
   }
 
   luasnip.filetype_extend("all", { "_" })
+  luasnip.filetype_extend("ruby", { "rails" })
 
   require("luasnip.loaders.from_snipmate").lazy_load()
   require("luasnip.loaders.from_vscode").lazy_load()
