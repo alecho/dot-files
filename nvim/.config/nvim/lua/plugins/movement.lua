@@ -50,6 +50,9 @@ return {
       max_length = 400,
       scroll_limit = 3000,
     },
+    {
+      "wsdjeg/vim-fetch"
+    },
   },
 
 }
