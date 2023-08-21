@@ -79,6 +79,8 @@ function M.setup()
       s = { "<Cmd>SessionDelete<CR>", "Delete Session" },
     },
 
+    rn = { "<Cmd>lua vim.lsp.buf.rename()<CR>", "Rename (LSP)" },
+
     z = { "<Cmd>Lazy<CR>", "Lazy" },
   }
 
