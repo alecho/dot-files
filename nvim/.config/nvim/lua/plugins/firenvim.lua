@@ -1,4 +1,23 @@
 return {
-  'glacambre/firenvim',
-  build = function() vim.fn['firenvim#install'](0) end
+  "glacambre/firenvim",
+  lazy = false,
+  cond = not not vim.g.started_by_firenvim,
+  build = function()
+    require("lazy").load({ plugins = "firenvim", wait = true })
+    vim.fn["firenvim#install"](0)
+  end,
+  config = function()
+    vim.g.firenvim_config = {
+      globalSettings = {
+        alt = "all",
+      },
+      localSettings = {
+        [".*"] = {
+          content = "text",
+          priority = 0,
+          takeover = "never",
+        },
+      },
+    }
+  end,
 }
