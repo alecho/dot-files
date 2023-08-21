@@ -284,8 +284,6 @@ alias txe='tmuxinator open'
 alias txn='tmuxinator new'
 alias txl='tmuxinator list'
 
-export TMUXINATOR_CONFIG="$HOME/dot-files/tmuxinator/"
-
 ## asdf-vm
 . $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 

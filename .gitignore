@@ -1,2 +1,5 @@
 vim/.vim/
 vim/.config/vim/bundle/vundle
+
+tmuxinator/.config/tmuxinator/*.local.yml
+

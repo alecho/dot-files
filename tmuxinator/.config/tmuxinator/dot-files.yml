@@ -1,7 +1,7 @@
-# /Users/andrewlechowicz/dot-files/tmuxinator//caremessage.yml
+# /Users/andrewlechowicz/dot-files/tmuxinator//dot-files.yml
 
-name: caremessage
-root: ~/Code/hiring-app-andrew-l
+name: dot-files
+root: ~/dot-files
 
 # Optional tmux socket
 # socket_name: foo
@@ -45,20 +45,8 @@ root: ~/Code/hiring-app-andrew-l
 # attach: false
 
 windows:
-  - rails:
-      root: ~/Code/hiring-app-andrew-l/rails-app
-      layout: even-horizontal
-      panes:
-        - vim -S
-        - git s
   - editor:
-      root: ~/Code/hiring-app-andrew-l/react-app
-      layout: even-horizontal
+      layout: main-vertical
       panes:
-        - vim -S
-        - yarn test
-  - servers:
-      layout: even-vertical
-      panes:
-        - cd rails-app; bundle exec rails s
-        - cd react-app; yarn start
+        - vim
+        - git s
