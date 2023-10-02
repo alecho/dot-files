@@ -29,26 +29,54 @@ vim.opt.autowrite = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
 
-vim.cmd([[
-colorscheme dracula
-au BufRead,BufNewFile *.prompt setlocal wrap
-au BufRead,BufNewFile *.prompt setlocal wrapmargin=80
-au BufRead,BufNewFile *.prompt setlocal syntax=off
+-- Set colorscheme
+vim.cmd('colorscheme dracula')
 
-" Default to 80 character limit
-autocmd FileType * setlocal colorcolumn=81
+-- Autocmd settings
+local autocmds = {
+  --
+  {
+    "BufRead,BufNewFile",
+    "*.prompt",
+    "setlocal wrap",
+    "setlocal wrapmargin=80",
+    "setlocal syntax=off",
+  },
+  -- Default to 80 character limit
+  { "FileType", "*", "setlocal colorcolumn=81" },
 
-" Markdown 80 character limit
-au BufRead,BufNewFile *.md setlocal textwidth=80
+  -- Markdown 80 character limit, conceal, spellchecking
+  {
+    "FileType",
+    "*.md",
+    "setlocal textwidth=80",
+    "setlocal conceallevel=2",
+    "setlocal spell",
+  },
 
-" Spell checking
-" Markdown
-autocmd BufRead,BufNewFile *.md setlocal spell
-" Git Commit messages
-autocmd FileType gitcommit setlocal spell
-autocmd FileType gitcommit setlocal colorcolumn=51
+  -- Git commit messages: spell checking and 51 character limit
+  {
+    "FileType",
+    "gitcommit",
+    "setlocal spell",
+    "setlocal colorcolumn=51",
+  },
 
-" Startup screen
-autocmd FileType alpha setlocal colorcolumn=0
-autocmd FileType alpha setlocal laststatus=0
-]])
+  -- Startup screen
+  {
+    "FileType",
+    "alpha",
+    "setlocal colorcolumn=0",
+    "setlocal laststatus=0",
+  },
+}
+
+-- Register autocmds
+for _, cmd_group in pairs(autocmds) do
+  for i = 3, #cmd_group do
+    vim.api.nvim_create_autocmd({ cmd_group[1] }, {
+      pattern = cmd_group[2],
+      command = cmd_group[i],
+    })
+  end
+end
