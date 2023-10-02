@@ -8,6 +8,7 @@
 	autocorrect = 60
 [alias]
 	aa = add --all
+	aaaa = = "!git add --all && commit --amend"
 	amend = commit --amend
 	b = branch
 	bD = branch -D
@@ -74,6 +75,7 @@
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
 	whatadded = log --diff-filter=A
+  whyfail = "!git bisect start; git bisect bad; git bisect good origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@'); git bisect run"
 	wip = "!git commit --no-verify -m 'WIP :construction:'"
 	worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 [color]
