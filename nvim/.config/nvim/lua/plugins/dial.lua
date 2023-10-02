@@ -103,6 +103,26 @@ return {
           cyclic = false,
         },
       },
+      javascript = {
+        augend.constant.new {
+          elements = {
+            "let",
+            "const",
+          },
+          word = true,
+          cyclic = false,
+        },
+      },
+      vue = {
+        augend.constant.new {
+          elements = {
+            "let",
+            "const",
+          },
+          word = true,
+          cyclic = false,
+        },
+      },
     }
   end,
   keys = { inc_keymap, dec_keymap },
