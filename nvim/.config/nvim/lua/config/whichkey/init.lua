@@ -14,6 +14,7 @@ function M.setup()
   -- Normal mode with leader key
 
   local leader = {
+    [" "] = { "<Cmd>nohl<CR>", "Clear Highlight" },
     ["w"] = { "<Cmd>update!<CR>", "Save" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
 
