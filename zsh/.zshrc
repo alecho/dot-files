@@ -325,13 +325,16 @@ fi
 tmux start
 clear
 
-# Show Apple logo and info
-if ! [ -n $SKIP_NEOFETCH ] && [ -n "$TMUX" ]; then
+# Check if the shell configuration file is sourced for the first time, not in
+# a tmux session, or the shell is interactive
+if [[ -z "$TMUX" ]] || [[ -z "$SOURCED_ONCE" ]] || [[ $- == *i* ]]; then
+  # Show start screen
   neofetch
-  export SKIP_NEOFETCH=true
 fi
 
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Mark this script as sourced
+export SOURCED_ONCE=true
 eval "$(starship init zsh)"
