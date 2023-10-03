@@ -2,13 +2,12 @@ tap "gigalixir/brew"
 tap "go-task/tap"
 tap "hashicorp/tap"
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
-tap "homebrew/core"
 tap "homebrew/services"
 tap "jakehilborn/jakehilborn"
 tap "lucassabreu/tap"
+tap "ms-jpq/sad"
 tap "neovim/neovim"
 tap "nextdns/tap"
 tap "superfly/tap"
@@ -32,6 +31,8 @@ brew "coreutils"
 brew "unixodbc"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf", args: ["HEAD"]
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
 # Client for Amazon Elastic Beanstalk web service
 brew "aws-elasticbeanstalk"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -46,6 +47,8 @@ brew "pkg-config"
 brew "lzo"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.9"
+# Tool Command Language
+brew "tcl-tk"
 # Tool for emulating mouse and keyboard events
 brew "cliclick"
 # International domain name library (IDNA2008, Punycode and TR46)
@@ -56,6 +59,8 @@ brew "libssh2"
 brew "curl"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# Text processing system for reStructuredText
+brew "docutils"
 # Collection of reusable C++ library artifacts developed at Facebook
 brew "folly"
 # Shared library for Watchman and Eden projects
@@ -80,6 +85,8 @@ brew "harfbuzz"
 brew "pango"
 # Command-line outline and bitmap font editor/converter
 brew "fontforge"
+# Development kit for the Java programming language
+brew "openjdk"
 # XSL-FO print formatter for making PDF or PS documents
 brew "fop"
 # Multi-format archive and compression library
@@ -96,18 +103,22 @@ brew "gh"
 brew "ghostscript"
 # Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
 # Tcl/Tk UI for the git revision control system
 brew "git-gui"
 # Open-source GitLab command-line tool
 brew "glab"
-# GNU Ubiquitous Intelligent Language for Extensions
-brew "guile"
+# Render markdown on the CLI
+brew "glow"
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
 # Validating, recursive, caching DNS resolver
 brew "unbound"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
 # GNU Pretty Good Privacy (PGP) package
-brew "gnupg"
+brew "gnupg", link: false
 # Generate introspection data for GObject libraries
 brew "gobject-introspection"
 # Image manipulation
@@ -116,6 +127,8 @@ brew "netpbm"
 brew "librsvg"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
+# GNU Ubiquitous Intelligent Language for Extensions
+brew "guile"
 # ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
 brew "libheif"
 # Interpreted, interactive, object-oriented programming language
@@ -128,6 +141,8 @@ brew "imagemagick"
 brew "irssi"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Easy way to access the system keyring service from python
+brew "keyring"
 # Network authentication protocol
 brew "krb5"
 # Kubernetes command-line interface
@@ -148,6 +163,10 @@ brew "libzip"
 brew "lolcat"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
+# Just-In-Time Compiler (JIT) for the Lua programming language
+brew "luajit"
+# OpenResty's Branch of LuaJIT 2
+brew "luajit-openresty"
 # Mac App Store command-line interface
 brew "mas"
 # Run a Kubernetes cluster locally
@@ -166,6 +185,8 @@ brew "pandoc"
 brew "perl"
 # Generic syntax highlighter
 brew "pygments"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.10"
 # Reattach process (e.g., tmux) to background
 brew "reattach-to-user-namespace"
 # Install various Ruby versions and implementations
@@ -230,10 +251,12 @@ brew "hashicorp/tap/packer"
 brew "jakehilborn/jakehilborn/displayplacer"
 # Helps to interact with Clockfy's API
 brew "lucassabreu/tap/clockify-cli"
+# Search and replace | Space Age seD
+brew "ms-jpq/sad/sad"
 brew "superfly/tap/flyctl"
 # Simplified and community-driven man pages
 brew "tldr-pages/tldr/tldr"
-# Command-line helper for the 1Password password manager
+# Command-line interface for 1Password
 cask "1password-cli"
 # Status Bar app to keep the audio balance from drifting
 cask "ballast"
@@ -246,6 +269,8 @@ cask "font-fira-code"
 cask "font-hack-nerd-font"
 # Monospaced font with cursive italics and programming symbol ligatures
 cask "font-victor-mono"
+# Tools to protect your emails and files
+cask "gpg-suite"
 # Open-source screen recorder built with web technology
 cask "kap"
 # Open-source keystroke visualizer
@@ -278,6 +303,7 @@ mas "Deckset", id: 847496013
 mas "Deliveries", id: 924726344
 mas "GarageBand", id: 682658836
 mas "Hush", id: 1544743900
+mas "iMovie", id: 408981434
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Keynote", id: 409183694
