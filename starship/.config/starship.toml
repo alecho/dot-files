@@ -114,6 +114,7 @@ command_timeout = 2000
 [character]
 success_symbol = "[|>](bold bright-blue)"
 error_symbol = "[|>](bold blue)"
+vimcmd_symbol = '[](bold green) '
 
 [aws]
 disabled = true
