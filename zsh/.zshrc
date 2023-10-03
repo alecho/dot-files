@@ -122,6 +122,16 @@ function cd() {
     done
 }
 
+function confetti {
+  # Run the previous command and store exit status
+  STATUS=$?
+  # Check if the last command exited with 0 success code
+  if [ $STATUS -eq 0 ]; then
+    # Run the command if the last command was successful
+    open raycast://confetti
+  fi
+}
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
