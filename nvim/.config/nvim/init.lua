@@ -31,6 +31,9 @@ vim.opt.termguicolors = true
 
 vim.cmd([[
 colorscheme dracula
+au BufRead,BufNewFile *.prompt setlocal wrap
+au BufRead,BufNewFile *.prompt setlocal wrapmargin=80
+au BufRead,BufNewFile *.prompt setlocal syntax=off
 
 " Default to 80 character limit
 autocmd FileType * setlocal colorcolumn=81
