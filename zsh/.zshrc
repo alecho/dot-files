@@ -256,12 +256,19 @@ alias notes=''
 ## Git
 alias gits='git status -sb'
 
+## Vim edit mode
+bindkey -v
+
 ## Control + vim movement to simulate arrow key funtion
 bindkey '^h' vi-backward-char
 bindkey '^k' up-line-or-beginning-search
 bindkey '^l' vi-forward-char
 bindkey '^j' down-line-or-beginning-search
 bindkey '^r' history-incremental-search-backward
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey '^b' vi-backward-word
+bindkey '^w' vi-forward-word
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
