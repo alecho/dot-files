@@ -82,11 +82,6 @@ function gii() {
   git lol | fzf --reverse --no-sort | awk '{print $1}' | xargs git "$1"
 }
 
-# git commit fixup with a fzf list
-function gfu() {
-  git lol | fzf --reverse --no-sort | awk '{print $1}' | xargs git commit --fixup
-}
-
 function gsh() {
   git lol | fzf --reverse --no-sort | awk '{print $1}' | xargs git
 }
@@ -105,11 +100,6 @@ asdfi() {
       do; asdf install $lang $version; done;
     fi
   fi
-}
-
-fixup() {
-  local selected=$(git lol | fzf --reverse --no-sort | awk '{print $1}')
-  git fixup $selected
 }
 
 function cd() {
@@ -299,6 +289,7 @@ complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terr
 
 eval "$(direnv hook zsh)"
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 _fzf_complete_mix() {
   _fzf_complete --reverse --prompt="mix> " -- "$@" < <(
   command mix help
@@ -307,6 +298,16 @@ _fzf_complete_mix() {
 
 _fzf_complete_mix_post() {
   awk '{print $2}'
+}
+
+# Git fixup with fzf
+_fzf_complete_git() {
+  _fzf_complete --color --preview '(echo {} | awk "{print \$1}" | xargs -I % git show --color=always %)' --preview-window=up:10:wrap --height 40% -- "$@" < <(
+    git log --abbrev-commit --oneline
+  )
+}
+_fzf_complete_git_post() {
+  awk '{print $1}'
 }
 
 # iTerm2 shell integration
@@ -332,7 +333,7 @@ fi
 
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Mark this script as sourced
 export SOURCED_ONCE=true
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
