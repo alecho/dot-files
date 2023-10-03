@@ -1707,8 +1707,6 @@
 			<true/>
 			<key>Allow Title Reporting</key>
 			<false/>
-			<key>Allow modifyOtherKeys</key>
-			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
@@ -2115,7 +2113,7 @@
 			<key>Non-ASCII Ligatures</key>
 			<false/>
 			<key>Normal Font</key>
-			<string>VictorMonoNF-Medium 16</string>
+			<string>FiraCode-Regular 16</string>
 			<key>Open Password Manager Automatically</key>
 			<true/>
 			<key>Option Key Sends</key>
