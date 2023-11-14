@@ -123,6 +123,8 @@ brew "gnupg", link: false
 brew "gobject-introspection"
 # Image manipulation
 brew "netpbm"
+# GNU triangulated surface library
+brew "gts"
 # Library to render SVG files using Cairo
 brew "librsvg"
 # Graph visualization software from AT&T and Bell Labs
@@ -275,6 +277,8 @@ cask "gpg-suite"
 cask "kap"
 # Open-source keystroke visualizer
 cask "keycastr"
+# Create, manage and debug system- and user services
+cask "launchcontrol"
 # VPN client
 cask "mullvadvpn"
 # Knowledge base that works on top of a local folder of plain text Markdown files
@@ -297,6 +301,7 @@ mas "1Password for Safari", id: 1569813296
 mas "AdGuard for Safari", id: 1440147259
 mas "Amphetamine", id: 937984704
 mas "Cascadea", id: 1432182561
+mas "Chessvision.ai Browser Scanner", id: 1635826532
 mas "Color Palette from Image", id: 950112142
 mas "Dark Reader for Safari", id: 1438243180
 mas "Deckset", id: 847496013
