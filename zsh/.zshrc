@@ -297,6 +297,13 @@ alias txl='tmuxinator list'
 ## 1Password
 eval $(op completion zsh)
 
+## Bun.js
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+### Completions
+[ -s "/Users/andrewlechowicz/.bun/_bun" ] && source "/Users/andrewlechowicz/.bun/_bun"
+
 # Chromedriver
 # Run the following to remove the quarantine on chromedriver.
 # xattr -d com.apple.quarantine /usr/local/bin/chromedriver
