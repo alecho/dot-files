@@ -80,3 +80,49 @@ for _, cmd_group in pairs(autocmds) do
     })
   end
 end
+
+-- Persisted Hooks
+local group = vim.api.nvim_create_augroup("PersistedHooks", {})
+
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "PersistedLoadPre",
+  group = group,
+  callback = function(session)
+    vim.notify("Session loaded: " .. session.data)
+  end,
+})
+
+local actions = require('telescope.actions')
+local function switch_branch()
+  vim.cmd('SessionSave')
+  vim.cmd('BufferCloseAllButPinned')
+  require('telescope.builtin').git_branches({
+    attach_mappings = function(prompt_bufnr, map)
+      map('i', '<CR>', function()
+        local selection = require('telescope.actions.state').get_selected_entry()
+        if selection then
+          -- If branch exists, checkout.
+          vim.cmd('!git checkout ' .. selection.value)
+        else
+          -- If branch does not exist, create and checkout.
+          local new_branch = vim.fn.input('Enter new branch name: ',
+            require('telescope.actions.state').get_current_line())
+
+          if new_branch ~= "" then
+            vim.cmd('!git checkout -b ' .. new_branch)
+          end
+        end
+        -- Close telescope
+        actions.close(prompt_bufnr)
+        vim.cmd('SessionLoad')
+      end)
+      return true
+    end,
+  })
+end
+
+-- convert Lua function to Vimscript function
+_G.switch_branch = switch_branch
+
+-- define vim command that calls the Lua function
+vim.cmd("command! SwitchBranch lua switch_branch()")

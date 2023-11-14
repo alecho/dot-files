@@ -17,6 +17,7 @@ function M.setup()
     [" "] = { "<Cmd>nohl<CR>", "Clear Highlight" },
     ["w"] = { "<Cmd>update!<CR>", "Save" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
+    ["co"] = { "<Cmd>SwitchBranch<CR>", "Switch Branch" },
 
     f = {
       name = "Find",
@@ -85,6 +86,7 @@ function M.setup()
     s = {
       name = "Session",
       l = { "<Cmd>Telescope persisted<CR>", "List" },
+      s = { "<Cmd>SessionSave<CR>", "Save" },
       d = { "<Cmd>SessionDelete<CR>", "Delete" },
     },
 

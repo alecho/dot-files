@@ -13,7 +13,7 @@ return {
     "folke/drop.nvim",
     event = "VimEnter",
     opts = {
-      theme = "summer",
+      theme = "leaves",
     }
   },
 }
