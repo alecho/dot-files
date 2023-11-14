@@ -9,7 +9,11 @@ if [ -n "$TMUX" ]; then
 fi
 
 ## Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ "$(uname -m)" == "arm65" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 ### Completions
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -76,6 +80,8 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+alias f="python select_and_run_command.py"
 
 # Fuzzy-find git log --oneline
 function gii() {
