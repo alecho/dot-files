@@ -1,5 +1,8 @@
 vim/.vim/
 vim/.config/vim/bundle/vundle
 
+# Dictionary files
+nvim/.config/nvim/spell/
+
 tmuxinator/.config/tmuxinator/*.local.yml
 
