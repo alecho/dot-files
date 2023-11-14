@@ -8,7 +8,7 @@
 	autocorrect = 60
 [alias]
 	aa = add --all
-	aaaa = = "!git add --all && commit --amend"
+	aaaa = "!git add --all && git commit --amend"
 	amend = commit --amend
 	b = branch
 	bD = branch -D
