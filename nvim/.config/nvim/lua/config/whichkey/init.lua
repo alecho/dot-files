@@ -98,6 +98,7 @@ function M.setup()
   whichkey.register(leader, opts.leader)
 
   local normal = {
+    ["gx"] = { "<Cmd>lua require('open').open_cword()<CR>", "Open" },
     -- ["<C-b>"] = { "<Cmd>FzfLua buffers<CR>", "Buffer List" },
     ["<C-b>"] = { "<Cmd>BufferPick<CR>", "Buffer List" },
     ["<C-p>"] = { "<Cmd>FzfLua git_files<CR>", "Find files" },
