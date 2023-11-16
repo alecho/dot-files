@@ -35,49 +35,45 @@ vim.cmd('colorscheme dracula')
 -- Autocmd settings
 local autocmds = {
   --
+  -- filetypes related autocommands
   {
-    "BufRead,BufNewFile",
-    "*.prompt",
-    "setlocal wrap",
-    "setlocal wrapmargin=80",
-    "setlocal syntax=off",
+    events = { "BufRead", "BufNewFile" },
+    glob = "*.prompt",
+    commands = { 'setlocal wrap', 'setlocal wrapmargin=80', 'setlocal syntax=off' },
   },
-  -- Default to 80 character limit
-  { "FileType", "*", "setlocal colorcolumn=81" },
-
-  -- Markdown 80 character limit, conceal, spellchecking
   {
-    "FileType",
-    "*.md",
-    "setlocal textwidth=80",
-    "setlocal conceallevel=2",
-    "setlocal spell",
+    events = { "FileType" },
+    glob = "*",
+    commands = { "setlocal colorcolumn=81" },
   },
-
-  -- Git commit messages: spell checking and 51 character limit
   {
-    "FileType",
-    "gitcommit",
-    "setlocal spell",
-    "setlocal colorcolumn=51",
+    events = { "FileType" },
+    glob = "*.md",
+    commands = { "setlocal textwidth=80", "setlocal conceallevel=2", "setlocal spell" },
   },
-
-  -- Startup screen
   {
-    "FileType",
-    "alpha",
-    "setlocal colorcolumn=0",
-    "setlocal laststatus=0",
+    events = { "FileType" },
+    glob = "gitcommit",
+    commands = { "setlocal spell", "setlocal colorcolumn=51" },
+  },
+  {
+    events = { "FileType" },
+    glob = "alpha",
+    commands = { "setlocal colorcolumn=0", "setlocal laststatus=0" },
   },
 }
 
 -- Register autocmds
-for _, cmd_group in pairs(autocmds) do
-  for i = 3, #cmd_group do
-    vim.api.nvim_create_autocmd({ cmd_group[1] }, {
-      pattern = cmd_group[2],
-      command = cmd_group[i],
-    })
+for _, group in pairs(autocmds) do
+  for _, cmd in pairs(group.commands) do
+    vim.api.nvim_exec('augroup MyAutocmds', true)
+    vim.api.nvim_exec('autocmd! *', true)
+
+    for _, event in pairs(group.events) do -- allow multiple events with same settings
+      vim.api.nvim_exec('autocmd ' .. event .. ' ' .. group.glob .. ' ' .. cmd, true)
+    end
+
+    vim.api.nvim_exec('augroup END', true)
   end
 end
 
