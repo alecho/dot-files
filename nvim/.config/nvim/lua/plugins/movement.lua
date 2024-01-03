@@ -44,15 +44,17 @@ return {
   -- Smooth scrolling
   {
     'declancm/cinnamon.nvim',
-    event = 'BufRead',
-    opts = {
+    event = "BufRead",
+    config = {
       extra_keymaps = true,
       max_length = 400,
       scroll_limit = 3000,
     },
-    {
-      "wsdjeg/vim-fetch"
-    },
+  },
+
+  {
+    event = "BufRead",
+    "wsdjeg/vim-fetch"
   },
 
 }

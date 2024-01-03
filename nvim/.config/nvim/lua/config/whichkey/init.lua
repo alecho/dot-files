@@ -97,14 +97,18 @@ function M.setup()
 
   whichkey.register(leader, opts.leader)
 
+  -- vim.api.nvim_set_keymap('n', '<C-k>', '<C-u>', { noremap = true })
+  -- vim.api.nvim_set_keymap('n', '<C-j>', '<C-d>', { noremap = true })
+  vim.keymap.set({ 'n', 'x' }, '<C-k>', "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>")
+  vim.keymap.set({ 'n', 'x' }, '<C-j>', "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>")
   local normal = {
     ["gx"] = { "<Cmd>lua require('open').open_cword()<CR>", "Open" },
     -- ["<C-b>"] = { "<Cmd>FzfLua buffers<CR>", "Buffer List" },
     ["<C-b>"] = { "<Cmd>BufferPick<CR>", "Buffer List" },
     ["<C-p>"] = { "<Cmd>FzfLua git_files<CR>", "Find files" },
     ["<C-x>"] = { "<Cmd>bd!<Cr>", "Close current buffer" },
-    ["<C-,>"] = { '<Cmd>BufferPrevious<CR>', "Previous Buffer" },
-    ["<C-.>"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
+    ["<C-u>"] = { '<Cmd>BufferPrevious<CR>', "Previous Buffer" },
+    ["<C-i>"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
     ["<C-<>"] = { '<Cmd>BufferMovePrevious<CR>', "Move Buffer Left" },
     ["<C->>"] = { '<Cmd>BufferMoveNext<CR>', "Move Buffer Right" },
   }
