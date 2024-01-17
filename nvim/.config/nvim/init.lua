@@ -46,21 +46,6 @@ local autocmds = {
     glob = "*",
     commands = { "setlocal colorcolumn=81" },
   },
-  {
-    events = { "FileType" },
-    glob = "*.md",
-    commands = { "setlocal textwidth=80", "setlocal conceallevel=2", "setlocal spell" },
-  },
-  {
-    events = { "FileType" },
-    glob = "gitcommit",
-    commands = { "setlocal spell", "setlocal colorcolumn=51" },
-  },
-  {
-    events = { "FileType" },
-    glob = "alpha",
-    commands = { "setlocal colorcolumn=0", "setlocal laststatus=0" },
-  },
 }
 
 -- Register autocmds
