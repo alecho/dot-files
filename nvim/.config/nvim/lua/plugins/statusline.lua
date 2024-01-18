@@ -25,7 +25,7 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { { 'filename', path = 1, shorting_target = 150 } },
+        lualine_c = { { 'filename', path = 1, shorting_target = 50 } },
         lualine_x = {
           {
             require("lazy.status").updates,
