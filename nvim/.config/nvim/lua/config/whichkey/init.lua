@@ -14,10 +14,11 @@ function M.setup()
   -- Normal mode with leader key
 
   local leader = {
-    [" "] = { "<Cmd>nohl<CR>", "Clear Highlight" },
+    ["*"] = { "<Cmd>nohl<CR>", "Clear Highlight" },
     ["w"] = { "<Cmd>update!<CR>", "Save" },
+    ["x"] = { "<Cmd>bd!<Cr>", "Close current buffer" },
     ["a"] = { "<Cmd>AerialToggle<CR>", "Aerial minimap" },
-    ["co"] = { "<Cmd>SwitchBranch<CR>", "Switch Branch" },
+    ["co"] = { "<Cmd>Telescope persisted<CR>", "Switch Branch" },
 
     f = {
       name = "Find",
@@ -29,6 +30,7 @@ function M.setup()
       c = { "<Cmd>FzfLua commands<CR>", "Commands" },
       e = { "<Cmd>NvimTreeToggle<CR>", "Explorer" },
       s = { "<Cmd>Oil --float<CR>", "File System (Oil.nvim)" },
+      w = { "<Cmd>FzfLua grep_cword<CR>", "Grep Current Word" },
     },
 
     g = {
@@ -116,6 +118,7 @@ function M.setup()
   whichkey.register(normal, opts.nomal)
 
   local visual = {
+    ['<leader>fv'] = { "<Cmd>FzfLua grep_visual<CR>", "Grep Visual Selection" },
     n = {
       name = "New Note with",
       t = { "<Cmd>'<,'>ZkNewFromTitleSelection<CR>", "Title from selection" },

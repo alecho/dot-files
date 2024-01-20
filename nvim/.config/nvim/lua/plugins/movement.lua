@@ -34,13 +34,12 @@ return {
           hint_offset = 1
         })
       end, { remap = true })
-      vim.keymap.set('', 'gw', hop.hint_words, { remap = true })
-      vim.keymap.set('', '<leader>h', hop.hint_words, { remap = true, desc = "Hop to a word" })
+      vim.keymap.set('', '<leader><leader>', hop.hint_words, { remap = true, desc = "Hope to a word" })
+      vim.keymap.set('', '<leader>k', hop.hint_words, { remap = true, desc = "Hop to a word" })
       vim.keymap.set('', '\\', hop.hint_patterns, { remap = true })
       vim.keymap.set('', '<leader>p', hop.hint_patterns, { remap = true, desc = "Hop to a pattern" })
     end
   },
-
   -- Smooth scrolling
   {
     'declancm/cinnamon.nvim',
