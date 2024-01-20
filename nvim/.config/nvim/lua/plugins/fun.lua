@@ -11,7 +11,8 @@ return {
   },
   {
     "folke/drop.nvim",
-    event = "VimEnter",
+    enabled = false,
+    event = "VeryLazy",
     opts = {
       theme = "leaves",
     }
