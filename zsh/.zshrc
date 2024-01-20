@@ -257,7 +257,7 @@ alias vimz='vim ~/.zshrc'
 alias vimg='vim ~/.gitconfig'
 alias reload='source ~/.zshrc'
 
-alias notes=''
+alias notes='zk'
 
 ## Git
 alias gits='git status -sb'
