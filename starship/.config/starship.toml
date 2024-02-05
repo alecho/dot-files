@@ -116,6 +116,12 @@ success_symbol = "[|>](bold bright-blue)"
 error_symbol = "[|>](bold blue)"
 vimcmd_symbol = '[](bold green) '
 
+[custom.zk_notebook_dir]
+command = "basename $ZK_NOTEBOOK_DIR | perl -ne 'print ucfirst for split'"
+when = true
+style = "bold purple"
+symbol = " "
+
 [aws]
 disabled = true
 
