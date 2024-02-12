@@ -15,7 +15,15 @@ else
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-### Completions
+## Completions
+### Enable bash completions in zsh
+#autoload -U +X bashcompinit && bashcompinit
+
+### Check if compinit is already loaded, if not, load it
+if ! type "_comps" > /dev/null; then
+  autoload -Uz +X compinit && compinit
+fi
+
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # Specify an editor
@@ -23,7 +31,54 @@ export EDITOR='nvim'
 alias vim='nvim'
 
 # Notes
+export ZK_NOTEBOOK_DIR=$HOME/Documents/Notes/daily/
+
+# The actual autocomplete function.
+function _zk {
+  local state context line
+  typeset -A opt_args
+
+  _arguments -C\
+    '1: :->level1'\
+    '*:: :->extra'\
+    && return 0
+
+  case $state in
+    level1)
+      case $line[1] in
+        edit)
+          _arguments -C\
+            '--force[Do not confirm before editing many notes at the same time.]'\
+            '--path[Path of the note/notes to edit]: :_directories'\
+            '--tag[Tag filter for the notes]: :_tags'\
+            '--interactive[Enable interactive mode]'\
+            '*:: :->extra'
+          return 0
+          ;;
+      esac
+      _describe 'command' commands && return 0
+      ;;
+
+    extra)
+      case $line[1] in
+        edit)
+          _arguments -C\
+            '--path[Path of the note/notes to edit]: :_directories'\
+            '--tag[Tag filter for the notes]: :_tags'\
+            '--interactive[Enable interactive mode]'\
+            '*:: :->extra'
+          return 0
+          ;;
+      esac
+      _describe 'command' commands && return 0
+      ;;
+  esac
+}
+
+autoload -Uz +X compdef && compdef _zk zk
+
 export NOTES_DIR=$HOME/Documents/Notes/
+
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -257,8 +312,6 @@ alias vimz='vim ~/.zshrc'
 alias vimg='vim ~/.gitconfig'
 alias reload='source ~/.zshrc'
 
-alias notes='zk'
-
 ## Git
 alias gits='git status -sb'
 
@@ -339,6 +392,34 @@ _fzf_complete_git() {
 _fzf_complete_git_post() {
   awk '{print $1}'
 }
+
+
+select-git-branch-with-fzf() {
+    local branches branch
+    branches=$(git branch -a --format '%(refname:short)' | sed 's#remotes/[^/]*/##' | sort -u)
+    branch=$(echo "$branches" | fzf +m --height 40% --reverse)
+    if [[ -n $branch ]]; then
+        LBUFFER+="$(echo $branch | tr -d '\n')"
+        zle redisplay
+    fi
+    zle reset-prompt
+}
+zle -N select-git-branch-with-fzf
+bindkey '^b' select-git-branch-with-fzf
+
+select-git-hash-with-fzf() {
+    local commits selected
+    commits=$(git lol)
+    selected=$(echo "$commits" | fzf +m --height 40% --reverse)
+    if [[ -n $selected ]]; then
+        LBUFFER+="$(echo $selected | tr -d '\n')"
+        zle redisplay
+    fi
+    zle reset-prompt
+}
+zle -N select-git-hash-with-fzf
+bindkey '^h' select-git-hash-with-fzf
+
 
 # iTerm2 shell integration
 if [ -f ~/.iterm2_shell_integration.zsh ]; then
