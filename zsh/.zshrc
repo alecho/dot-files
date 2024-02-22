@@ -309,6 +309,7 @@ alias vime='vim .envrc'
 alias vimt='vim ~/.tmux.conf'
 alias vimv='vim ~/.config/nvim/'
 alias vimz='vim ~/.zshrc'
+alias vimzl='vim ~/.zshrc.local'
 alias vimg='vim ~/.gitconfig'
 alias reload='source ~/.zshrc'
 

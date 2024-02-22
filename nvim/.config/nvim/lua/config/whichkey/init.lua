@@ -26,7 +26,7 @@ function M.setup()
       a = { "<Cmd>FzfLua files<CR>", "All Files" },
       b = { "<Cmd>FzfLua buffers<CR>", "Buffers" },
       h = { "<Cmd>FzfLua oldfiles<CR>", "History" },
-      g = { "<Cmd>FzfLua live_grep<CR>", "Live grep" },
+      d = { "<Cmd>FzfLua live_grep<CR>", "Live grep" },
       c = { "<Cmd>FzfLua commands<CR>", "Commands" },
       e = { "<Cmd>NvimTreeToggle<CR>", "Explorer" },
       s = { "<Cmd>Oil --float<CR>", "File System (Oil.nvim)" },
@@ -63,6 +63,7 @@ function M.setup()
       y = { "<Cmd>ZkNew { dir = 'daily', date = 'yesterday' }<CR>", "Edit yesterday's daily note" },
       t = { "<Cmd>ZkNew { dir = 'daily', date = 'tomorrow' }<CR>", "Edit tomorrow's daily note" },
       l = { "<Cmd>ZkInsertLink<CR>", "Insert Link" },
+      b = { "<Cmd>ZkBackLinks<CR>", "List Backlinks" },
     },
 
     q = {
@@ -107,7 +108,7 @@ function M.setup()
     ["gx"] = { "<Cmd>lua require('open').open_cword()<CR>", "Open" },
     -- ["<C-b>"] = { "<Cmd>FzfLua buffers<CR>", "Buffer List" },
     ["<C-b>"] = { "<Cmd>BufferPick<CR>", "Buffer List" },
-    ["<C-p>"] = { "<Cmd>FzfLua git_files<CR>", "Find files" },
+    ["<C-p>"] = { "<Cmd>FzfLua commands<CR>", "Command Pallete " },
     ["<C-x>"] = { "<Cmd>bd!<Cr>", "Close current buffer" },
     ["<C-u>"] = { '<Cmd>BufferPrevious<CR>', "Previous Buffer" },
     ["<C-i>"] = { '<Cmd>BufferNext<CR>', "Next Buffer" },
