@@ -311,10 +311,15 @@ alias vimv='vim ~/.config/nvim/'
 alias vimz='vim ~/.zshrc'
 alias vimzl='vim ~/.zshrc.local'
 alias vimg='vim ~/.gitconfig'
+alias vimw='vim ~/scripts/work.rb'
+alias vims='vim ~/.config/starship.toml'
 alias reload='source ~/.zshrc'
 
 ## Git
 alias gits='git status -sb'
+
+## Work script
+alias work='ruby ~/scripts/work.rb'
 
 ## Vim edit mode
 bindkey -v
@@ -397,8 +402,8 @@ _fzf_complete_git_post() {
 
 select-git-branch-with-fzf() {
     local branches branch
-    branches=$(git branch -a --format '%(refname:short)' | sed 's#remotes/[^/]*/##' | sort -u)
-    branch=$(echo "$branches" | fzf +m --height 40% --reverse)
+    branches=$(git for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short)')
+    branch=$(echo "$branches" | tac | fzf)
     if [[ -n $branch ]]; then
         LBUFFER+="$(echo $branch | tr -d '\n')"
         zle redisplay
@@ -420,6 +425,23 @@ select-git-hash-with-fzf() {
 }
 zle -N select-git-hash-with-fzf
 bindkey '^h' select-git-hash-with-fzf
+
+# Search a file for a pattern added or removed in it's history.
+gitfzf() {
+    local file="$1"
+    local pattern="$2"
+
+    # Check if both arguments are provided
+    if [[ -z "$file" || -z "$pattern" ]]; then
+        echo "Usage: gitfzf <file> <pattern>"
+        return 1
+    fi
+
+    # Use git log with -G to filter commits by pattern in the diffs
+    # Then, use fzf for selection, with previews showing commit messages and diffs
+    git log -G "$pattern" --color=always -- "$file" |
+    fzf --ansi --delimiter="\n" --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs git show --color=always"
+}
 
 
 # iTerm2 shell integration
