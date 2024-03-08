@@ -62,8 +62,10 @@ function M.setup()
       o = { "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", "List notes" },
       y = { "<Cmd>ZkNew { dir = 'daily', date = 'yesterday' }<CR>", "Edit yesterday's daily note" },
       t = { "<Cmd>ZkNew { dir = 'daily', date = 'tomorrow' }<CR>", "Edit tomorrow's daily note" },
+      i = { "<Cmd>ZkIndex<CR>", "Index the notebook" },
       l = { "<Cmd>ZkInsertLink<CR>", "Insert Link" },
       b = { "<Cmd>ZkBackLinks<CR>", "List Backlinks" },
+      f = { "<Cmd>ZkLinks<CR>", "List Outbound links" },
     },
 
     q = {

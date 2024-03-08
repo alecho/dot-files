@@ -1,9 +1,9 @@
 return {
   "mickael-menu/zk-nvim",
-  cmd = { "ZkNew", "ZkNotes", "ZkInsertLink" },
+  event = "BufReadPre",
   config = function()
     require("zk").setup({
-      picker = "telescope",
+      picker = "fzf_lua",
     })
   end,
 }
