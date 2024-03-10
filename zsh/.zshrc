@@ -311,6 +311,7 @@ alias vimv='vim ~/.config/nvim/'
 alias vimz='vim ~/.zshrc'
 alias vimzl='vim ~/.zshrc.local'
 alias vimg='vim ~/.gitconfig'
+alias vimgi='vim ~/.gitignore_global'
 alias vimw='vim ~/scripts/work.rb'
 alias vims='vim ~/.config/starship.toml'
 alias reload='source ~/.zshrc'
@@ -458,16 +459,17 @@ fi
 tmux start
 clear
 
-# Check if the shell configuration file is sourced for the first time, not in
-# a tmux session, or the shell is interactive
-if [[ -z "$TMUX" ]] || [[ -z "$SOURCED_ONCE" ]] || [[ $- == *i* ]]; then
-  # Show start screen
-  neofetch
+if [[ -z "$SOURCED_ONCE" ]]; then
+  export SOURCED_ONCE=1
+  # Commands to run only the first time .zshrc is sourced
+
+  # Run neofetch if not in tmux and in interactive mode
+  if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
+    neofetch
+  fi
 fi
 
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Mark this script as sourced
-export SOURCED_ONCE=true
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
