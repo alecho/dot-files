@@ -54,7 +54,9 @@ function M.setup()
         end,
       },
       ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() and has_words_before() then
+        if require("tabnine.keymaps").has_suggestion() then
+          return require("tabnine.keymaps").accept_suggestion()
+        elseif cmp.visible() and has_words_before() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()

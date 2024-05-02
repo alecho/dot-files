@@ -39,6 +39,7 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
     dependencies = { "zbirenbaum/copilot.lua" },
+    cond = not vim.g.started_by_firenvim,
     config = function()
       require("config.copilot_lua").setup()
     end,
@@ -47,6 +48,7 @@ return {
   {
     "zbirenbaum/copilot-cmp",
     event = "InsertEnter",
+    cond = not vim.g.started_by_firenvim,
     config = function()
       require("copilot_cmp").setup()
     end
