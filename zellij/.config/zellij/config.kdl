@@ -3,9 +3,16 @@ keybinds {
     normal {
         // uncomment this and adjust key if using copy_on_select=false
         // bind "Alt c" { Copy; }
+        bind "Alt a" { SwitchToMode "locked"; }
+        bind "Ctrl a" { SwitchToMode "tmux"; }
+
+        bind "Alt z" { TogglePaneFrames; }
+
+        bind "Alt ," { GoToPreviousTab; }
+        bind "Alt ." { GoToNextTab; }
     }
     locked {
-        bind "Ctrl g" { SwitchToMode "Normal"; }
+        bind "Alt a" { SwitchToMode "Normal"; }
     }
     resize {
         bind "Ctrl n" { SwitchToMode "Normal"; }
@@ -35,7 +42,7 @@ keybinds {
         bind "z" { TogglePaneFrames; SwitchToMode "Normal"; }
         bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
-        bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+        bind "," { SwitchToMode "RenamePane"; PaneNameInput 0;}
     }
     move {
         bind "Ctrl h" { SwitchToMode "Normal"; }
@@ -48,7 +55,7 @@ keybinds {
     }
     tab {
         bind "Ctrl t" { SwitchToMode "Normal"; }
-        bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+        bind "," { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "h" "Left" "Up" "k" { GoToPreviousTab; }
         bind "l" "Right" "Down" "j" { GoToNextTab; }
         bind "n" { NewTab; SwitchToMode "Normal"; }
@@ -123,14 +130,14 @@ keybinds {
     }
     tmux {
         bind "[" { SwitchToMode "Scroll"; }
-        bind "Ctrl b" { Write 2; SwitchToMode "Normal"; }
+        bind "Ctrl a" { Write 2; SwitchToMode "Normal"; }
         bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
         bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "c" { NewTab; SwitchToMode "Normal"; }
         bind "," { SwitchToMode "RenameTab"; }
-        bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }
-        bind "n" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "," { GoToPreviousTab; SwitchToMode "Normal"; }
+        bind "." { GoToNextTab; SwitchToMode "Normal"; }
         bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
         bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
@@ -139,7 +146,7 @@ keybinds {
         bind "l" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
         bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "o" { FocusNextPane; }
+        bind ":" { FocusNextPane; }
         bind "d" { Detach; }
         bind "Space" { NextSwapLayout; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
@@ -147,17 +154,21 @@ keybinds {
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "Locked"; }
         bind "Ctrl q" { Quit; }
-        bind "Alt n" { NewPane; }
-        bind "Alt i" { MoveTab "Left"; }
-        bind "Alt o" { MoveTab "Right"; }
+        bind "Alt d" { Detach; }
+        bind "Alt c" { NewPane; }
+        bind "Alt ," { GoToPreviousTab; }
+        bind "Alt ." { GoToNextTab; }
+        bind "Alt <" { MoveTab "Left"; }
+        bind "Alt >" { MoveTab "Right"; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
-        bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
+        bind "Alt [" { PreviousSwapLayout; }
+        bind "Alt :" { FocusNextPane; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
