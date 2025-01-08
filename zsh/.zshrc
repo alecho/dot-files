@@ -310,6 +310,7 @@ alias vimt='vim ~/.tmux.conf'
 alias vimv='vim ~/.config/nvim/'
 alias vimz='vim ~/.zshrc'
 alias vimzl='vim ~/.zshrc.local'
+alias vimzellij='vim ~/.config/zellij/config.kdl'
 alias vimg='vim ~/.gitconfig'
 alias vimgi='vim ~/.gitignore_global'
 alias vimw='vim ~/scripts/work.rb'
@@ -345,6 +346,9 @@ alias gup=gin
 alias gun="gem uninstall"
 alias gli="gem list"
 
+## Scripts
+PATH=$PATH:$HOME/scripts
+
 ## Terraform
 alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
@@ -357,8 +361,14 @@ alias txe='tmuxinator open'
 alias txn='tmuxinator new'
 alias txl='tmuxinator list'
 
+
+alias tc='docker-compose'
+
 ## asdf-vm
 . $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+
+## Mise-em-place
+eval "$(~/.local/bin/mise activate zsh)"
 
 ## 1Password
 eval $(op completion zsh)
@@ -415,11 +425,17 @@ zle -N select-git-branch-with-fzf
 bindkey '^b' select-git-branch-with-fzf
 
 select-git-hash-with-fzf() {
-    local commits selected
+    local commits selected commit_hash
+    # Fetch commits
     commits=$(git lol)
-    selected=$(echo "$commits" | fzf +m --height 40% --reverse)
+    # Use fzf for selection with preview
+    selected=$(echo "$commits" | fzf +m --height 40% --reverse \
+        --preview 'git show --color=always {1}' \
+        --preview-window=right:60%)
+    # Extract only the commit hash from the selected line
     if [[ -n $selected ]]; then
-        LBUFFER+="$(echo $selected | tr -d '\n')"
+        commit_hash=$(echo "$selected" | awk '{print $1}')
+        LBUFFER+="$(echo $commit_hash | tr -d '\n')"
         zle redisplay
     fi
     zle reset-prompt
