@@ -21,10 +21,10 @@ keybinds {
         bind "Alt p" { SwitchToMode "pane"; }
         bind "Alt r" { SwitchToMode "resize"; }
         bind "Alt t" { SwitchToMode "tab"; }
-        bind "Alt s" { SwitchToMode "scroll"; }
         bind "Alt f" { SwitchToMode "search"; }
         bind "Alt m" { SwitchToMode "move"; }
-        bind "Alt n" { NewPane; }
+        bind "Alt s" { SwitchToMode "session"; }
+        bind "Alt n" { ToggleFloatingPanes; } // Used for notes
         bind "Alt c" { NewTab; }
         bind "Alt ," { GoToPreviousTab; }
         bind "Alt ." { GoToNextTab; }
@@ -42,16 +42,20 @@ keybinds {
         bind "Alt Right" { NewPane "Right"; }
         bind "Alt Down" { NewPane "Down"; }
         bind "Alt Up" { NewPane "Up"; }
-        bind "Alt +" { Resize "Increase"; }
+        bind "Alt =" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt x" { CloseFocus; }
         bind "Alt z" { TogglePaneFrames; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
+        bind "Alt e" { EditScrollback; }
+        bind "PageDown" { PageScrollDown; }
+        bind "PageUp" { PageScrollUp; }
     }
 
-    pane clear-defaults=true {
+    pane clear-defaults=false {
         bind "Enter" "Esc" "Space" { SwitchToMode "normal"; }
+        bind "r" { SwitchToMode "renamepane"; }
         bind "h" "Left" { NewPane "Left"; }
         bind "l" "Right" { NewPane "Right"; }
         bind "j" "Down" { NewPane "Down"; }
@@ -64,8 +68,9 @@ keybinds {
         bind "f" { ToggleFocusFullscreen; }
     }
 
-    tab clear-defaults=true {
+    tab clear-defaults=false {
         bind "Enter" "Esc" "Space" { SwitchToMode "normal"; }
+        bind "r" { SwitchToMode "renametab"; }
         bind "h" "Left" { GoToPreviousTab; }
         bind "l" "Right" { GoToNextTab; }
         bind "n" { NewTab; }
@@ -87,7 +92,7 @@ keybinds {
         bind "Tab" { ToggleTab; }
     }
 
-    resize clear-defaults=true {
+    resize clear-defaults=false {
         bind "Enter" "Esc" "Space" { SwitchToMode "normal"; }
         bind "h" "Left" { Resize "Left"; }
         bind "j" "Down" { Resize "Down"; }
@@ -103,7 +108,7 @@ keybinds {
         bind "Alt k" { MoveFocus "Up"; }
     }
 
-    move clear-defaults=true {
+    move clear-defaults=false {
         bind "Enter" "Esc" "Space" { SwitchToMode "normal"; }
         bind "h" "Left" { MovePane "Left"; }
         bind "j" "Down" { MovePane "Down"; }
@@ -116,7 +121,7 @@ keybinds {
         bind "Alt k" { MoveFocus "Up"; }
     }
 
-    scroll clear-defaults=true {
+    scroll clear-defaults=false {
         bind "e" { EditScrollback; SwitchToMode "normal"; }
         bind "Enter" "Esc" { SwitchToMode "normal"; }
         bind "Alt c" { ScrollToBottom; SwitchToMode "normal"; }
@@ -157,9 +162,8 @@ keybinds {
     }
 
     locked clear-defaults=true {}
-    renamepane clear-defaults=true {}
-    renametab clear-defaults=true {}
-    session clear-defaults=true {}
+    renamepane clear-defaults=false {}
+    renametab clear-defaults=false {}
     tmux clear-defaults=true {}
 }
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
