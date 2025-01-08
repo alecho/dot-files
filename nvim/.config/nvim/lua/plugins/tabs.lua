@@ -5,7 +5,12 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   init = function() vim.g.barbar_auto_setup = false end,
-  opts = {},
+  opts = {
+    auto_hide = 1,
+    tabpages = true,
+    focus_on_close = 'previous',
+    no_name_title = 'unnamed',
+  },
   event = 'BufWinEnter',
   keys = {
     { "<C-x>",      "<Cmd>BufferClose<CR>",               desc = "Close Buffer" },

@@ -5,13 +5,18 @@ return {
     cmd = "Oil",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
+      default_file_explorer = true,
       columns = {
         "icon",
         "permissions",
         -- "size",
         -- "mtime",
       },
-      default_file_explorer = true,
+      skip_confirm_for_simple_edits = true,
+      keymaps = {
+        ["<TAB>"] = { "actions.select", opts = { tab = true } },
+        ["<ESC>"] = { "actions.close" }
+      },
       view_options = {
         show_hidden = true,
         -- This function defines what will never be shown, even when `show_hidden` is set

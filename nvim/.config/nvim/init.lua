@@ -61,3 +61,8 @@ for _, group in pairs(autocmds) do
     vim.api.nvim_exec('augroup END', true)
   end
 end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "oil",
+  callback = function() vim.b.cinnamon_disable = true end,
+})

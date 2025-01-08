@@ -63,15 +63,15 @@ function M.setup()
         flip_columns = 120,         -- #cols to switch to horizontal on flex
         -- Only used with the builtin previewer:
         title        = true,        -- preview border title (file/buf)?
-        title_align  = "left",      -- left|center|right, title alignment
+        title_pos    = "left",
         scrollbar    = 'float',     -- `false` or string:'float|border'
         -- float:  in-window floating border
         -- border: in-border chars (see below)
-        scrolloff    = '-2',        -- float scrollbar offset from right
+        scrolloff    = '-2', -- float scrollbar offset from right
         -- applies only when scrollbar = 'float'
         scrollchars  = { '█', '' }, -- scrollbar chars ({ <full>, <empty> }
         -- applies only when scrollbar = 'border'
-        delay        = 100,         -- delay(ms) displaying the preview
+        delay        = 100, -- delay(ms) displaying the preview
         -- prevents lag on fast scrolling
         winopts      = {
           -- builtin previewer window options
@@ -225,7 +225,7 @@ function M.setup()
         -- enable specific filetypes with: `{ enable = { "lua" } }
         -- exclude specific filetypes with: `{ disable = { "lua" } }
         -- disable fully with: `{ enable = false }`
-        treesitter      = { enable = true, disable = {} },
+        treesitter      = { enabled = true, disabled = {} },
         -- By default, the main window dimensions are calculted as if the
         -- preview is visible, when hidden the main window will extend to
         -- full size. Set the below to "extend" to prevent the main window
@@ -566,7 +566,7 @@ function M.setup()
       prompt_postfix     = '❯ ', -- will be appended to the LSP label
       -- to override use 'prompt' instead
       cwd_only           = false, -- LSP/diagnostics for cwd only?
-      async_or_timeout   = 5000,  -- timeout(ms) or 'true' for async calls
+      async_or_timeout   = 5000, -- timeout(ms) or 'true' for async calls
       file_icons         = true,
       git_icons          = false,
       -- The equivalent of using `includeDeclaration` in lsp buf calls, e.g:

@@ -45,9 +45,17 @@ return {
     'declancm/cinnamon.nvim',
     event = "BufRead",
     config = {
-      extra_keymaps = true,
-      max_length = 400,
-      scroll_limit = 3000,
+      keymaps = {
+        basic = true,
+        extra = true,
+      },
+      options = {
+        max_delta = {
+          line = 3000,
+          column = false,
+          time = 1500,
+        },
+      }
     },
   },
 
