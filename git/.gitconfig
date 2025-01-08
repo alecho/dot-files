@@ -30,6 +30,7 @@
 	cp = cherry-pick
 	cpc = cherry-pick --continue
 	di = diff
+	ds = diff --staged
 	diw = diff --word-diff
 	word-diff = diff --word-diff
 	dt = difftool
@@ -39,6 +40,7 @@
 	fix = "!f() { ${EDITOR} `git diff --name-only --diff-filter=U`; }; f"
 	fixup = commit --fixup
 	fixupf = "!git commit --fixup $(git log --oneline | fzf | awk '{print $1}')"
+	fu = "!f() { git log master..HEAD --reverse --format=\"%C(auto)%h %s\" | fzf --ansi --reverse --preview \"git show --color=always {1}\" --preview-window=up:50% --bind \"enter:execute(git commit --fixup {1})+abort\" --header=\"Select a commit to fixup\" | true; }; f"
 	graph = log --graph --oneline --decorate --all
 	gca = gc --aggressive
 	l = "!source ~/.bash/helpers/githelpers.sh && pretty_git_log"
@@ -48,7 +50,8 @@
 	lol = !git log --oneline
 	lom = "!git log origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
 	mt = mergetool
-	new = checkout -b
+	; new = checkout -b
+  new = "!branch.sh"
 	p = push
 	pf = push --force-with-lease
 	pr = pull --rebase
@@ -68,9 +71,10 @@
 	ropi = rebase -i origin/production
 	s = status -sb
 	sh = show
-	st = status -b
+	st = stash
+	stl = stash --list
 	staged = diff --staged
-	ds = diff --staged
+	sw = "!f() { git branch --sort=-committerdate --format=\"%(refname:short) | %(committerdate:relative)\" | fzf --ansi --delimiter=\" | \" --with-nth=1 | cut -d\" \" -f1 | xargs -r git checkout; }; f"
 	sup = submodule update --init --recursive
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
@@ -91,7 +95,7 @@
   navigate = true    # use n and N to move between diff sections
   light = false
   theme = dracula
-  side-by-side = true
+  side-by-side = false
   line-numbers = true
 [merge]
     conflictstyle = diff3

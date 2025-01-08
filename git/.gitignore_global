@@ -130,6 +130,10 @@ build-iPhoneSimulator/
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
 
+# Miscellaneous
+coverage_results/
+frontend-coverage/
+
 ### SublimeText ###
 # Cache files for Sublime Text
 *.tmlanguage.cache
