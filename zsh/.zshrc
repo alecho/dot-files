@@ -281,6 +281,11 @@ alias code='cd ~/Code'
 alias dot='cd ~/dot-files'
 alias des='cd ~/Desktop'
 
+alias pbp='pbpaste'
+alias pbc='pbcopy'
+## Copy the last command to the clipboard
+alias clc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
+
 ## Tools
 ### Sum the value of the number on each line.
 ### `$ ag -c --no-filename some_string `
