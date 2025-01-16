@@ -7,8 +7,10 @@ tap "remotemobprogramming/brew"
 brew "giflib"
 # Library for manipulating PNG images
 brew "libpng"
-# Extendable version manager with support for Ruby, Node.js, Erlang & more
-brew "asdf"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# Library for command-line editing
+brew "readline"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Core application library for C
@@ -25,8 +27,6 @@ brew "cffi"
 brew "circleci"
 # Cryptographic recipes and primitives for Python
 brew "cryptography"
-# Load/unload environment variables based on $PWD
-brew "direnv"
 # Docker Credential Helper for Amazon ECR
 brew "docker-credential-helper-ecr"
 # Asynchronous event library
@@ -83,12 +83,16 @@ brew "harlequin"
 brew "jpeg"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Portable Foreign Function Interface library
+brew "libffi"
 # Provides library functionality for FIDO U2F & FIDO 2.0, including USB
 brew "libfido2"
 # Framework for layout and rendering of i18n text
 brew "pango"
 # Library to render SVG files using Cairo
 brew "librsvg"
+# YAML Parser
+brew "libyaml"
 # C library for reading, creating, and modifying zip archives
 brew "libzip"
 # Clone of ls with colorful output, file type icons, and more
@@ -105,8 +109,6 @@ brew "neofetch"
 brew "neovim"
 # Control nvim processes using `nvr` command-line tool
 brew "neovim-remote"
-# Platform built on V8 to build network applications
-brew "node"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@1.1"
 # Package compiler and linker metadata toolkit
@@ -137,6 +139,8 @@ brew "yarn"
 brew "zellij"
 # Plain text note-taking assistant
 brew "zk"
+# General-purpose lossless data-compression library
+brew "zlib"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
 # Search and replace | Space Age seD
@@ -145,10 +149,6 @@ brew "ms-jpq/sad/sad"
 cask "1password"
 # Command-line interface for 1Password
 cask "1password-cli"
-# Command-line tool for Aptible Deploy, an audit-ready App Deployment Platform
-cask "aptible"
-# Automated testing of webapps for Google Chrome
-cask "chromedriver"
 cask "font-fira-code"
 cask "font-hack-nerd-font"
 cask "font-victor-mono-nerd-font"
