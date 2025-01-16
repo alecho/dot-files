@@ -242,7 +242,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker gitfast macos tmux bundler ruby rails)
+plugins=(git docker gitfast macos bundler ruby rails)
 
 # User configuration
 
@@ -358,17 +358,6 @@ PATH=$PATH:$HOME/scripts
 alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
 
-## Tmuxinator
-alias tx='tmuxinator'
-alias txs='tmuxinator start'
-alias txo='tmuxinator open'
-alias txe='tmuxinator open'
-alias txn='tmuxinator new'
-alias txl='tmuxinator list'
-
-
-alias tc='docker-compose'
-
 ## asdf-vm
 . $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
@@ -475,10 +464,6 @@ fi
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
-
-# Ensure a few things are running.
-tmux start
-clear
 
 if [[ -z "$SOURCED_ONCE" ]]; then
   export SOURCED_ONCE=1
