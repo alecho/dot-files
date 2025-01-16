@@ -108,7 +108,7 @@ export KERL_CONFIGURE_OPTIONS="--disable-debug \
                                --without-jinterface"
 
 # Python fix for maxOS 11
-export ASDF_PYTHON_PATCH_URL="https://github.com/python/cpython/commit/8ea6353.patch?full_index=1"
+# export ASDF_PYTHON_PATCH_URL="https://github.com/python/cpython/commit/8ea6353.patch?full_index=1"
 
 # FZF
 # <C-t> runs $FZF_CTRL_T_COMMAND
@@ -145,22 +145,6 @@ function gii() {
 
 function gsh() {
   git lol | fzf --reverse --no-sort | awk '{print $1}' | xargs git
-}
-
-asdfi() {
-  local lang=${1}
-
-  if [[ ! $lang ]]; then
-    lang=$(asdf plugin-list | fzf)
-  fi
-
-  if [[ $lang ]]; then
-    local versions=$(asdf list-all $lang | fzf --tac --no-sort --multi)
-    if [[ $versions ]]; then
-      for version in $(echo $versions);
-      do; asdf install $lang $version; done;
-    fi
-  fi
 }
 
 function cd() {
@@ -380,8 +364,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terraform
-
-eval "$(direnv hook zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 _fzf_complete_mix() {
