@@ -1,6 +1,14 @@
 .tmux.project
 .projectfile
 
+### mise en place ###
+mise.local.toml
+mise.*.local.toml
+
+# Miscellaneous
+coverage_results/
+frontend-coverage/
+
 # Created by https://www.toptal.com/developers/gitignore/api/vim,ruby,macos,erlang,elixir,ansible,terraform,sublimetext,direnv
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,ruby,macos,erlang,elixir,ansible,terraform,sublimetext,direnv
 
@@ -129,10 +137,6 @@ build-iPhoneSimulator/
 
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
-
-# Miscellaneous
-coverage_results/
-frontend-coverage/
 
 ### SublimeText ###
 # Cache files for Sublime Text

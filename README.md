@@ -13,8 +13,7 @@ This is my collection of [configuration files](http://dotfiles.github.io/).
 2. Install groups of homebrew packages
 
 ```language
-/usr/local/bin/brew install
-asdf
+brew install
 bat
 direnv
 fd
@@ -24,6 +23,7 @@ gnupg
 jq
 lsd
 mas
+mise
 ms-jpq/sad/sad
 neovim
 reattach-to-user-namespace
@@ -44,10 +44,11 @@ Pull the repository, and then create the symbolic links [using GNU
 stow](https://alexpearce.me/2016/02/managing-dotfiles-with-stow/).
 
 ```bash
-$ git clone git@github.com:alecho/dot-files.git ~/.dotfiles
-$ cd ~/.dotfiles
-$ ls -d */ | xargs stow
+git clone git@github.com:alecho/dot-files.git ~/.dotfiles
+cd ~/.dotfiles
+ls -d */ | xargs stow
 ```
+
 Symlink neovim's init.vim to ~/.vimrc
 ```bash
 mkdir -p ~/.config/nvim/init.vim

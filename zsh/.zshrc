@@ -359,10 +359,10 @@ alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
 
 ## asdf-vm
-. $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+#. $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
 ## Mise-em-place
-eval "$(~/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
 
 ## 1Password
 eval $(op completion zsh)
