@@ -342,6 +342,9 @@ PATH=$PATH:$HOME/scripts
 alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
 
+## Zellij
+alias zel='/usr/local/bin/zellij'
+
 ## asdf-vm
 #. $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
@@ -361,6 +364,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Chromedriver
 # Run the following to remove the quarantine on chromedriver.
 # xattr -d com.apple.quarantine /usr/local/bin/chromedriver
+
+# Docker CLI
+export PATH="$HOME/.docker/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terraform
