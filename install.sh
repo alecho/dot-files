@@ -28,6 +28,7 @@ gum style --foreground 212 --bold --border-foreground 212 --border normal --padd
 TOOLS=(
   git
   stow
+  ghostty
   zsh
   zsh-syntax-highlighting
   starship
