@@ -38,10 +38,12 @@ TOOLS=(
   wget
   gnu-sed
   gnupg
+  gpg-suite
   jq
   lsd
   mas
   neovim
+  git-delta
 )
 
 gum style --foreground 39 "Step 3: Selecting tools to install (default: all selected)..."
