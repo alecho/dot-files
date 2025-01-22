@@ -101,14 +101,17 @@ else
   gum style --foreground 196 "No directories found for stow. Skipping symlinks."
 fi
 
-# Step 6: Set up Neovim Configuration
-gum style --foreground 39 "Step 6: Configuring Neovim..."
-if [ -f "$HOME/.vimrc" ]; then
-  mkdir -p "$HOME/.config/nvim"
-  ln -sf "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
-  gum style --foreground 76 "Linked .vimrc to Neovim init.vim."
+# Step 6: Install Oh My Zsh
+gum style --foreground 39 "Step 7: Installing Oh My Zsh..."
+if [ -d "$HOME/.oh-my-zsh" ]; then
+  gum style --foreground 76 "Oh My Zsh is already installed. Skipping installation."
 else
-  gum style --foreground 196 "No .vimrc file found. Skipping Neovim setup."
+  gum confirm "Oh My Zsh is not installed. Do you want to install it?" && {
+    gum style --foreground 76 "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  } || {
+    gum style --foreground 76 "Skipping Oh My Zsh installation."
+  }
 fi
 
 # Final Message

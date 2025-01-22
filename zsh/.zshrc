@@ -181,7 +181,7 @@ function confetti {
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="alecho"
+# ZSH_THEME="alecho"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
