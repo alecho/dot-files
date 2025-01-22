@@ -43,6 +43,9 @@ TOOLS=(
   lsd
   mas
   neovim
+  neofetch
+  zellij
+  fzf
   git-delta
 )
 
