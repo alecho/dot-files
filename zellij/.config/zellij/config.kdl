@@ -49,8 +49,8 @@ keybinds {
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt e" { EditScrollback; }
-        bind "PageDown" { PageScrollDown; }
-        bind "PageUp" { PageScrollUp; }
+        bind "Alt PageDown" { PageScrollDown; }
+        bind "Alt PageUp" { PageScrollUp; }
     }
 
     pane clear-defaults=false {
