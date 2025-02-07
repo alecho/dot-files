@@ -18,8 +18,8 @@ return {
     { "<C-m>",      "<Cmd>BufferPin<CR>",                 desc = "Pin/Unpin Buffer" },
     { "<C-,>",      "<Cmd>BufferPrevious<CR>",            desc = "Previous Buffer" },
     { "<C-.>",      '<Cmd>BufferNext<CR>',                desc = "Next Buffer" },
-    { "<C-<>",      '<Cmd>BufferMovePrevious<CR>',        desc = "Previous Buffer" },
-    { "<C->>",      '<Cmd>BufferMoveNext<CR>',            desc = "Next Buffer" },
+    { "<C-S-,>",    '<Cmd>BufferMovePrevious<CR>',        desc = "Previous Buffer" },
+    { "<C-S-.>",    '<Cmd>BufferMoveNext<CR>',            desc = "Next Buffer" },
     -- Sort automatically by...
     { '<leader>bb', '<Cmd>BufferOrderByBufferNumber<CR>', desc = "Order Buffers by Number" },
     { '<leader>bd', '<Cmd>BufferOrderByDirectory<CR>',    desc = "Order Buffers by Directory" },
