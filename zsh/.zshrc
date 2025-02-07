@@ -31,7 +31,8 @@ export EDITOR='nvim'
 alias vim='nvim'
 
 # Notes
-export ZK_NOTEBOOK_DIR=$HOME/Documents/Notes/daily/
+export NOTES_DIR=$HOME/Documents/Notes/
+export ZK_NOTEBOOK_DIR=$NOTES_DIR/daily/
 
 # The actual autocomplete function.
 function _zk {
@@ -106,9 +107,6 @@ export KERL_CONFIGURE_OPTIONS="--disable-debug \
                                --with-wx-config=/usr/local/bin/wx-config \
                                --without-javac \
                                --without-jinterface"
-
-# Python fix for maxOS 11
-# export ASDF_PYTHON_PATCH_URL="https://github.com/python/cpython/commit/8ea6353.patch?full_index=1"
 
 # FZF
 # <C-t> runs $FZF_CTRL_T_COMMAND
@@ -302,6 +300,8 @@ alias vimzl='vim ~/.zshrc.local'
 alias vimzellij='vim ~/.config/zellij/config.kdl'
 alias vimg='vim ~/.gitconfig'
 alias vimgi='vim ~/.gitignore_global'
+alias vimm='vim ~/mise.toml'
+alias vimml='vim mise.local.toml'
 alias vimw='vim ~/scripts/work.rb'
 alias vims='vim ~/.config/starship.toml'
 alias reload='source ~/.zshrc'
@@ -369,7 +369,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.docker/bin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C $HOME/.asdf/installs/terraform/0.12.29/bin/terraform terraform
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 _fzf_complete_mix() {
@@ -467,3 +466,6 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(starship init zsh)"
+
+# Added by Windsurf
+export PATH="/Users/andrewlechowicz/.codeium/windsurf/bin:$PATH"
