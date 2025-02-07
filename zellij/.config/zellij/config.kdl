@@ -28,8 +28,8 @@ keybinds {
         bind "Alt c" { NewTab; }
         bind "Alt ," { GoToPreviousTab; }
         bind "Alt ." { GoToNextTab; }
-        bind "Alt <" { MoveTab "Left"; }
-        bind "Alt >" { MoveTab "Right"; }
+        bind "Alt Shift ," { MoveTab "Left"; }
+        bind "Alt Shift ." { MoveTab "Right"; }
         bind "Alt h" { FocusPreviousPane; }
         bind "Alt l" { FocusNextPane; }
         bind "Alt j" { MoveFocus "Down"; }
@@ -241,7 +241,7 @@ themes {
     orange 80 250 123 // green
     blue 139 233 253 // cyan
     // black 0 0 0 // black
-    fg 25 26 33 // black
+    fg 98 114 164 // red
     white 255 255 255 // white
   }
 }
