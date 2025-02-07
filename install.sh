@@ -68,8 +68,9 @@ for tool in $SELECTED_TOOLS; do
 done
 
 # Step 4: Clone Dotfiles Repository
-REPO_URL="https://github.com/alecho/dot-files.git"
-DEST_DIR="$HOME/.dot-files"
+# TODO: clone with ssh
+REPO_URL="git@github.com/alecho/dot-files.git"
+DEST_DIR="$HOME/dot-files"
 
 gum style --foreground 39 "Step 4: Setting up dotfiles repository..."
 if [ -d "$DEST_DIR" ]; then
