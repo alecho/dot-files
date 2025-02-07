@@ -25,8 +25,9 @@
 	clear = "!clear"
 	co = checkout
 	cof = "!git checkout $(git branch | fzf)"
-	com = "!git checkout $(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
+	com = "!git checkout ${TRUNK_BRANCH:-main}"
 	cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
+	cod = "!git checkout ${DEVELOP_BRANCH:-develop}"
 	cp = cherry-pick
 	cpc = cherry-pick --continue
 	di = diff
@@ -50,8 +51,8 @@
 	lol = !git log --oneline
 	lom = "!git log origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
 	mt = mergetool
-	; new = checkout -b
-  new = "!branch.sh"
+	new = checkout -b
+  ; new = "!branch.sh"
 	p = push
 	pf = push --force-with-lease
 	pr = pull --rebase
@@ -65,8 +66,8 @@
 	rbi = rebase -i
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
-	rom = "!git rebase origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
-	romi = "!git rebase -i origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
+	rom = "!git rebase origin/${TRUNK_BRANCH:-main}"
+	romi = "!git rebase -i origin/${TRUNK_BRANCH:-main}"
 	rop = rebase origin/production
 	ropi = rebase -i origin/production
 	s = status -sb
