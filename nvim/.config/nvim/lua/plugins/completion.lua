@@ -33,24 +33,65 @@ return {
   { "honza/vim-snippets" },
   { "rafamadriz/friendly-snippets" },
 
-  -- Machine Learning Code completion
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    dependencies = { "zbirenbaum/copilot.lua" },
-    cond = not vim.g.started_by_firenvim,
-    config = function()
-      require("config.copilot_lua").setup()
-    end,
-  },
+  -- -- Machine Learning Code completion
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   dependencies = { "zbirenbaum/copilot.lua" },
+  --   cond = not vim.g.started_by_firenvim,
+  --   opt = {
+  --   panel = {
+  --     enabled = false,
+  --     auto_refresh = false,
+  --     keymap = {
+  --       jump_prev = "[[",
+  --       jump_next = "]]",
+  --       accept = "<CR>",
+  --       refresh = "gr",
+  --       open = "<M-CR>"
+  --     },
+  --     layout = {
+  --       position = "bottom", -- | top | left | right
+  --       ratio = 0.5
+  --     },
+  --   },
+  --   suggestion = {
+  --     enabled = false,
+  --     auto_trigger = false,
+  --     debounce = 75,
+  --     keymap = {
+  --       accept = "<M-l>",
+  --       accept_word = false,
+  --       accept_line = false,
+  --       next = "<M-]>",
+  --       prev = "<M-[>",
+  --       dismiss = "<C-]>",
+  --     },
+  --   },
+  --   filetypes = {
+  --     yaml = false,
+  --     markdown = false,
+  --     help = false,
+  --     gitcommit = false,
+  --     gitrebase = false,
+  --     hgcommit = false,
+  --     svn = false,
+  --     cvs = false,
+  --     ["."] = false,
+  --   },
+  --   copilot_node_command = '/Users/andrewlechowicz/.asdf/installs/nodejs/19.8.1/bin/node', -- Node.js version must be > 16.x
+  --   server_opts_overrides = {},
+  -- }
 
-  {
-    "zbirenbaum/copilot-cmp",
-    event = "InsertEnter",
-    cond = not vim.g.started_by_firenvim,
-    config = function()
-      require("copilot_cmp").setup()
-    end
-  },
+  -- },
+  --
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   event = "InsertEnter",
+  --   cond = not vim.g.started_by_firenvim,
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end
+  -- },
 }
