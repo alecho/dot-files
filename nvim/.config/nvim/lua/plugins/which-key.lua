@@ -190,6 +190,9 @@ return {
         nowait = false,
         remap = false
       },
+      {
+        '<leader>m', '<cmd>TSJToggle<CR>', { desc = "Split/Join", noremap = true }
+      },
       { "<leader>l",  group = "Code",   nowait = false, remap = false },
       {
         "<leader>lR",

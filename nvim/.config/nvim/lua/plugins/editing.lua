@@ -63,11 +63,11 @@ return {
   -- Code toggle (split and join)
   {
     'Wansmer/treesj',
+    event = 'BufRead',
     dependencies = { 'nvim-treesitter' },
-    keys = { "<leader>s", "<leader>j", "<leader>m" },
-    config = function()
-      require('treesj').setup()
-    end,
+    opts = {
+      use_default_keymaps = false
+    },
   },
 
   -- Batch editing
