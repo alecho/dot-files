@@ -56,7 +56,7 @@ return {
       },
       {
         "<leader>fe",
-        "<Cmd>Oil --float<CR>",
+        "<Cmd>Oil<CR>",
         desc = "File System (Oil.nvim)",
         nowait = false,
         remap = false
@@ -90,7 +90,7 @@ return {
         remap = false
       },
       {
-        "<leader>fp",
+        "<leader>fc",
         "<Cmd>FzfLua commands<CR>",
         desc = "Commands",
         nowait = false,
@@ -406,6 +406,13 @@ return {
         nowait = false,
         remap = false
       },
+      {
+        "<leader>=",
+        "gg=G",
+        desc = "Format File",
+        nowait = false,
+        remap = false
+      }
     }
 
     -- Normal Mode
