@@ -2,7 +2,7 @@ return {
   -- Movement
   {
     'smoka7/hop.nvim',
-    lazy = false,
+    event = "BufRead",
     version = '*',
     config = function()
       local hop = require('hop')
@@ -28,7 +28,7 @@ return {
         })
       end, { remap = true })
       vim.keymap.set('', 'T', function()
-        hop.int_char1({
+        hop.hint_char1({
           direction = directions.BEFORE_CURSOR,
           current_line_only = true,
           hint_offset = 1
@@ -53,7 +53,7 @@ return {
         max_delta = {
           line = 3000,
           column = false,
-          time = 1500,
+          time = 800,
         },
       }
     },
