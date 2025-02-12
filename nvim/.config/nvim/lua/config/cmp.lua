@@ -85,8 +85,9 @@ function M.setup()
       }),
     },
     sources = {
-      -- Copilot Source
-      { name = "copilot",    group_index = 2 },
+      -- AI Source
+      -- { name = "copilot",    group_index = 2 },
+      { name = "codeium",    group_index = 2 },
       -- Other Sources
       { name = "treesitter", group_index = 2 },
       { name = "buffer",     group_index = 2 },
