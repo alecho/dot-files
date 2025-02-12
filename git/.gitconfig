@@ -9,6 +9,7 @@
 [alias]
 	aa = add --all
 	aaaa = "!git add --all && git commit --amend"
+  abom = absorb --base origin/main
 	amend = commit --amend
 	b = branch
 	bD = branch -D
@@ -64,10 +65,12 @@
 	rbc = rebase --continue
 	rbp = rebase --show-current-patch
 	rbi = rebase -i
+	rbia = rebase -i --autosquash
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
 	rom = "!git rebase origin/${TRUNK_BRANCH:-main}"
 	romi = "!git rebase -i origin/${TRUNK_BRANCH:-main}"
+	romia = "!git rebase --autosquash -i origin/${TRUNK_BRANCH:-main}"
 	rop = rebase origin/production
 	ropi = rebase -i origin/production
 	s = status -sb

@@ -29,6 +29,10 @@ return {
         NotifyWARNBorder    = { fg = colors.orange },
         NotifyWARNIcon      = { fg = colors.orange },
         NotifyWARNTitle     = { fg = colors.orange },
+
+        -- Treesitter Context
+        TreesitterContext = { bg = colors.menu },
+        TreesitterContextLineNumber = { bg = colors.menu },
       }
     end,
   }
