@@ -61,6 +61,7 @@ return {
     dashboard.section.header.val = header()
 
     dashboard.section.buttons.val = {
+      dashboard.button("s", "󰍉  Sessions", ":Telescope persisted<CR>"),
       dashboard.button("f", "󰍉  Find file", ":lua require('utils.finder').find_files()<CR>"),
       dashboard.button("g", "󰱼  Find in files", ":FzfLua live_grep<CR>"),
       dashboard.button("h", "󰋚  Recent files", ":FzfLua oldfiles<CR>"),
