@@ -9,7 +9,7 @@
 [alias]
 	aa = add --all
 	aaaa = "!git add --all && git commit --amend"
-  abom = absorb --base origin/main
+  abom = "!git absorb --base origin/${TRUNK_BRANCH:-main}"
 	amend = commit --amend
 	b = branch
 	bD = branch -D
@@ -85,6 +85,7 @@
 	whatadded = log --diff-filter=A
   whyfail = "!git bisect start; git bisect bad; git bisect good origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@'); git bisect run"
 	wip = "!git commit --no-verify -m 'WIP :construction:'"
+	wif = "!git commit --no-verify --fixup HEAD"
 	worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 	hash = "!f() { git checkout $(_git_hash_complete | awk \"{print \\$1}\"); }; f"
 [color]
@@ -132,7 +133,7 @@
 [gpg]
 	program = gpg
 [commit]
-	gpgSign = true
+	gpgsign = true
 [merge "npm-merge-driver"]
 	name = automatically merge npm lockfiles
 	driver = npx npm-merge-driver merge %A %O %B %P
@@ -151,3 +152,6 @@
   file = '/Users/andrewlechowicz/.mailmap'
 [include]
   path = ~/.gitconfig.local
+[blame]
+	markIgnoredLines = true
+	markUnblamableLines = true
