@@ -38,10 +38,10 @@ keybinds {
         bind "Alt L" { MovePane "Right"; }
         bind "Alt J" { MovePane "Down"; }
         bind "Alt K" { MovePane "Up"; }
-        bind "Alt 3" { NewPane "Left"; }
-        bind "Alt 6" { NewPane "Right"; }
-        bind "Alt 4" { NewPane "Down"; }
-        bind "Alt 5" { NewPane "Up"; }
+        bind "Alt Left" { NewPane "Left"; }
+        bind "Alt Right" { NewPane "Right"; }
+        bind "Alt Down" { NewPane "Down"; }
+        bind "Alt Up" { NewPane "Up"; }
         bind "Alt =" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt x" { CloseFocus; }

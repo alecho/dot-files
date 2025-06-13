@@ -40,6 +40,10 @@ return {
       vim.keymap.set('', '<leader>p', hop.hint_patterns, { remap = true, desc = "Hop to a pattern" })
     end
   },
+  {
+    "chrisgrieser/nvim-spider",
+    lazy = true,
+  },
   -- Smooth scrolling
   {
     'declancm/cinnamon.nvim',

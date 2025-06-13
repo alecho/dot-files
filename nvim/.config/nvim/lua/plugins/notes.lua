@@ -1,7 +1,7 @@
 return {
-  "mickael-menu/zk-nvim",
+  "zk-org/zk-nvim",
   cmd = "ZkNotes",
-  event = "BufReadPre",
+  event = "VeryLazy",
   config = function()
     require("zk").setup({
       picker = "fzf_lua",

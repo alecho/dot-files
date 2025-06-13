@@ -24,7 +24,10 @@ function M.setup()
         mode = 'symbol',       -- show only symbol annotations
         maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
         ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-        symbol_map = { Copilot = "" }
+        symbol_map = {
+          Copilot = "",
+          Codeium = "",
+        },
 
         -- The function below will be called before any actual modifications from lspkind
         -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
@@ -39,8 +42,8 @@ function M.setup()
       -- Karabiner maps <C-k> and <C-j> to Up and Down arrow keys
       ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
       ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-      ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+      ["<C-->"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+      ["<C-=>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
       ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
       ["<C-e>"] = cmp.mapping { i = cmp.mapping.close(), c = cmp.mapping.close() },
       ["<CR>"] = cmp.mapping {
@@ -54,9 +57,7 @@ function M.setup()
         end,
       },
       ["<Tab>"] = cmp.mapping(function(fallback)
-        if require("tabnine.keymaps").has_suggestion() then
-          return require("tabnine.keymaps").accept_suggestion()
-        elseif cmp.visible() and has_words_before() then
+        if cmp.visible() and has_words_before() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()

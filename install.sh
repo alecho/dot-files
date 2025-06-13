@@ -67,6 +67,8 @@ for tool in $SELECTED_TOOLS; do
   fi
 done
 
+# brew install --cask vladdoster/formulae/vimar
+
 # Step 4: Clone Dotfiles Repository
 # TODO: clone with ssh
 REPO_URL="git@github.com/alecho/dot-files.git"

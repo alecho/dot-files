@@ -15,6 +15,8 @@ else
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
 ## Completions
 ### Enable bash completions in zsh
 #autoload -U +X bashcompinit && bashcompinit
@@ -235,6 +237,12 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
 source $ZSH/oh-my-zsh.sh
 
+# MySQL mysql2 gem
+export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib -L/opt/homebrew/opt/zstd/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/opt/zstd/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/opt/homebrew/opt/zstd/lib/pkgconfig"
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -260,7 +268,7 @@ alias lcat='lolcat'
 alias vim='nvim'
 alias c='clear'
 alias code='cd ~/Code'
-alias dot='cd ~/dot-files'
+alias dot='cd ~/dotfiles'
 alias des='cd ~/Desktop'
 
 alias pbp='pbpaste'
@@ -304,6 +312,8 @@ alias vimm='vim ~/mise.toml'
 alias vimml='vim mise.local.toml'
 alias vimw='vim ~/scripts/work.rb'
 alias vims='vim ~/.config/starship.toml'
+alias vimsshc='vim ~/.ssh/config'
+
 alias reload='source ~/.zshrc'
 
 ## Git
