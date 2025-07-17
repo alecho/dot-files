@@ -46,14 +46,11 @@ local opts = {
 }
 
 function M.setup()
-  require("mason-lspconfig").setup_handlers {
-    -- default handler
-    function(server_name) -- default handler (optional)
-      require("lspconfig")[server_name].setup(opts)
-    end,
-    -- Next, you can provide a dedicated handler for specific servers.
-    -- For example, a handler override for the `rust_analyzer`:
-  }
+  -- Configure LSP servers
+  local servers = require("mason-lspconfig").get_installed_servers()
+  for _, server_name in ipairs(servers) do
+    require("lspconfig")[server_name].setup(opts)
+  end
 end
 
 return M
