@@ -3,9 +3,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
-    config = function()
-      require("config.cmp").setup()
-    end,
+    -- The configuration is now directly in plugins/cmp.lua
     dependencies = {
       "L3MON4D3/LuaSnip",
       "hrsh7th/cmp-buffer",
@@ -21,9 +19,7 @@ return {
 
   {
     "L3MON4D3/LuaSnip",
-    config = function()
-      require("config.luasnip").setup()
-    end,
+    -- The configuration is now directly in plugins/luasnip.lua
     dependencies = {
       "honza/vim-snippets",
       "rafamadriz/friendly-snippets",
