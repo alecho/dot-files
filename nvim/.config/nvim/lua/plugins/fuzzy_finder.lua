@@ -1,11 +1,9 @@
 return {
   -- FZF Lua
+  -- Note: Main configuration is now in fzf-lua.lua
   {
     "ibhagwan/fzf-lua",
-    cmd = "FzfLua",
-    config = function()
-      require("config.fzf").setup()
-    end
+    cmd = "FzfLua"
   },
 
   -- Telescope

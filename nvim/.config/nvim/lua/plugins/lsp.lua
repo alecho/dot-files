@@ -13,12 +13,13 @@ return {
       })
     end,
   },
-  {
-    "neovim/nvim-lspconfig",
-    event = "BufReadPre",
-    config = function()
-      require("config.lsp").setup()
-    end,
-  },
+  -- Note: Main LSP configuration is now in lsp-config.lua
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   event = "BufReadPre",
+  --   config = function()
+  --     -- Old reference to config.lsp removed
+  --   end,
+  -- },
   { "onsails/lspkind.nvim" },
 }

@@ -39,14 +39,12 @@ return {
     },
   },
   -- nvim-tree
+  -- Note: Main configuration is now in nvim-tree.lua
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    cmd = { "NvimTreeToggle", "NvimTreeClose" },
-    config = function()
-      require("config.nvimtree").setup()
-    end,
+    cmd = { "NvimTreeToggle", "NvimTreeClose" }
   }
 }
