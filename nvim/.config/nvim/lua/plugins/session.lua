@@ -8,7 +8,7 @@ return {
     local project_dir = vim.fn.getcwd()
 
     require("persisted").setup({
-      save_dir = project_dir .. "/.sessions", -- Store sessions in a .sessions directory in the project
+      save_dir = vim.fn.stdpath("data") .. "/sessions", -- Store sessions in a central location
       use_git_branch = true,
       should_save = function()
         -- Do not save if the alpha dashboard is the current filetype
