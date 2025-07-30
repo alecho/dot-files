@@ -401,84 +401,9 @@ return {
         nowait = false,
         remap = false
       },
-      {
-        "<leader>z",
-        "<Cmd>Lazy<CR>",
-        desc = "Lazy",
-        nowait = false,
-        remap = false
-      },
-      {
-        "<leader>=",
-        "gg=G",
-        desc = "Format File",
-        nowait = false,
-        remap = false
-      }
     }
 
     -- Normal Mode
-
     wk.add(leader)
-
-    -- vim.api.nvim_set_keymap('n', '<C-k>', '<C-u>', { noremap = true })
-    -- vim.api.nvim_set_keymap('n', '<C-j>', '<C-d>', { noremap = true })
-    -- vim.keymap.set({ 'n', 'x' }, '<C-k>', "<Cmd>lua Scroll('<C-b>', 1, 1)<CR>")
-    -- vim.keymap.set({ 'n', 'x' }, '<C-j>', "<Cmd>lua Scroll('<C-f>', 1, 1)<CR>")
-    local normal = {
-      mode = { "n" },
-      { "<C-<>", "<Cmd>BufferMovePrevious<CR>",                     desc = "Move Buffer Left" },
-      { "<C->>", "<Cmd>BufferMoveNext<CR>",                         desc = "Move Buffer Right" },
-      { "<C-b>", "<Cmd>FzfLua buffers<CR>",                         desc = "Buffer List" },
-      { "<C-i>", "<Cmd>BufferNext<CR>",                             desc = "Next Buffer" },
-      { "<C-p>", "<Cmd>FzfLua commands<CR>",                        desc = "Command Pallete " },
-      { "<C-u>", "<Cmd>BufferPrevious<CR>",                         desc = "Previous Buffer" },
-      { "<C-x>", "<Cmd>bd!<Cr>",                                    desc = "Close current buffer" },
-      { "g",     group = "Goto" },
-      { "gD",    "<Cmd>lua vim.lsp.buf.declaration()<CR>",          desc = "Declaration" },
-      { "gI",    "<cmd>Telescope lsp_implementations<CR>",          desc = "Goto Implementation" },
-      { "gd",    "<Cmd>lua vim.lsp.buf.definition()<CR>",           desc = "Definition" },
-      { "gs",    "<cmd>lua vim.lsp.buf.signature_help()<CR>",       desc = "Signature Help" },
-      { "gt",    "<cmd>lua vim.lsp.buf.type_definition()<CR>",      desc = "Goto Type Definition" },
-      { "gx",    desc = "<Cmd>lua require('open').open_cword()<CR>" },
-    }
-
-    wk.add(normal)
-
-    local visual =
-    {
-      mode = { "v" },
-      {
-        "f",
-        "<Cmd>FzfLua grep_visual<CR>",
-        desc = "Grep Visual Selection",
-        nowait = false,
-        remap = false
-      },
-      { "n", group = "New Note with", nowait = false, remap = false },
-      {
-        "nc",
-        "<Cmd>'<,'>ZkNewFromContentSelection<CR>",
-        desc = "Content from selection",
-        nowait = false,
-        remap = false
-      },
-      {
-        "ns",
-        "<Cmd>'<,'>ZkMatch<CR>",
-        desc = "Search",
-        nowait = false,
-        remap = false
-      },
-      {
-        "nt",
-        "<Cmd>'<,'>ZkNewFromTitleSelection<CR>",
-        desc = "Title from selection",
-        nowait = false,
-        remap = false
-      },
-    }
-
-    wk.add(visual)
   end,
 }
