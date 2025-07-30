@@ -1,7 +1,7 @@
 [user]
 	name = Andrew Lechowicz
 	email = andrew@alecho.com
-	signingKey = 1B42243108A704D1
+	; signingkey set in gitconfig.local
 [mergetool]
 	keepBackup = true
 [help]
@@ -131,7 +131,7 @@
 [rerere]
 	enabled = 1
 [gpg]
-	program = gpg
+	program = /opt/homebrew/bin/gpg
 [commit]
 	gpgsign = true
 [merge "npm-merge-driver"]
