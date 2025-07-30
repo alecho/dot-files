@@ -14,6 +14,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Add keymapping for Lazy
+vim.keymap.set("n", "<leader>z", ":Lazy<CR>", { noremap = true, silent = true })
+
 require("lazy").setup("plugins", {
   defaults = {
     lazy = true,
