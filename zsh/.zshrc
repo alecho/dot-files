@@ -18,14 +18,16 @@ fi
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 ## Completions
-### Enable bash completions in zsh
-#autoload -U +X bashcompinit && bashcompinit
+### Enable bash completions in zsh (disabled to avoid conflicts with _arguments)
+# autoload -U +X bashcompinit && bashcompinit
 
-### Check if compinit is already loaded, if not, load it
-if ! type "_comps" > /dev/null; then
-  autoload -Uz +X compinit && compinit
-fi
+### Check if compinit is already loaded, if not, load it (disabled; we init later)
+# if ! type "_comps" > /dev/null; then
+#   autoload -Uz +X compinit && compinit
+# fi
 
+# NOTE: Zsh reads the `fpath` array for autoloaded functions. Keeping this
+# FPATH for other tooling is harmless, but we set `fpath` properly after OMZ.
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # Specify an editor
@@ -35,6 +37,7 @@ alias vim='nvim'
 # Notes
 export NOTES_DIR=$HOME/Documents/Notes/
 export ZK_NOTEBOOK_DIR=$NOTES_DIR/daily/
+alias notes='vim $ZK_NOTEBOOK_DIR'
 
 # The actual autocomplete function.
 function _zk {
@@ -78,11 +81,6 @@ function _zk {
   esac
 }
 
-autoload -Uz +X compdef && compdef _zk zk
-
-export NOTES_DIR=$HOME/Documents/Notes/
-
-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
@@ -117,7 +115,7 @@ export KERL_CONFIGURE_OPTIONS="--disable-debug \
 # Default command to use when input is tty
 export FZF_DEFAULT_COMMAND="ag -gi --hidden --silent"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--keep-right --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9,fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9,info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6,marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+export FZF_DEFAULT_OPTS='--keep-right --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9,fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9,info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6,marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --bind=ctrl-j:preview-page-down,ctrl-k:preview-page-up'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --theme=Dracula {}"'
 
 export FZF_COMPLETION_TRIGGER='**'
@@ -168,74 +166,46 @@ function cd() {
 }
 
 function confetti {
-  # Run the previous command and store exit status
   STATUS=$?
-  # Check if the last command exited with 0 success code
   if [ $STATUS -eq 0 ]; then
-    # Run the command if the last command was successful
     open raycast://confetti
   fi
 }
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="alecho"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# This is updated in a launchd script frequently. This makes prompts less annoying
+# ZSH/OMZ options
 export UPDATE_ZSH_DAYS=60
-
-# Uncomment the following line to disable colors in ls.
 DISABLE_LS_COLORS="true"
-
-# Comment the following line to enable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(git docker gitfast macos bundler ruby rails)
 
 # User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # Postgres.app
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
+# Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+
+# --------------------
+# Zellij completion FIX
+# --------------------
+# Put Homebrew site-functions first in fpath so `_zellij` wins
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+# Deduplicate while keeping first occurrence
+typeset -U fpath
+# Initialize completion (after OMZ)
+autoload -U compinit
+compinit -u
+# Register completions for custom tools
+compdef _zk zk
+# Bind Zellij's completion from Homebrew-installed _zellij
+compdef -d zellij 2>/dev/null
+compdef _zellij zellij
+# DO NOT eval "$(zellij setup --generate-completion zsh)" here; it can
+# trigger `_arguments` outside a completion context.
 
 # MySQL mysql2 gem
 export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
@@ -243,27 +213,10 @@ export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib -L/opt/homebrew/opt/zstd/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/opt/zstd/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/opt/homebrew/opt/zstd/lib/pkgconfig"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
+# Language env
 export LSCOLORS="excxbxdxBxEgEdxbxgxcxd"
 
 # Aliases
-
-## General
 alias lcat='lolcat'
 alias vim='nvim'
 alias c='clear'
@@ -273,15 +226,13 @@ alias des='cd ~/Desktop'
 
 alias pbp='pbpaste'
 alias pbc='pbcopy'
-## Copy the last command to the clipboard
-alias clc='fc -ln -1 | awk '\''{$1=$1}1'\'' ORS='\'''\'' | pbcopy'
+# Copy the last command to the clipboard
+alias clc="fc -ln -1 | awk '{\$1=\$1}1' ORS='' | pbcopy"
 
-## Tools
-### Sum the value of the number on each line.
-### `$ ag -c --no-filename some_string `
+# Tools
 alias sm="awk 'NF{sum+=\$1} END {print sum}'"
 
-### But first, save some original ls commands as backup under the `o` prefix.
+# Original ls backups
 alias ols='ls'
 alias oll='ls -Algosh'
 
@@ -299,7 +250,7 @@ alias llllllt='lsd -A --tree --depth=6'
 alias lllllllt='lsd -A --tree --depth=7'
 alias llllllllt='lsd -A --tree --depth=8'
 
-## Edit rc files
+# Edit rc files
 alias vime='vim .envrc'
 alias vimt='vim ~/.tmux.conf'
 alias vimv='vim ~/.config/nvim/'
@@ -316,16 +267,16 @@ alias vimsshc='vim ~/.ssh/config'
 
 alias reload='source ~/.zshrc'
 
-## Git
+# Git
 alias gits='git status -sb'
 
-## Work script
+# Work script
 alias work='ruby ~/scripts/work.rb'
 
-## Vim edit mode
+# Vim edit mode
 bindkey -v
 
-## Control + vim movement to simulate arrow key funtion
+# Control + vim movement to simulate arrow key function
 bindkey '^h' vi-backward-char
 bindkey '^k' up-line-or-beginning-search
 bindkey '^l' vi-forward-char
@@ -372,13 +323,13 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "/Users/andrewlechowicz/.bun/_bun" ] && source "/Users/andrewlechowicz/.bun/_bun"
 
 # Chromedriver
-# Run the following to remove the quarantine on chromedriver.
 # xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 
 # Docker CLI
 export PATH="$HOME/.docker/bin:$PATH"
 
-autoload -U +X bashcompinit && bashcompinit
+# bashcompinit (commented to avoid conflicts with native zsh completion)
+# autoload -U +X bashcompinit && bashcompinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 _fzf_complete_mix() {
@@ -401,7 +352,6 @@ _fzf_complete_git_post() {
   awk '{print $1}'
 }
 
-
 select-git-branch-with-fzf() {
     local branches branch
     branches=$(git for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short)')
@@ -417,13 +367,10 @@ bindkey '^b' select-git-branch-with-fzf
 
 select-git-hash-with-fzf() {
     local commits selected commit_hash
-    # Fetch commits
     commits=$(git lol)
-    # Use fzf for selection with preview
     selected=$(echo "$commits" | fzf +m --height 40% --reverse \
         --preview 'git show --color=always {1}' \
         --preview-window=right:60%)
-    # Extract only the commit hash from the selected line
     if [[ -n $selected ]]; then
         commit_hash=$(echo "$selected" | awk '{print $1}')
         LBUFFER+="$(echo $commit_hash | tr -d '\n')"
@@ -434,23 +381,22 @@ select-git-hash-with-fzf() {
 zle -N select-git-hash-with-fzf
 bindkey '^h' select-git-hash-with-fzf
 
-# Search a file for a pattern added or removed in it's history.
+# Search a file for a pattern added or removed in its history.
 gitfzf() {
     local file="$1"
     local pattern="$2"
 
-    # Check if both arguments are provided
     if [[ -z "$file" || -z "$pattern" ]]; then
         echo "Usage: gitfzf <file> <pattern>"
         return 1
     fi
 
-    # Use git log with -G to filter commits by pattern in the diffs
-    # Then, use fzf for selection, with previews showing commit messages and diffs
     git log -G "$pattern" --color=always -- "$file" |
     fzf --ansi --delimiter="\n" --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs git show --color=always"
 }
 
+# Custom git extensions
+export PATH="$HOME/.git-extensions:$PATH"
 
 # iTerm2 shell integration
 if [ -f ~/.iterm2_shell_integration.zsh ]; then
@@ -468,8 +414,6 @@ fi
 if [[ -z "$SOURCED_ONCE" ]]; then
   export SOURCED_ONCE=1
   # Commands to run only the first time .zshrc is sourced
-
-  # Run neofetch if not in tmux and in interactive mode
   if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
     neofetch
   fi
@@ -478,6 +422,8 @@ fi
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Starship prompt
 eval "$(starship init zsh)"
 
 # Added by Windsurf
