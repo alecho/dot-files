@@ -14,6 +14,13 @@ return {
       },
     })
 
+    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+
     keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true })
     keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true })
     keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>",
@@ -109,6 +116,23 @@ return {
         "<leader>fw",
         "<Cmd>FzfLua grep_cword<CR>",
         desc = "Grep Current Word",
+        nowait = false,
+        remap = false
+      },
+      {
+        "<leader>fW",
+        function()
+          local word = vim.fn.expand('<cword>')
+          require('fzf-lua').files({ fzf_opts = { ['--query'] = word } })
+        end,
+        desc = "Find files with current word",
+        nowait = false,
+        remap = false
+      },
+      {
+        "<leader>fg",
+        "<Cmd>FzfLua git_status<CR>",
+        desc = "Find git changed files",
         nowait = false,
         remap = false
       },

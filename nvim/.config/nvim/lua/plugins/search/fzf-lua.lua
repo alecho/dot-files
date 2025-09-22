@@ -1,6 +1,7 @@
 return {
   "ibhagwan/fzf-lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  event = { "BufEnter" },
   config = function()
     local actions = require('fzf-lua').actions
 
@@ -16,9 +17,9 @@ return {
           border       = 'border',
           wrap         = 'nowrap',
           hidden       = 'nohidden',
-          vertical     = 'down:45%',
+          vertical     = 'down:80%',
           horizontal   = 'right:60%',
-          layout       = 'flex',
+          layout       = 'vertical',
           flip_columns = 120,
           title        = true,
           title_pos    = "left",
@@ -47,13 +48,14 @@ return {
           ["<F4>"]     = "toggle-preview",
           ["<F5>"]     = "toggle-preview-ccw",
           ["<F6>"]     = "toggle-preview-cw",
-          ["<S-down>"] = "preview-page-down",
-          ["<S-up>"]   = "preview-page-up",
-          ["<S-left>"] = "preview-page-reset",
+          ["<ctrl-down>"] = "preview-page-down",
+          ["<ctrl-up>"]   = "preview-page-up",
+          ["<ctrl-left>"] = "preview-page-reset",
         },
         fzf = {
           ["ctrl-z"]     = "abort",
-          ["ctrl-u"]     = "unix-line-discard",
+          ["ctrl-u"]     = "half-page-down",
+          ["ctrl-i"]     = "half-page-up",
           ["ctrl-f"]     = "half-page-down",
           ["ctrl-b"]     = "half-page-up",
           ["ctrl-a"]     = "beginning-of-line",
