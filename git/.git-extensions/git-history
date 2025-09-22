@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+# git-history: fzf-based commit browser for a single file
+
+file=
+
+# Allow optional `--`
+if [[ "$1" == "--" ]]; then
+  shift
+fi
+file="$1"
+
+if [[ -z "$file" ]]; then
+  echo "Usage: git history [--] <path/to/file>" >&2
+  exit 1
+fi
+
+# Ensure we're in a git repo
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "Error: not inside a git repository." >&2
+  exit 1
+fi
+
+git log --follow --date=short \
+  --pretty=format:'%C(yellow)%h%Creset  %Cgreen%ad%Creset  %Cblue%an%Creset  %s' -- "$file" |
+fzf --ansi --no-sort --reverse --tiebreak=index \
+    --prompt="commits for $file > " \
+    --preview "git show --color=always {1} -- \"$file\"" \
+    --preview-window=right,70%,border \
+    --bind "enter:execute(git show --color=always {1} -- \"$file\" | ${PAGER:-less} -R)"

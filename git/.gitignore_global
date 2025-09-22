@@ -8,6 +8,13 @@
 omniapp.code-workspace
 
 CLAUDE.md
+.claude/
+.mcp.json
+
+# Codex
+AGENTS.md
+.codex
+*.codexplan
 
 # custom nvim session data
 .sessions%**

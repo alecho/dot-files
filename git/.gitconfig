@@ -7,6 +7,20 @@
 [help]
 	autocorrect = 60
 [alias]
+	; AI commands
+  codex-commit = "!f() { \
+    set -euo pipefail; \
+    tmp=$(mktemp); trap 'rm -f \"$tmp\"' EXIT; \
+    git diff --cached --quiet && { echo 'No staged changes.' >&2; exit 1; }; \
+    diff=$(git diff --cached --no-color --no-ext-diff -U1 | sed '/^Binary files /d'); \
+    [ -z \"$diff\" ] && diff=$(git diff --cached --name-status); \
+    prompt='Write a Conventional Commit message for the staged changes. Subject <=72 chars, imperative, include scope if obvious. Provide body if useful.'; \
+    printf '%s\n\n--- DIFF START ---\n%s\n--- DIFF END ---\n' \"$prompt\" \"$diff\" \
+      | codex exec \
+      | awk '/^(feat|fix|chore|docs|refactor|style|test)(\\(|:)/{flag=1} flag{print}' > \"$tmp\"; \
+    [ ! -s \"$tmp\" ] && { echo '[codex] empty output' >&2; exit 1; }; \
+    git commit -e -F \"$tmp\" \"$@\"; \
+  }; f \"$@\""
 	aa = add --all
 	aaaa = "!git add --all && git commit --amend"
   abom = "!git absorb --base origin/${TRUNK_BRANCH:-main}"
@@ -30,6 +44,7 @@
 	cob = "!git checkout $(git remote show origin | grep 'HEAD branch' | sed 's/.*: //')"
 	cod = "!git checkout ${DEVELOP_BRANCH:-develop}"
 	cp = cherry-pick
+	cpa = cherry-pick --abort
 	cpc = cherry-pick --continue
 	di = diff
 	ds = diff --staged
@@ -89,6 +104,7 @@
 	wipup = "!git aa && git wip && git pr && git undo && git reset"
 	worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
 	hash = "!f() { git checkout $(_git_hash_complete | awk \"{print \\$1}\"); }; f"
+	ignore-last = "!f(){\n  t=$(git rev-parse --show-toplevel) || exit\n  cd \"$t\" || exit\n  file=${1:-.git-blame-ignore-revs}\n  h=$(git rev-parse HEAD) || exit\n  touch \"$file\"\n  if ! grep -qxF \"$h\" \"$file\"; then\n    echo \"$h\" >> \"$file\"\n    git config blame.ignoreRevsFile \"$file\"\n    git add \"$file\"\n    git commit -m \"blame: ignore $h\" --only -- \"$file\"\n  else\n    git config blame.ignoreRevsFile \"$file\"\n    echo \"already present: $h\" >&2\n  fi\n}; f"
 [color]
 	ui = auto
 [core]
@@ -156,3 +172,5 @@
 [blame]
 	markIgnoredLines = true
 	markUnblamableLines = true
+[absorb]
+	oneFixupPerCommit = true
