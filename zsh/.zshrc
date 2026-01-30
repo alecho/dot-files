@@ -457,6 +457,9 @@ if [ -f ~/.iterm2_shell_integration.zsh ]; then
   source ~/.iterm2_shell_integration.zsh
 fi
 
+#
+source ~/.zshrc.d/second-brain.zsh
+
 # Machine specific zshrc sourced here.
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
