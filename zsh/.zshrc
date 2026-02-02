@@ -1,21 +1,3 @@
-# /etc/profile run the `path_helper` utility and it causes
-# `/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin` to be prepended
-# to PATH.
-if [ -n "$TMUX" ]; then
-  if [ -f /etc/profile ]; then
-      PATH=""
-      source /etc/profile
-  fi
-fi
-
-## Homebrew
-if [[ "$(uname -m)" == "arm64" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-else
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
-
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 ## Completions
 ### Enable bash completions in zsh (disabled to avoid conflicts with _arguments)
@@ -26,18 +8,8 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 #   autoload -Uz +X compinit && compinit
 # fi
 
-# NOTE: Zsh reads the `fpath` array for autoloaded functions. Keeping this
-# FPATH for other tooling is harmless, but we set `fpath` properly after OMZ.
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
-# Specify an editor
-export EDITOR='nvim'
 alias vim='nvim'
-
-# Notes
-export NOTES_DIR=$HOME/Documents/Notes/
-export ZK_NOTEBOOK_DIR=$NOTES_DIR/daily/
-alias notes='vim $ZK_NOTEBOOK_DIR'
 
 # The actual autocomplete function.
 function _zk {
@@ -81,45 +53,13 @@ function _zk {
   esac
 }
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
-# GPG tty
-export GPG_TTY=$(tty)
-
-# bat
-export BAT_THEME=Dracula
 alias cat="bat"
 
-# Erlang Flags
-export ERL_AFLAGS="-kernel shell_history enabled"
-
-## When installing an erlang version, compile docs for
-## reference within IEx.
-export KERL_BUILD_DOCS=yes
-
-## But don't build html docs or man pages to save space
-export KERL_INSTALL_HTMLDOCS=no
-export KERL_INSTALL_MANPAGES=no
-export KERL_CONFIGURE_OPTIONS="--disable-debug \
-                               --enable-wx \
-                               --with-wx-config=/usr/local/bin/wx-config \
-                               --without-javac \
-                               --without-jinterface"
 
 # FZF
 # <C-t> runs $FZF_CTRL_T_COMMAND
 # vim ``<tab> runs _fzf_compgen_path()
-# cd ``<tab> runs _fzf_compgen_dir()
-# Default command to use when input is tty
-export FZF_DEFAULT_COMMAND="ag -gi --hidden --silent"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS='--keep-right --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9,fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9,info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6,marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --bind=ctrl-j:preview-page-down,ctrl-k:preview-page-up'
-export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --theme=Dracula {}"'
-
-export FZF_COMPLETION_TRIGGER='**'
-export FZF_COMPLETION_OPTS='--border --info=inline'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -173,7 +113,6 @@ function confetti {
 }
 
 # ZSH/OMZ options
-export UPDATE_ZSH_DAYS=60
 DISABLE_LS_COLORS="true"
 DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
@@ -183,8 +122,6 @@ plugins=(git docker gitfast macos bundler ruby rails)
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# Postgres.app
-export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -207,18 +144,10 @@ compdef _zellij zellij
 # DO NOT eval "$(zellij setup --generate-completion zsh)" here; it can
 # trigger `_arguments` outside a completion context.
 
-# MySQL mysql2 gem
-export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib -L/opt/homebrew/opt/zstd/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include -I/opt/homebrew/opt/zstd/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/opt/homebrew/opt/zstd/lib/pkgconfig"
 
-# Language env
-export LSCOLORS="excxbxdxBxEgEdxbxgxcxd"
 
 # Aliases
 alias lcat='lolcat'
-alias vim='nvim'
 alias c='clear'
 alias code='cd ~/Code'
 alias dot='cd ~/dotfiles'
@@ -277,18 +206,14 @@ alias work='ruby ~/scripts/work.rb'
 bindkey -v
 
 # Control + vim movement to simulate arrow key function
-bindkey '^h' vi-backward-char
 bindkey '^k' up-line-or-beginning-search
 bindkey '^l' vi-forward-char
 bindkey '^j' down-line-or-beginning-search
 bindkey '^r' history-incremental-search-backward
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
-bindkey '^b' vi-backward-word
 bindkey '^w' vi-forward-word
 
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
 
 # Ruby Gem
 alias gin="cat ~/.default-gems | xargs gem install"
@@ -296,28 +221,21 @@ alias gup=gin
 alias gun="gem uninstall"
 alias gli="gem list"
 
-## Scripts
-PATH=$PATH:$HOME/scripts
 
 ## Terraform
 alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
 
 ## Zellij
-alias zel='/usr/local/bin/zellij'
+alias zel='zellij'
 
 ## asdf-vm
 #. $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 
-## Mise-em-place
-eval "$(mise activate zsh)"
 
 ## 1Password
 eval $(op completion zsh)
 
-## Bun.js
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 ### Completions
 [ -s "/Users/andrewlechowicz/.bun/_bun" ] && source "/Users/andrewlechowicz/.bun/_bun"
@@ -325,8 +243,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Chromedriver
 # xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 
-# Docker CLI
-export PATH="$HOME/.docker/bin:$PATH"
 
 # bashcompinit (commented to avoid conflicts with native zsh completion)
 # autoload -U +X bashcompinit && bashcompinit
@@ -395,8 +311,67 @@ gitfzf() {
     fzf --ansi --delimiter="\n" --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs git show --color=always"
 }
 
-# Custom git extensions
-export PATH="$HOME/.git-extensions:$PATH"
+# Create a new git worktree with branch naming pattern sphy-XXXX--descriptor
+workspace() {
+    local subcommand="$1"
+
+    # Default to 'create' if no subcommand provided
+    if [[ -z "$subcommand" || "$subcommand" != "create" ]]; then
+        subcommand="create"
+        # If first arg isn't 'create', treat it as the descriptor
+        if [[ -n "$1" ]]; then
+            set -- "create" "$@"
+        fi
+    fi
+
+    case "$subcommand" in
+        create)
+            local descriptor="$2"
+
+            if [[ -z "$descriptor" ]]; then
+                echo "Usage: workspace [create] <descriptor>" >&2
+                return 1
+            fi
+
+            # Extract the branch number from the current branch
+            local current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+            if [[ $? -ne 0 ]]; then
+                echo "Error: not in a git repository" >&2
+                return 1
+            fi
+
+            local branch_match=$(echo "$current_branch" | grep -oE 'sphy-[0-9]+')
+
+            if [[ -z "$branch_match" ]]; then
+                echo "Current branch does not match sphy-XXXX pattern" >&2
+                return 1
+            fi
+
+            # Create new branch name
+            local new_branch="${branch_match}--${descriptor}"
+            local worktree_path="../${new_branch}"
+
+            # Create worktree
+            git worktree add "$worktree_path" -b "${new_branch}" || return 1
+
+            # Change to the new worktree directory
+            cd "$worktree_path"
+
+            # If zellij is available, rename the current tab
+            if command -v zellij &> /dev/null; then
+                # Titleize the descriptor (capitalize first letter of each word)
+                local titleized_descriptor=$(echo "$descriptor" | awk '{for(i=1;i<=NF;i++){ $i=toupper(substr($i,1,1)) substr($i,2) }}1')
+                zellij action rename-tab "Worktree - ${titleized_descriptor}"
+            fi
+            ;;
+        *)
+            echo "Unknown subcommand: $subcommand" >&2
+            echo "Usage: workspace [create] <descriptor>" >&2
+            return 1
+            ;;
+    esac
+}
+
 
 # iTerm2 shell integration
 if [ -f ~/.iterm2_shell_integration.zsh ]; then
@@ -421,10 +396,11 @@ fi
 
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# mise version manager (also in .zprofile for login shells)
+eval "$(mise activate zsh)"
 
 # Starship prompt
 eval "$(starship init zsh)"
 
-# Added by Windsurf
-export PATH="/Users/andrewlechowicz/.codeium/windsurf/bin:$PATH"
+
+export PATH=/Users/andrewlechowicz/.local/bin:$PATH
