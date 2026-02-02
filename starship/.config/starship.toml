@@ -112,9 +112,9 @@ right_format = """$cmd_duration"""
 command_timeout = 2000
 
 [character]
-success_symbol = "[|>](bold bright-blue)"
-error_symbol = "[|>](bold blue)"
-vimcmd_symbol = '[](bold green) '
+success_symbol = "[|>](bold #50fa7b)"
+error_symbol = "[|>](bold #ff5555)"
+vimcmd_symbol = "[](bold green) "
 
 [custom.zk_notebook_dir]
 command = "basename $ZK_NOTEBOOK_DIR | perl -ne 'print ucfirst for split'"
@@ -150,7 +150,7 @@ symbol = '󱁢 '
 disabled = true
 
 [time]
-style = "white"
+style = "#ffb86c"
 format = "[$time]($style) "
 time_format = "%H:%M"
 disabled = false
