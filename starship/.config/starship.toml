@@ -129,8 +129,7 @@ disabled = true
 style = "bold #ffb86c"
 format =" [$duration]($style)"
 min_time = 10_000
-show_notifications = true
-min_time_to_notify = 120_000
+show_notifications = false
 
 [directory]
 style = "italic blue"
