@@ -97,12 +97,10 @@ return {
 
     dashboard.section.buttons.val = {
       dashboard.button("s", "󰍉  Sessions", ":Telescope persisted<CR>"),
-      dashboard.button("f", "󰍉  Find file", ":lua require('utils.finder').find_files()<CR>"),
-      dashboard.button("g", "󰱼  Find in files", ":FzfLua live_grep<CR>"),
-      dashboard.button("h", "󰋚  Recent files", ":FzfLua oldfiles<CR>"),
-      dashboard.button("n", "  Notes", ":ZkNotes"),
-      dashboard.button("N", "  New Note", ":ZkNew"),
-      dashboard.button("p", "  Plugins", ":Oil ~/.config/nvim/lua/plugins<CR>"),
+      dashboard.button("c", "   Claude", ":ClaudeCode<CR>"),
+      dashboard.button("n", "   Notes", ":ZkNotes"),
+      dashboard.button("N", "   New Note", ":ZkNew"),
+      dashboard.button("p", "   Plugins", ":Oil ~/.config/nvim/lua/plugins<CR>"),
       dashboard.button("q", "󰐥  Quit Neovim", ":qa<CR>"),
     }
 
