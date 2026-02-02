@@ -21,10 +21,10 @@ keybinds {
         bind "Alt p" { SwitchToMode "pane"; }
         bind "Alt r" { SwitchToMode "resize"; }
         bind "Alt t" { SwitchToMode "tab"; }
-        bind "Alt f" { SwitchToMode "search"; }
+        bind "Alt /" { SwitchToMode "search"; }
         bind "Alt m" { SwitchToMode "move"; }
         bind "Alt s" { SwitchToMode "session"; }
-        bind "Alt n" { ToggleFloatingPanes; } // Used for notes
+        bind "Alt Space" { ToggleFloatingPanes; } // Used for notes
         bind "Alt c" { NewTab; }
         bind "Alt ," { GoToPreviousTab; }
         bind "Alt ." { GoToNextTab; }
@@ -45,25 +45,28 @@ keybinds {
         bind "Alt =" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt x" { CloseFocus; }
+        bind "Alt f" { ToggleFocusFullscreen; }
         bind "Alt z" { TogglePaneFrames; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt e" { EditScrollback; }
         bind "Alt PageDown" { PageScrollDown; }
         bind "Alt PageUp" { PageScrollUp; }
+        bind "Shift Enter" { Write 10; }
     }
 
     pane clear-defaults=false {
         bind "Enter" "Esc" "Space" { SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renamepane"; }
-        bind "h" "Left" { NewPane "Left"; }
-        bind "l" "Right" { NewPane "Right"; }
-        bind "j" "Down" { NewPane "Down"; }
-        bind "k" "Up" { NewPane "Up"; }
-        bind "Alt h" "Left" { MoveFocus "Left"; }
-        bind "Alt l" "Right" { MoveFocus "Right"; }
-        bind "Alt j" "Down" { MoveFocus "Down"; }
-        bind "Alt k" "Up" { MoveFocus "Up"; }
+        bind "h" { NewPane "Left"; }
+        bind "l" { NewPane "Right"; }
+        bind "j" { NewPane "Down"; }
+        bind "k" { NewPane "Up"; }
+        bind "d" { CloseFocus; }
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt l" { MoveFocus "Right"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
         bind "p" { SwitchFocus; }
         bind "f" { ToggleFocusFullscreen; }
     }
@@ -166,6 +169,9 @@ keybinds {
     renametab clear-defaults=false {}
     tmux clear-defaults=true {}
 }
+
+advanced_mouse_actions false
+
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
 // eg. when terminal window with an active zellij session is closed
 // Options:
@@ -229,20 +235,135 @@ keybinds {
 //
 themes {
   dracula-purple {
-    // fg 248 248 242 // fg
-    black 40 42 54 // bg
-    bg 40 42 54 // bg
-    cyan 255 85 85 // red
-    green 189 147 249 // purple
-    yellow 241 250 140 // yellow
-    red 98 114 164 // comment
-    magenta 255 121 198 // magenta
-    // orange 255 184 108 // orange
-    orange 80 250 123 // green
-    blue 139 233 253 // cyan
-    // black 0 0 0 // black
-    fg 98 114 164 // red
-    white 255 255 255 // white
+    // fg 248 248 242
+    // black 0 0 0
+    // white 255 255 255
+    // bg 40 42 54
+    // red 255 85 85
+    // purple 189 147 249
+    // yellow 241 250 140
+    // comment 98 114 164
+    // magenta 255 121 198
+    // orange 255 184 108
+    // green 80 250 123
+    // cyan 139 233 253
+
+    text_unselected {
+      base 255 255 255
+      background 0 0 0
+      emphasis_0 255 184 108
+      emphasis_1 255 184 108
+      emphasis_2 80 250 123
+      emphasis_3 139 233 253
+    }
+    text_selected {
+      base 255 255 255
+      background 40 42 54
+      emphasis_0 255 184 108
+      emphasis_1 139 233 253
+      emphasis_2 80 250 123
+      emphasis_3 255 121 198
+    }
+    ribbon_selected {
+      base 0 0 0
+      background 189 147 249
+      emphasis_0 255 85 85
+      emphasis_1 255 184 108
+      emphasis_2 255 121 198
+      emphasis_3 98 114 164
+    }
+    ribbon_unselected {
+      base 0 0 0
+      background 98 114 164
+      emphasis_0 248 248 242
+      emphasis_1 255 255 255
+      emphasis_2 98 114 164
+      emphasis_3 255 121 198
+    }
+    table_title {
+      base 80 250 123
+      background 0
+      emphasis_0 255 184 108
+      emphasis_1 139 233 253
+      emphasis_2 80 250 123
+      emphasis_3 255 121 198
+    }
+    table_cell_selected {
+      base 255 255 255
+      background 40 42 54
+      emphasis_0 255 184 108
+      emphasis_1 139 233 253
+      emphasis_2 80 250 123
+      emphasis_3 255 121 198
+    }
+    table_cell_unselected {
+      base 255 255 255
+      background 0 0 0
+      emphasis_0 255 184 108
+      emphasis_1 139 233 253
+      emphasis_2 80 250 123
+      emphasis_3 255 121 198
+    }
+    list_selected {
+      base 255 255 255
+      background 40 42 54
+      emphasis_0 255 184 108
+      emphasis_1 139 233 253
+      emphasis_2 80 250 123
+      emphasis_3 255 121 198
+    }
+    list_unselected {
+      base 255 255 255
+      background 0 0 0
+      emphasis_0 255 184 108
+      emphasis_1 139 233 253
+      emphasis_2 80 250 123
+      emphasis_3 255 121 198
+    }
+    frame_selected {
+      base 189 147 249
+      background 0
+      emphasis_0 255 184 108
+      emphasis_1 139 233 253
+      emphasis_2 255 121 198
+      emphasis_3 0
+    }
+    frame_highlight {
+      base 255 184 108
+      background 0
+      emphasis_0 255 121 198
+      emphasis_1 255 184 108
+      emphasis_2 255 184 108
+      emphasis_3 255 184 108
+    }
+    exit_code_success {
+      base 80 250 123
+      background 0
+      emphasis_0 139 233 253
+      emphasis_1 0 0 0
+      emphasis_2 255 121 198
+      emphasis_3 98 114 164
+    }
+    exit_code_error {
+      base 255 85 85
+      background 0
+      emphasis_0 241 250 140
+      emphasis_1 0
+      emphasis_2 0
+      emphasis_3 0
+    }
+    multiplayer_user_colors {
+      player_1 255 121 198
+      player_2 98 114 164
+      player_3 0
+      player_4 241 250 140
+      player_5 139 233 253
+      player_6 0
+      player_7 255 85 85
+      player_8 0
+      player_9 0
+      player_10 0
+    }
   }
 }
 
