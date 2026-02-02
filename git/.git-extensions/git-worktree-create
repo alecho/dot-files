@@ -1,0 +1,40 @@
+#!/usr/bin/env zsh
+# git-worktree-create: Create a new worktree with branch naming pattern sphy-XXXX--descriptor
+
+set -e
+
+# Extract the branch number from the current branch
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+branch_match=$(echo "$current_branch" | grep -oE 'sphy-[0-9]+')
+
+if [ -z "$branch_match" ]; then
+    echo "Current branch does not match sphy-XXXX pattern" >&2
+    exit 1
+fi
+
+# First argument is the additional descriptor
+descriptor="$1"
+
+if [ -z "$descriptor" ]; then
+    echo "Please provide a descriptor for the worktree" >&2
+    exit 1
+fi
+
+# Create new branch name
+new_branch="${branch_match}--${descriptor}"
+
+# Create worktree path
+worktree_path="../${new_branch}"
+
+# Create worktree
+git worktree add "$worktree_path" -b "${new_branch}"
+
+# Change to the new worktree directory
+cd "$worktree_path"
+
+# If zellij is available, rename the current tab
+if command -v zellij &> /dev/null; then
+    # Titleize the descriptor (capitalize first letter of each word)
+    titleized_descriptor=$(echo "$descriptor" | awk '{for(i=1;i<=NF;i++){ $i=toupper(substr($i,1,1)) substr($i,2) }}1')
+    zellij action rename-tab "Worktree - ${titleized_descriptor}"
+fi

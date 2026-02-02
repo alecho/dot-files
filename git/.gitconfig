@@ -46,7 +46,7 @@
 	cp = cherry-pick
 	cpa = cherry-pick --abort
 	cpc = cherry-pick --continue
-	di = diff
+	d = diff
 	ds = diff --staged
 	diw = diff --word-diff
 	word-diff = diff --word-diff
@@ -63,6 +63,8 @@
 	l = "!source ~/.bash/helpers/githelpers.sh && pretty_git_log"
 	la = !git l --all
 	lag = !git l --graph --all
+	last = show HEAD
+	prev = show HEAD~1
 	lg = !git l --graph
 	lol = !git log --oneline
 	lom = "!git log origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@')"
@@ -71,6 +73,7 @@
   ; new = "!branch.sh"
 	p = push
 	pf = push --force-with-lease
+	pu = pull --auto-stash
 	pr = pull --rebase
 	publish = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 	pullall = !git pull && git submodule update --init --recursive
@@ -84,8 +87,8 @@
 	rbs = rebase --skip
 	reopen = "!f() { ${EDITOR} $(git status --porcelain | awk '{print $2}'); }; f"
 	rom = "!git rebase origin/${TRUNK_BRANCH:-main}"
-	romi = "!git rebase -i origin/${TRUNK_BRANCH:-main}"
-	romia = "!git rebase --autosquash -i origin/${TRUNK_BRANCH:-main}"
+	romi = "!git rebase -i --autostash origin/${TRUNK_BRANCH:-main}"
+	romia = "!git rebase --autostash --autosquash -i origin/${TRUNK_BRANCH:-main}"
 	rop = rebase origin/production
 	ropi = rebase -i origin/production
 	s = status -sb
@@ -97,12 +100,18 @@
 	sup = submodule update --init --recursive
 	uncommit = reset --soft 'HEAD~'
 	undo = reset --soft 'HEAD^'
+	undo-absorb = reset --soft PRE_ABSORB_HEAD
 	whatadded = log --diff-filter=A
   whyfail = "!git bisect start; git bisect bad; git bisect good origin/$(git symbolic-ref refs/remotes/origin/HEAD | gsed 's@^refs/remotes/origin/@@'); git bisect run"
 	wip = "!git commit --no-verify -m 'WIP :construction:'"
 	wif = "!git commit --no-verify --fixup HEAD"
 	wipup = "!git aa && git wip && git pr && git undo && git reset"
 	worked = "!git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
+	wt = worktree
+	wta = worktree add
+	wtl = worktree list
+	wtr = worktree remove
+	wtd = worktree remove
 	hash = "!f() { git checkout $(_git_hash_complete | awk \"{print \\$1}\"); }; f"
 	ignore-last = "!f(){\n  t=$(git rev-parse --show-toplevel) || exit\n  cd \"$t\" || exit\n  file=${1:-.git-blame-ignore-revs}\n  h=$(git rev-parse HEAD) || exit\n  touch \"$file\"\n  if ! grep -qxF \"$h\" \"$file\"; then\n    echo \"$h\" >> \"$file\"\n    git config blame.ignoreRevsFile \"$file\"\n    git add \"$file\"\n    git commit -m \"blame: ignore $h\" --only -- \"$file\"\n  else\n    git config blame.ignoreRevsFile \"$file\"\n    echo \"already present: $h\" >&2\n  fi\n}; f"
 [color]
