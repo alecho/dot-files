@@ -6,3 +6,6 @@ nvim/.config/nvim/spell/
 
 tmuxinator/.config/tmuxinator/*.local.yml
 
+# Local zsh config (machine-specific)
+zsh/.zshrc.d/local.zsh
+
