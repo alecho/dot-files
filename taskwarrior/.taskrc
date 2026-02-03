@@ -1,0 +1,153 @@
+# ~/.taskrc (or: <second-brain>/.taskrc)
+# Taskwarrior config tuned for a "Second Brain" repo.
+#
+# Key assumptions:
+# - You DO NOT sync Taskwarrior data with the repo (for now).
+# - You use tags for PARA: +p, +a, +r, +z (archive).
+# - You use projects for concrete outcomes (e.g. fermentation-iot-saas).
+#
+# If you put this file in your repo, use it by running:
+#   TASKRC=/path/to/second-brain/.taskrc task ...
+# Or export in your shell:
+#   export TASKRC="$HOME/.../second-brain/.taskrc"
+
+###############################################################################
+# Storage
+###############################################################################
+# Use Taskwarrior's default global storage (~/.task) to avoid syncing with repo.
+# (Leaving data.location unset keeps the default.)
+
+###############################################################################
+# Basics
+###############################################################################
+confirmation=off
+verbose=blank,header,footnote,label,new-id,affected
+search.case.sensitive=no
+
+# Use ISO-ish timestamps
+dateformat=Y-M-D
+dateformat.annotation=Y-M-D
+
+# Safety / ergonomics
+bulk=2
+default.command=next
+
+###############################################################################
+# Tag conventions (PARA)
+###############################################################################
+# PARA as tags:
+#   +p  Projects
+#   +a  Areas
+#   +r  Resources
+#   +z  Archive
+
+# Make tags more visible
+tag.indicator=+
+
+###############################################################################
+# Projects (naming convention helper)
+###############################################################################
+# Suggested convention:
+#   project:<project-slug>
+# Examples:
+#   fermentation-iot-saas
+#   2026-competitions
+
+###############################################################################
+# Priorities / urgency
+###############################################################################
+urgency.user.tag.p.coefficient=0.8
+urgency.user.tag.a.coefficient=0.4
+urgency.user.tag.r.coefficient=-0.2
+urgency.user.tag.z.coefficient=-5.0
+
+urgency.user.tag.today.coefficient=5.0
+urgency.user.tag.waiting.coefficient=-1.5
+
+# If you use due dates heavily:
+urgency.due.coefficient=6.0
+urgency.due.max=14
+urgency.age.coefficient=1.2
+
+###############################################################################
+# UDA: link a task to a note (e.g., a path in the repo or an nb URL)
+###############################################################################
+uda.note.type=string
+uda.note.label=Note
+uda.note.default=
+
+uda.area.type=string
+uda.area.label=Area
+uda.area.default=
+
+###############################################################################
+# Columns / formatting
+###############################################################################
+# Compact, readable default
+report.next.columns=id,start.active,entry,priority,project,tags,recur,scheduled,due,description,note
+report.next.labels=ID,A,Entry,P,Project,Tags,Recur,Sch,Due,Description,Note
+report.next.sort=urgency-,due+,project+,description+
+
+# “Inbox”: tasks without project and without PARA tag
+report.inbox.description=Second Brain inbox (no project, no PARA tag)
+report.inbox.filter=status:pending and project.none: and (tags.none: or (tags.not:~p and tags.not:~a and tags.not:~r and tags.not:~z))
+report.inbox.columns=id,entry,priority,description
+report.inbox.labels=ID,Entry,P,Description
+report.inbox.sort=entry-
+
+# PARA-specific views
+report.para_projects.description=Pending tasks tagged +p
+report.para_projects.filter=status:pending and +p
+report.para_projects.columns=id,entry,priority,project,due,description,note
+report.para_projects.labels=ID,Entry,P,Project,Due,Description,Note
+report.para_projects.sort=project+,due+,urgency-
+
+report.para_areas.description=Pending tasks tagged +a
+report.para_areas.filter=status:pending and +a
+report.para_areas.columns=id,entry,priority,project,description,area,note
+report.para_areas.labels=ID,Entry,P,Project,Description,Area,Note
+report.para_areas.sort=project+,urgency-
+
+report.para_resources.description=Pending tasks tagged +r
+report.para_resources.filter=status:pending and +r
+report.para_resources.columns=id,entry,project,description,note
+report.para_resources.labels=ID,Entry,Project,Description,Note
+report.para_resources.sort=entry-
+
+# Waiting
+report.waiting.description=Waiting tasks
+report.waiting.filter=status:pending and +waiting
+report.waiting.columns=id,entry,project,tags,description,note
+report.waiting.labels=ID,Entry,Project,Tags,Description,Note
+report.waiting.sort=entry-
+
+###############################################################################
+# Contexts (quick focus)
+###############################################################################
+# Usage: task context sphy / task context none
+context.sphy=+a or +p
+context.home=+a
+context.brew=project:fermentation-iot-saas or project:2026-competitions
+
+###############################################################################
+# Sync / hooks (optional)
+###############################################################################
+# If you use task hooks inside the repo:
+# hooks=on
+# hookdir=/absolute/path/to/second-brain/.task/hooks
+
+###############################################################################
+# Color (minimal)
+###############################################################################
+color=on
+rule.precedence.color=on
+
+# Subtle highlights
+color.tag.p=rgb123
+color.tag.a=rgb114
+color.tag.r=rgb045
+color.tag.z=rgb240
+
+###############################################################################
+# End
+###############################################################################
