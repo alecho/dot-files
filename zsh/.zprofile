@@ -87,7 +87,7 @@ export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 export UPDATE_ZSH_DAYS=60
 
 # FZF configuration
-export FZF_DEFAULT_COMMAND="ag -gi --hidden --silent"
+export FZF_DEFAULT_COMMAND="rg --files --hidden --no-ignore --glob '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--keep-right --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9,fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9,info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6,marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --bind=ctrl-j:preview-page-down,ctrl-k:preview-page-up'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --theme=Dracula {}"'

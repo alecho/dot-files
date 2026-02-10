@@ -1,7 +1,7 @@
 # General Aliases
 
 # Navigation
-alias c='clear'
+alias c='claude'
 alias code='cd ~/Code'
 alias dot='cd ~/dotfiles'
 alias des='cd ~/Desktop'
@@ -18,6 +18,7 @@ alias cat="bat"
 alias vim='nvim'
 alias lcat='lolcat'
 alias f="python select_and_run_command.py"
+alias ff='print -z $(fzf)'
 
 # Original ls backups
 alias ols='ls'
