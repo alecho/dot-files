@@ -73,7 +73,7 @@ done
 # Step 4: Clone Dotfiles Repository
 # TODO: clone with ssh
 REPO_URL="git@github.com/alecho/dot-files.git"
-DEST_DIR="$HOME/dot-files"
+DEST_DIR="$HOME/dotfiles"
 
 gum style --foreground 39 "Step 4: Setting up dotfiles repository..."
 if [ -d "$DEST_DIR" ]; then
