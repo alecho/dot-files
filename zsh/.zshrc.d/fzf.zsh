@@ -53,7 +53,6 @@ select-git-branch-with-fzf() {
     zle reset-prompt
 }
 zle -N select-git-branch-with-fzf
-bindkey '^b' select-git-branch-with-fzf
 
 # Git hash selection widget (Ctrl+h)
 select-git-hash-with-fzf() {
@@ -70,7 +69,6 @@ select-git-hash-with-fzf() {
     zle reset-prompt
 }
 zle -N select-git-hash-with-fzf
-bindkey '^h' select-git-hash-with-fzf
 
 # Search a file for a pattern added or removed in its history
 gitfzf() {
@@ -84,4 +82,27 @@ gitfzf() {
 
     git log -G "$pattern" --color=always -- "$file" |
     fzf --ansi --delimiter="\n" --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs git show --color=always"
+}
+
+# Browse a file's git history with fzf, copy selected commit hash to clipboard
+gitblame() {
+    local file="$1"
+
+    if [[ -z "$file" ]]; then
+        echo "Usage: gitblame <file>"
+        return 1
+    fi
+
+    local selected
+    selected=$(git log --oneline --follow --color=always -- "$file" |
+        fzf --ansi --reverse \
+            --preview "echo {} | awk '{print \$1}' | xargs git show --color=always -- $file" \
+            --preview-window=right:60%:wrap)
+
+    if [[ -n "$selected" ]]; then
+        local hash
+        hash=$(echo "$selected" | awk '{print $1}')
+        echo "$hash" | pbcopy
+        echo "Copied $hash to clipboard"
+    fi
 }
