@@ -1,0 +1,40 @@
+{
+  "vim.useCtrlKeys": true,
+  "vim.handleKeys": {
+    "<C-.>": false,
+    "<C-,>": false,
+    "<C-S-.>": false,
+    "<C-S-,>": false,
+    "<C-x>": false,
+    "<C-b>": false,
+    "<C-m>": false,
+    "<C-\\>": false
+  },
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    { "before": ["<leader>", "*"], "commands": ["workbench.action.closeFindWidget"] },
+    { "before": ["<leader>", "w"], "commands": ["workbench.action.files.save"] },
+    { "before": ["<leader>", "f", "f"], "commands": ["workbench.action.quickOpen"] },
+    { "before": ["<leader>", "f", "h"], "commands": ["workbench.action.openRecent"] },
+    { "before": ["<leader>", "f", "k"], "commands": ["workbench.action.showAllEditors"] },
+    { "before": ["<leader>", "f", "c"], "commands": ["workbench.action.showCommands"] },
+    { "before": ["<leader>", "f", "e"], "commands": ["workbench.view.explorer"] },
+    { "before": ["<leader>", "f", "s"], "commands": ["workbench.view.explorer"] },
+    { "before": ["<leader>", "g", "s"], "commands": ["workbench.view.scm"] },
+    { "before": ["<leader>", "l", "a"], "commands": ["editor.action.quickFix"] },
+    { "before": ["<leader>", "l", "r"], "commands": ["editor.action.rename"] },
+    { "before": ["<leader>", "l", "d"], "commands": ["workbench.actions.view.problems"] },
+    { "before": ["<leader>", "l", "R"], "commands": ["editor.action.referenceSearch.trigger"] },
+    { "before": ["<leader>", "q", "c"], "commands": ["workbench.action.closeOtherEditors"] },
+    { "before": ["<leader>", "q", "l"], "commands": ["workbench.action.closeEditorsToTheLeft"] },
+    { "before": ["<leader>", "q", "r"], "commands": ["workbench.action.closeEditorsToTheRight"] },
+    { "before": ["<leader>", "q", "p"], "commands": ["workbench.action.closeUnpinnedEditors"] },
+    { "before": ["<leader>", "q", "P"], "commands": ["workbench.action.closeUnpinnedEditors"] },
+    { "before": ["<leader>", "q", "w"], "commands": ["workbench.action.closeActiveEditor"] },
+    { "before": ["<leader>", "x"], "commands": ["workbench.action.closeActiveEditor"] }
+  ]
+}
+
+
+
+

@@ -1,0 +1,49 @@
+[
+  {
+    "key": "ctrl+.",
+    "command": "workbench.action.nextEditorInGroup",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+,",
+    "command": "workbench.action.previousEditorInGroup",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+shift+.",
+    "command": "workbench.action.moveEditorRightInGroup",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+shift+,",
+    "command": "workbench.action.moveEditorLeftInGroup",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.showAllEditors",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+m",
+    "command": "workbench.action.toggleEditorPin",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+\\",
+    "command": "editor.action.insertSnippet",
+    "args": { "snippet": "|> " },
+    "when": "editorTextFocus && vim.mode == 'Insert'"
+  }
+]
+
+
+
+
+
+
