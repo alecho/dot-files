@@ -22,6 +22,7 @@ AGENTS.md
 ### mise en place ###
 mise.local.toml
 mise.*.local.toml
+.mise/
 
 # Miscellaneous
 coverage_results/
