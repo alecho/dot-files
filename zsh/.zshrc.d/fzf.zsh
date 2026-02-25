@@ -41,13 +41,21 @@ _fzf_complete_git_post() {
   awk '{print $1}'
 }
 
+# FZF file selection from home directory (Ctrl+x Ctrl+t)
+fzf-home-file-widget() {
+    local orig="$FZF_CTRL_T_COMMAND"
+    FZF_CTRL_T_COMMAND="$FZF_CTRL_T_COMMAND $HOME"
+    zle fzf-file-widget
+    FZF_CTRL_T_COMMAND="$orig"
+}
+zle -N fzf-home-file-widget
+
 # Git branch selection widget (Ctrl+b)
 select-git-branch-with-fzf() {
-    local branches branch
-    branches=$(git for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short)')
-    branch=$(echo "$branches" | tac | fzf)
+    local branch
+    branch=$(git branch --all --color=always --sort=-committerdate | fzf --ansi --reverse | sed 's/^[* ]*//' | sed 's|remotes/origin/||' | tr -d '\n')
     if [[ -n $branch ]]; then
-        LBUFFER+="$(echo $branch | tr -d '\n')"
+        LBUFFER+="$branch"
         zle redisplay
     fi
     zle reset-prompt
@@ -69,6 +77,14 @@ select-git-hash-with-fzf() {
     zle reset-prompt
 }
 zle -N select-git-hash-with-fzf
+
+# Delete merged branches with fzf multi-select
+git-clean-branches() {
+    git branch --merged origin/main \
+        | egrep -v '^\*|^\s*(main|master|develop)' \
+        | fzf -m \
+        | xargs -n 1 git branch -d
+}
 
 # Search a file for a pattern added or removed in its history
 gitfzf() {

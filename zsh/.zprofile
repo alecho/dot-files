@@ -95,6 +95,7 @@ export FZF_COMPLETION_TRIGGER='**'
 export FZF_COMPLETION_OPTS='--border --info=inline'
 
 # mise version manager
+export MISE_DEFAULT_CONFIG_FILENAME="mise.local.toml"
 eval "$(mise activate zsh)"
 
 # Added by Windsurf

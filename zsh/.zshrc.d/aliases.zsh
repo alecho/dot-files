@@ -39,25 +39,46 @@ alias llllllt='lsd -A --tree --depth=6'
 alias lllllllt='lsd -A --tree --depth=7'
 alias llllllllt='lsd -A --tree --depth=8'
 
+# Find a file by walking up the directory tree, then edit it
+vimup() {
+  local file="$1"
+  local dir="$PWD"
+  while [[ "$dir" != "/" ]]; do
+    if [[ -f "$dir/$file" ]]; then
+      vim "$dir/$file"
+      return
+    fi
+    dir="${dir:h}"
+  done
+  echo "No $file found in any parent directory"
+}
+
 # Edit rc files
-alias vime='vim .envrc'
-alias vimt='vim ~/.tmux.conf'
+alias vime='vimup .envrc'
 alias vimv='vim ~/.config/nvim/'
 alias vimz='vim ~/.zshrc'
 alias vimzl='vim ~/.zshrc.d/local.zsh'
 alias vimzellij='vim ~/.config/zellij/config.kdl'
 alias vimg='vim ~/.gitconfig'
-alias vimgi='vim ~/.gitignore_global'
-alias vimm='vim ~/mise.toml'
+alias vimgi='vimup .gitignore'
+alias vimgig='vim ~/.gitignore_global'
+alias vimm='vim mise.toml'
 alias vimml='vim mise.local.toml'
-alias vimw='vim ~/scripts/work.rb'
 alias vims='vim ~/.config/starship.toml'
 alias vimsshc='vim ~/.ssh/config'
+alias vimwt='vimup wt.toml'
 
 alias reload='source ~/.zshrc'
 
 # Work script
 alias work='ruby ~/scripts/work.rb'
+
+# Worktrunk
+alias wtc='wt switch --create'
+alias wtl='wt list'
+alias wts='wt switch'
+alias wtr='wt remove'
+alias wtm='wt merge'
 
 # Ruby Gem
 alias gin="cat ~/.default-gems | xargs gem install"
