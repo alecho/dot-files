@@ -1,0 +1,23 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+
+    tab {
+        pane split_direction="vertical" {
+            pane name="claude"
+            pane name="editor"
+            pane split_direction="horizontal" {
+                pane name="rails"
+                pane name="php"
+                pane name="shell"
+            }
+        }
+    }
+}

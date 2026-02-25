@@ -30,8 +30,8 @@ keybinds {
         bind "Alt ." { GoToNextTab; }
         bind "Alt Shift ," { MoveTab "Left"; }
         bind "Alt Shift ." { MoveTab "Right"; }
-        bind "Alt h" { FocusPreviousPane; }
-        bind "Alt l" { FocusNextPane; }
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt l" { MoveFocus "Right"; }
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
         bind "Alt H" { MovePane "Left"; }
