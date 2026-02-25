@@ -30,7 +30,8 @@ $localip\
 $shlvl\
 $singularity\
 $kubernetes\
-$directory\
+${custom.workspace}\
+${custom.directory}\
 $vcsh\
 $fossil_branch\
 $git_branch\
@@ -116,11 +117,11 @@ success_symbol = "[|>](bold #50fa7b)"
 error_symbol = "[|>](bold #ff5555)"
 vimcmd_symbol = "[](bold green) "
 
-[custom.zk_notebook_dir]
-command = "basename $ZK_NOTEBOOK_DIR | perl -ne 'print ucfirst for split'"
-when = true
+[custom.taskwarrior]
+command = "p=$SB_TASK_PROJECT; t=$SB_TASK_TAGS; [ -n \"$t\" ] && t=$(echo \"$t\" | sed 's/^/+/;s/,/ +/g'); r=\"$p\"; [ -n \"$r\" ] && [ -n \"$t\" ] && r=\"$r $t\" || r=\"$r$t\"; echo \"$r\""
+when = "test -n \"$SB_TASK_PROJECT$SB_TASK_TAGS\""
 style = "bold purple"
-symbol = " "
+symbol = "󰄬 "
 
 [aws]
 disabled = true
@@ -129,10 +130,23 @@ disabled = true
 style = "bold #ffb86c"
 format =" [$duration]($style)"
 min_time = 10_000
-show_notifications = false
+show_notifications = true
 
 [directory]
+disabled = true
+
+[custom.workspace]
+command = 'echo "$WORKSPACE_NAME"'
+when = 'test -n "$WORKSPACE_NAME"'
+symbol = "  "
 style = "italic blue"
+format = "[$symbol$output]($style) "
+
+[custom.directory]
+command = 'pwd | sed "s|^$HOME|~|"'
+when = 'test -z "$WORKSPACE_NAME"'
+style = "italic blue"
+format = "[$output]($style) "
 
 [docker_context]
 disabled = true
@@ -168,7 +182,7 @@ ahead = " [+${count}](bold green)"
 behind = " [-${count}](bold red)"
 diverged = "[+${ahead_count}](bold green) [-${behind_count}](bold red)"
 modified = "[M](bold red)"
-stashed = "[∼∽](bold yellow)"
+stashed = "[ ](bold yellow)"
 staged = "[S](bold green)"
 renamed = "[R](bold green)"
 deleted = "[D](bold red)"
