@@ -2,3 +2,6 @@ theme = Dracula
 link-url = true
 font-family =  FiraCode Nerd Font Mono Reg
 keybind = shift+enter=text:\n
+background-opacity = 0.97
+cursor-style = block
+cursor-style-blink = false
