@@ -140,7 +140,8 @@ context.brew=project:fermentation-iot-saas or project:2026-competitions
 # Color (minimal)
 ###############################################################################
 color=on
-rule.precedence.color=on
+# rule.precedence.color=on
+# include dark-16.theme
 
 # Subtle highlights
 color.tag.p=rgb123
