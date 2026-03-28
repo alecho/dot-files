@@ -16,3 +16,4 @@ bindkey '^w' vi-forward-word
 bindkey '^x^t' fzf-home-file-widget
 bindkey '^x^b' select-git-branch-with-fzf
 bindkey '^x^h' select-git-hash-with-fzf
+bindkey '^x^w' select-git-worktree-with-fzf

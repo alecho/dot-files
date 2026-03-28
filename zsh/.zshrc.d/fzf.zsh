@@ -78,6 +78,20 @@ select-git-hash-with-fzf() {
 }
 zle -N select-git-hash-with-fzf
 
+# Git worktree selection widget (Ctrl+x Ctrl+w)
+select-git-worktree-with-fzf() {
+    local worktree
+    worktree=$(git worktree list | fzf --reverse \
+        --preview 'git log --oneline -10 --color=always {2}' \
+        --preview-window=right:50% | awk '{print $1}' | tr -d '\n')
+    if [[ -n $worktree ]]; then
+        LBUFFER+="$worktree"
+        zle redisplay
+    fi
+    zle reset-prompt
+}
+zle -N select-git-worktree-with-fzf
+
 # Delete merged branches with fzf multi-select
 git-clean-branches() {
     git branch --merged origin/main \
