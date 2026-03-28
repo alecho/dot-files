@@ -454,7 +454,3 @@ theme "dracula-purple"
 // Default: false
 //
 // disable_session_metadata true
-
-load_plugins {
-    "file:~/.config/zellij/plugins/zellij-attention.wasm"
-}

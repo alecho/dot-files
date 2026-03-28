@@ -90,5 +90,4 @@ alias gli="gem list"
 alias tfp='terraform plan -out=current.plan'
 alias tfa='terraform apply -input=true current.plan'
 
-# Zellij
-alias zel='zellij'
+# Zellij (see zellij.zsh for status helpers)
