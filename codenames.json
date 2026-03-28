@@ -1,0 +1,238 @@
+[
+  {
+    "name": "Poinsett",
+    "category": "downtown"
+  },
+  {
+    "name": "McBee",
+    "category": "downtown"
+  },
+  {
+    "name": "Liberty",
+    "category": "downtown"
+  },
+  {
+    "name": "Falls",
+    "category": "downtown"
+  },
+  {
+    "name": "Reedy",
+    "category": "downtown"
+  },
+{
+    "name": "Augusta",
+    "category": "downtown"
+  },
+  {
+    "name": "Riverside",
+    "category": "downtown"
+  },
+  {
+    "name": "Unity",
+    "category": "downtown"
+  },
+  {
+    "name": "Camperdown",
+    "category": "downtown"
+  },
+  {
+    "name": "Paris",
+    "category": "nature"
+  },
+  {
+    "name": "Saluda",
+    "category": "nature"
+  },
+  {
+    "name": "Jocassee",
+    "category": "nature"
+  },
+  {
+    "name": "Table Rock",
+    "category": "nature"
+  },
+  {
+    "name": "Caesars",
+    "category": "nature"
+  },
+  {
+    "name": "Blue Ridge",
+    "category": "nature"
+  },
+  {
+    "name": "Foothills",
+    "category": "nature"
+  },
+  {
+    "name": "Raven",
+    "category": "nature"
+  },
+  {
+    "name": "Chimney",
+    "category": "nature"
+  },
+  {
+    "name": "Laurel",
+    "category": "nature"
+  },
+  {
+    "name": "Overbrook",
+    "category": "neighborhood"
+  },
+  {
+    "name": "North Main",
+    "category": "neighborhood"
+  },
+  {
+    "name": "West End",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Alta Vista",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Pleasantburg",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Five Forks",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Gower",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Monaghan",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Sans Souci",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Nicholtown",
+    "category": "neighborhood"
+  },
+  {
+    "name": "Furman",
+    "category": "historic"
+  },
+  {
+    "name": "Clemson",
+    "category": "historic"
+  },
+  {
+    "name": "Fluor",
+    "category": "historic"
+  },
+  {
+    "name": "Textile",
+    "category": "historic"
+  },
+  {
+    "name": "Huguenot",
+    "category": "historic"
+  },
+  {
+    "name": "Swamp Rabbit",
+    "category": "historic"
+  },
+  {
+    "name": "Kilgore",
+    "category": "historic"
+  },
+  {
+    "name": "Vardry",
+    "category": "historic"
+  },
+  {
+    "name": "Greer",
+    "category": "historic"
+  },
+  {
+    "name": "Traveler",
+    "category": "historic"
+  },
+  {
+    "name": "Woodruff",
+    "category": "road"
+  },
+  {
+    "name": "Wade Hampton",
+    "category": "road"
+  },
+  {
+    "name": "Laurens",
+    "category": "road"
+  },
+  {
+    "name": "Rutherford",
+    "category": "road"
+  },
+  {
+    "name": "Butler",
+    "category": "road"
+  },
+  {
+    "name": "Haywood",
+    "category": "road"
+  },
+  {
+    "name": "Verdae",
+    "category": "road"
+  },
+  {
+    "name": "Pelham",
+    "category": "road"
+  },
+  {
+    "name": "Buncombe",
+    "category": "road"
+  },
+  {
+    "name": "Stone",
+    "category": "road"
+  },
+  {
+    "name": "Mauldin",
+    "category": "suburb"
+  },
+  {
+    "name": "Simpsonville",
+    "category": "suburb"
+  },
+  {
+    "name": "Travelers Rest",
+    "category": "suburb"
+  },
+  {
+    "name": "Taylors",
+    "category": "suburb"
+  },
+  {
+    "name": "Easley",
+    "category": "suburb"
+  },
+  {
+    "name": "Piedmont",
+    "category": "suburb"
+  },
+  {
+    "name": "Fountain Inn",
+    "category": "suburb"
+  },
+  {
+    "name": "Powdersville",
+    "category": "suburb"
+  },
+  {
+    "name": "Berea",
+    "category": "suburb"
+  },
+  {
+    "name": "Gantt",
+    "category": "suburb"
+  }
+]
