@@ -1,0 +1,197 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Tests for the second-brain CLI tool
+# Runs in an isolated temp directory — does not touch real data
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SB_CMD="$SCRIPT_DIR/second-brain"
+
+TMPDIR_BASE="$(mktemp -d)"
+trap 'rm -rf "$TMPDIR_BASE"' EXIT
+
+export SB_DIR="$TMPDIR_BASE/second-brain"
+WORKDIR="$TMPDIR_BASE/workdir"
+mkdir -p "$SB_DIR/projects" "$SB_DIR/archive" "$WORKDIR"
+
+passed=0
+failed=0
+# Use arithmetic in a way that doesn't trigger set -e when value is 0
+_inc_passed() { passed=$((passed + 1)); }
+_inc_failed() { failed=$((failed + 1)); }
+
+_run() {
+  cd "$WORKDIR" && "$SB_CMD" "$@"
+}
+
+_assert_eq() {
+  local label="$1" expected="$2" actual="$3"
+  if [[ "$expected" == "$actual" ]]; then
+    echo "  PASS: $label"
+    _inc_passed
+  else
+    echo "  FAIL: $label"
+    echo "    expected: '$expected'"
+    echo "    actual:   '$actual'"
+    _inc_failed
+  fi
+}
+
+_assert_contains() {
+  local label="$1" needle="$2" haystack="$3"
+  if [[ "$haystack" == *"$needle"* ]]; then
+    echo "  PASS: $label"
+    _inc_passed
+  else
+    echo "  FAIL: $label"
+    echo "    expected to contain: '$needle'"
+    echo "    actual: '$haystack'"
+    _inc_failed
+  fi
+}
+
+_assert_exit() {
+  local label="$1" expected_exit="$2"
+  shift 2
+  local actual_exit=0
+  cd "$WORKDIR" && "$SB_CMD" "$@" >/dev/null 2>&1 || actual_exit=$?
+  if [[ "$expected_exit" == "$actual_exit" ]]; then
+    echo "  PASS: $label"
+    _inc_passed
+  else
+    echo "  FAIL: $label (expected exit $expected_exit, got $actual_exit)"
+    _inc_failed
+  fi
+}
+
+_reset() {
+  rm -f "$WORKDIR/mise.local.toml"
+}
+
+# --- Tests ---
+
+echo "=== status with no config ==="
+_reset
+out="$(_run status)"
+_assert_contains "project empty" "SB_TASK_PROJECT=" "$out"
+_assert_contains "tags empty" "SB_TASK_TAGS=" "$out"
+
+echo "=== project set / get ==="
+_reset
+_run project set test-proj >/dev/null
+out="$(_run project)"
+_assert_eq "project is test-proj" "test-proj" "$out"
+
+echo "=== project unset ==="
+_run project unset >/dev/null
+out="$(_run project)"
+_assert_eq "project is empty" "" "$out"
+
+echo "=== tag add ==="
+_reset
+_run tag add work >/dev/null
+out="$(_run tags)"
+_assert_eq "one tag" "work" "$out"
+
+_run tag add code >/dev/null
+out="$(_run tags)"
+_assert_eq "two tags" "work,code" "$out"
+
+echo "=== tag add duplicate ==="
+_run tag add work >/dev/null 2>&1
+out="$(_run tags)"
+_assert_eq "no duplicate" "work,code" "$out"
+
+echo "=== tag rm ==="
+_run tag rm work >/dev/null
+out="$(_run tags)"
+_assert_eq "after rm" "code" "$out"
+
+echo "=== tag rm last tag ==="
+_run tag rm code >/dev/null
+out="$(_run tags)"
+_assert_eq "tags empty after rm last" "" "$out"
+
+echo "=== tag clear ==="
+_run tag add a >/dev/null
+_run tag add b >/dev/null
+_run tag clear >/dev/null
+out="$(_run tags)"
+_assert_eq "tags empty after clear" "" "$out"
+
+echo "=== project list ==="
+_reset
+mkdir -p "$SB_DIR/projects/alpha" "$SB_DIR/projects/beta" "$SB_DIR/projects/gamma"
+_run project set beta >/dev/null
+out="$(_run project list)"
+_assert_contains "alpha listed" "alpha" "$out"
+_assert_contains "beta current" "* beta" "$out"
+_assert_contains "gamma listed" "gamma" "$out"
+
+echo "=== project archive ==="
+_run project archive alpha >/dev/null
+_assert_exit "archived dir exists" 0 project list
+out="$(_run project list)"
+# alpha should not appear in active list
+if [[ "$out" != *"alpha"* ]]; then
+  echo "  PASS: alpha not in active list"
+  _inc_passed
+else
+  echo "  FAIL: alpha still in active list"
+  _inc_failed
+fi
+# archive dir should exist
+if [[ -d "$SB_DIR/archive/alpha" ]]; then
+  echo "  PASS: alpha in archive dir"
+  _inc_passed
+else
+  echo "  FAIL: alpha not in archive dir"
+  _inc_failed
+fi
+
+echo "=== project unarchive ==="
+_run project unarchive alpha >/dev/null
+if [[ -d "$SB_DIR/projects/alpha" ]]; then
+  echo "  PASS: alpha restored to projects"
+  _inc_passed
+else
+  echo "  FAIL: alpha not restored"
+  _inc_failed
+fi
+
+echo "=== project list --all ==="
+_run project archive gamma >/dev/null
+out="$(_run project list --all)"
+_assert_contains "gamma archived shown" "gamma [archived]" "$out"
+_assert_contains "beta still active" "* beta" "$out"
+# Clean up
+_run project unarchive gamma >/dev/null
+
+echo "=== --help ==="
+out="$(_run --help)"
+_assert_contains "help mentions SB_TASK_PROJECT" "SB_TASK_PROJECT" "$out"
+_assert_contains "help mentions SB_TASK_TAGS" "SB_TASK_TAGS" "$out"
+_assert_contains "help mentions mise" "mise" "$out"
+_assert_contains "help mentions inbox" "inbox" "$out"
+_assert_exit "help exits 0" 0 --help
+
+echo "=== unknown command ==="
+_assert_exit "unknown exits 1" 1 bogus-command
+
+echo "=== tag rm nonexistent ==="
+_reset
+_run tag add x >/dev/null
+_assert_exit "rm nonexistent tag exits 1" 1 tag rm nope
+
+echo "=== project archive nonexistent ==="
+_assert_exit "archive missing project exits 1" 1 project archive does-not-exist
+
+echo "=== project unarchive nonexistent ==="
+_assert_exit "unarchive missing project exits 1" 1 project unarchive does-not-exist
+
+# --- Summary ---
+echo ""
+echo "Results: $passed passed, $failed failed"
+if [[ "$failed" -gt 0 ]]; then
+  exit 1
+fi

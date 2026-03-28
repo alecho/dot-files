@@ -1,0 +1,332 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# second-brain — CLI for managing Second Brain environment variables
+# Reads/writes SB_TASK_PROJECT and SB_TASK_TAGS in mise.local.toml
+
+SB_DIR="${SB_DIR:-$HOME/Library/Mobile Documents/com~apple~CloudDocs/second-brain}"
+MISE_CONFIG="${MISE_DEFAULT_CONFIG_FILENAME:-mise.local.toml}"
+
+# --- Helpers ---
+
+_read_key() {
+  mise set "$1" 2>/dev/null || true
+}
+
+_write_key() {
+  mise set --file "$MISE_CONFIG" "$1=$2"
+}
+
+_remove_key() {
+  mise unset --file "$MISE_CONFIG" "$1" 2>/dev/null || true
+}
+
+_current_tags() {
+  _read_key SB_TASK_TAGS
+}
+
+_current_project() {
+  _read_key SB_TASK_PROJECT
+}
+
+_tag_add() {
+  local new_tag="$1"
+  local current
+  current="$(_current_tags)"
+
+  if [[ -n "$current" ]]; then
+    # Check for duplicate
+    local IFS=,
+    for tag in $current; do
+      tag="${tag## }"; tag="${tag%% }"
+      if [[ "$tag" == "$new_tag" ]]; then
+        echo "Tag '$new_tag' already exists" >&2
+        return 0
+      fi
+    done
+    _write_key SB_TASK_TAGS "$current,$new_tag"
+  else
+    _write_key SB_TASK_TAGS "$new_tag"
+  fi
+}
+
+_tag_rm() {
+  local target="$1"
+  local current
+  current="$(_current_tags)"
+
+  if [[ -z "$current" ]]; then
+    echo "No tags set" >&2
+    return 1
+  fi
+
+  local result=""
+  local found=false
+  local IFS=,
+  for tag in $current; do
+    tag="${tag## }"; tag="${tag%% }"
+    if [[ "$tag" == "$target" ]]; then
+      found=true
+    elif [[ -n "$tag" ]]; then
+      result="${result:+$result,}$tag"
+    fi
+  done
+
+  if [[ "$found" == false ]]; then
+    echo "Tag '$target' not found" >&2
+    return 1
+  fi
+
+  if [[ -z "$result" ]]; then
+    _remove_key SB_TASK_TAGS
+  else
+    _write_key SB_TASK_TAGS "$result"
+  fi
+}
+
+_project_list() {
+  local show_all=false
+  [[ "${1:-}" == "--all" ]] && show_all=true
+
+  local current
+  current="$(_current_project)"
+  local projects_dir="$SB_DIR/projects"
+  local archive_dir="$SB_DIR/archive"
+
+  if [[ -d "$projects_dir" ]]; then
+    for d in "$projects_dir"/*/; do
+      [[ -d "$d" ]] || continue
+      local name
+      name="$(basename "$d")"
+      if [[ "$name" == "$current" ]]; then
+        echo "* $name"
+      else
+        echo "  $name"
+      fi
+    done
+  fi
+
+  if [[ "$show_all" == true && -d "$archive_dir" ]]; then
+    for d in "$archive_dir"/*/; do
+      [[ -d "$d" ]] || continue
+      local name
+      name="$(basename "$d")"
+      echo "  $name [archived]"
+    done
+  fi
+}
+
+_slugify() {
+  local s="${1,,}"       # lowercase
+  s="${s// /-}"          # spaces to dashes
+  s="${s////-}"          # slashes to dashes
+  s="${s//:/}"           # strip colons
+  s="${s//\?/}"          # strip question marks
+  s="${s//!/}"           # strip exclamation marks
+  echo "$s"
+}
+
+_inbox() {
+  local title="${*:-Inbox}"
+  local slug
+  slug="$(_slugify "$title")"
+  local fname
+  fname="$(date +%F)-$slug.md"
+
+  cd "$SB_DIR" || exit 1
+  nb add --folder "inbox" -f "$fname" -t "$title" \
+    --template "resources/templates/inbox.md" --edit
+}
+
+_inbox_encrypt() {
+  cd "$SB_DIR" || exit 1
+  nb add --title "${*:-Secret}" --encrypt
+}
+
+_project_archive() {
+  local name="$1"
+  local src="$SB_DIR/projects/$name"
+  local dest="$SB_DIR/archive/$name"
+
+  if [[ ! -d "$src" ]]; then
+    echo "Project '$name' not found in $SB_DIR/projects/" >&2
+    return 1
+  fi
+  if [[ -d "$dest" ]]; then
+    echo "Archive already contains '$name'" >&2
+    return 1
+  fi
+
+  mkdir -p "$SB_DIR/archive"
+  mv "$src" "$dest"
+  echo "Archived '$name'"
+}
+
+_project_unarchive() {
+  local name="$1"
+  local src="$SB_DIR/archive/$name"
+  local dest="$SB_DIR/projects/$name"
+
+  if [[ ! -d "$src" ]]; then
+    echo "Project '$name' not found in $SB_DIR/archive/" >&2
+    return 1
+  fi
+  if [[ -d "$dest" ]]; then
+    echo "Active projects already contains '$name'" >&2
+    return 1
+  fi
+
+  mkdir -p "$SB_DIR/projects"
+  mv "$src" "$dest"
+  echo "Unarchived '$name'"
+}
+
+_show_help() {
+  cat <<'HELP'
+second-brain — Manage Second Brain environment variables
+
+OVERVIEW
+  The Second Brain system uses environment variables set in mise.local.toml
+  to provide context for task management and note-taking:
+
+  SB_TASK_PROJECT  Current project name. Used by:
+                   - tadd/ta: auto-applies project:<name> to Taskwarrior tasks
+                   - Starship prompt: displays current project context
+                   - /note skill: organizes notes under $SB_DIR/projects/<name>/
+
+  SB_TASK_TAGS     Comma-separated tags. Used by:
+                   - tadd/ta: auto-applies +tag to Taskwarrior tasks
+                   - Starship prompt: displays current tags
+
+  These variables are stored in mise.local.toml in the current directory.
+  mise activates them automatically when you cd into the directory.
+
+USAGE
+  second-brain <command> [arguments]
+
+COMMANDS
+  status                      Show current project and tags (key=value format)
+
+  project                     Get current SB_TASK_PROJECT value
+  project set <name>          Set SB_TASK_PROJECT in ./mise.local.toml
+  project unset               Remove SB_TASK_PROJECT from ./mise.local.toml
+  project list [--all]        List projects in $SB_DIR/projects/
+                              Current project marked with *
+                              --all includes archived projects
+  project archive <name>      Move project to $SB_DIR/archive/
+  project unarchive <name>    Restore project from $SB_DIR/archive/
+
+  inbox [title]               Capture a note to the inbox (opens in editor)
+  inbox --encrypt [title]     Capture an encrypted note to the inbox
+
+  tags                        Get current SB_TASK_TAGS value (comma-separated)
+  tag add <tag>               Add a tag (no-op if already present)
+  tag rm <tag>                Remove a tag
+  tag clear                   Remove all tags
+
+  help, --help, -h            Show this help
+
+EXAMPLES
+  second-brain project set my-app
+  second-brain tag add work
+  second-brain tag add refactor
+  second-brain status
+  # SB_TASK_PROJECT=my-app
+  # SB_TASK_TAGS=work,refactor
+
+  second-brain project list
+  #   another-project
+  # * my-app
+
+  second-brain project archive old-project
+
+AI AGENT USAGE
+  Agents can discover the Second Brain context by running:
+    second-brain status
+  This outputs machine-parseable key=value lines to stdout.
+  Empty values indicate the variable is not set for the current directory.
+HELP
+}
+
+# --- Command dispatch ---
+
+cmd="${1:-status}"
+
+case "$cmd" in
+  status)
+    echo "SB_TASK_PROJECT=$(_current_project)"
+    echo "SB_TASK_TAGS=$(_current_tags)"
+    ;;
+  project)
+    subcmd="${2:-}"
+    case "$subcmd" in
+      "")
+        _current_project
+        ;;
+      set)
+        [[ -z "${3:-}" ]] && { echo "Usage: second-brain project set <name>" >&2; exit 1; }
+        _write_key SB_TASK_PROJECT "$3"
+        ;;
+      unset)
+        _remove_key SB_TASK_PROJECT
+        ;;
+      list)
+        _project_list "${3:-}"
+        ;;
+      archive)
+        [[ -z "${3:-}" ]] && { echo "Usage: second-brain project archive <name>" >&2; exit 1; }
+        _project_archive "$3"
+        ;;
+      unarchive)
+        [[ -z "${3:-}" ]] && { echo "Usage: second-brain project unarchive <name>" >&2; exit 1; }
+        _project_unarchive "$3"
+        ;;
+      *)
+        echo "Unknown project subcommand: $subcmd" >&2
+        echo "Run 'second-brain help' for usage" >&2
+        exit 1
+        ;;
+    esac
+    ;;
+  inbox)
+    shift
+    if [[ "${1:-}" == "--encrypt" ]]; then
+      shift
+      _inbox_encrypt "$@"
+    else
+      _inbox "$@"
+    fi
+    ;;
+  tags)
+    _current_tags
+    ;;
+  tag)
+    subcmd="${2:-}"
+    case "$subcmd" in
+      add)
+        [[ -z "${3:-}" ]] && { echo "Usage: second-brain tag add <tag>" >&2; exit 1; }
+        _tag_add "$3"
+        ;;
+      rm)
+        [[ -z "${3:-}" ]] && { echo "Usage: second-brain tag rm <tag>" >&2; exit 1; }
+        _tag_rm "$3"
+        ;;
+      clear)
+        _remove_key SB_TASK_TAGS
+        ;;
+      *)
+        echo "Unknown tag subcommand: $subcmd" >&2
+        echo "Run 'second-brain help' for usage" >&2
+        exit 1
+        ;;
+    esac
+    ;;
+  help|--help|-h)
+    _show_help
+    ;;
+  *)
+    echo "Unknown command: $cmd" >&2
+    echo "Run 'second-brain help' for usage" >&2
+    exit 1
+    ;;
+esac
