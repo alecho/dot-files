@@ -25,6 +25,10 @@ mise.local.toml
 mise.*.local.toml
 .mise/
 
+## Playwright
+.playwright
+.playwright-cli
+
 # Miscellaneous
 coverage_results/
 frontend-coverage/
