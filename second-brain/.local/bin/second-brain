@@ -86,7 +86,13 @@ _tag_rm() {
 
 _project_list() {
   local show_all=false
-  [[ "${1:-}" == "--all" ]] && show_all=true
+  local flat=false
+  for arg in "$@"; do
+    case "$arg" in
+      --all)  show_all=true ;;
+      --flat) flat=true ;;
+    esac
+  done
 
   local current
   current="$(_current_project)"
@@ -98,10 +104,22 @@ _project_list() {
       [[ -d "$d" ]] || continue
       local name
       name="$(basename "$d")"
-      if [[ "$name" == "$current" ]]; then
-        echo "* $name"
+      if [[ "$flat" == true ]]; then
+        local has_children=false
+        for child in "$d"/*/; do
+          [[ -d "$child" ]] || continue
+          has_children=true
+          echo "$name/$(basename "$child")"
+        done
+        [[ "$has_children" == false ]] && echo "$name"
       else
-        echo "  $name"
+        local marker="  "
+        [[ "$name" == "$current" ]] && marker="* "
+        echo "$marker$name"
+        for child in "$d"/*/; do
+          [[ -d "$child" ]] || continue
+          echo "    └── $(basename "$child")"
+        done
       fi
     done
   fi
@@ -111,7 +129,21 @@ _project_list() {
       [[ -d "$d" ]] || continue
       local name
       name="$(basename "$d")"
-      echo "  $name [archived]"
+      if [[ "$flat" == true ]]; then
+        local has_children=false
+        for child in "$d"/*/; do
+          [[ -d "$child" ]] || continue
+          has_children=true
+          echo "$name/$(basename "$child")"
+        done
+        [[ "$has_children" == false ]] && echo "$name"
+      else
+        echo "  $name [archived]"
+        for child in "$d"/*/; do
+          [[ -d "$child" ]] || continue
+          echo "    └── $(basename "$child")"
+        done
+      fi
     done
   fi
 }
@@ -181,6 +213,238 @@ _project_unarchive() {
   echo "Unarchived '$name'"
 }
 
+# --- Triage helpers ---
+
+_TRIAGE_MOVED=()
+_TRIAGE_DELETED=()
+_TRIAGE_SKIPPED=()
+_TRIAGE_EDITED=()
+
+_triage_preview() {
+  local filepath="$1"
+  local mime
+  mime="$(file --mime-type -b "$filepath")"
+
+  case "$mime" in
+    text/*|application/json|application/xml)
+      echo ""
+      if command -v bat &>/dev/null; then
+        bat --style=plain --paging=never --color=always "$filepath"
+      else
+        cat "$filepath"
+      fi
+      echo ""
+      ;;
+    image/*)
+      echo "  [image: $(basename "$filepath")]"
+      qlmanage -p "$filepath" &>/dev/null &
+      ;;
+    *)
+      echo "  [binary: $mime — $(basename "$filepath")]"
+      ;;
+  esac
+}
+
+_triage_pick_dest() {
+  local category="$1"
+  local dir="$SB_DIR/$category"
+  local -a folders=()
+
+  for d in "$dir"/*/; do
+    [[ -d "$d" ]] || continue
+    local name
+    name="$(basename "$d")"
+    [[ "$name" == "templates" ]] && continue
+    folders+=("$name")
+  done
+
+  folders+=("+ Create new folder")
+
+  local choice
+  if ! choice=$(printf '%s\n' "${folders[@]}" | gum filter --header "Pick $category folder:"); then
+    return 1
+  fi
+  [[ -z "$choice" ]] && return 1
+
+  if [[ "$choice" == "+ Create new folder" ]]; then
+    local new_name
+    if ! new_name=$(gum input --header "New folder name:" --placeholder "my-folder"); then
+      return 1
+    fi
+    [[ -z "$new_name" ]] && return 1
+    new_name="$(_slugify "$new_name")"
+    mkdir -p "$dir/$new_name"
+    echo "$new_name"
+  else
+    echo "$choice"
+  fi
+}
+
+_triage_move() {
+  local filepath="$1"
+  local category="$2"
+  local basename_orig
+  basename_orig="$(basename "$filepath")"
+
+  local dest_folder
+  if ! dest_folder=$(_triage_pick_dest "$category"); then
+    return 1
+  fi
+
+  local new_name
+  if ! new_name=$(gum input --header "Filename:" --value "$basename_orig"); then
+    return 1
+  fi
+  [[ -z "$new_name" ]] && new_name="$basename_orig"
+
+  local dest_path="$SB_DIR/$category/$dest_folder/$new_name"
+
+  if [[ -e "$dest_path" ]]; then
+    if ! gum confirm "Overwrite existing '$new_name' in $category/$dest_folder?"; then
+      return 1
+    fi
+  fi
+
+  mv "$filepath" "$dest_path"
+
+  (cd "$SB_DIR" && nb index reconcile inbox/ 2>/dev/null || true)
+  (cd "$SB_DIR" && nb index reconcile "$category/$dest_folder/" 2>/dev/null || true)
+
+  _TRIAGE_MOVED+=("$basename_orig → $category/$dest_folder/$new_name")
+}
+
+_triage_delete() {
+  local filepath="$1"
+  local basename_orig
+  basename_orig="$(basename "$filepath")"
+
+  if ! gum confirm "Delete '$basename_orig'?"; then
+    return 1
+  fi
+
+  rm "$filepath"
+  (cd "$SB_DIR" && nb index reconcile inbox/ 2>/dev/null || true)
+  _TRIAGE_DELETED+=("$basename_orig")
+}
+
+_triage_summary() {
+  echo ""
+  gum style --bold "Triage Summary"
+  echo "  Moved:   ${#_TRIAGE_MOVED[@]}"
+  echo "  Deleted: ${#_TRIAGE_DELETED[@]}"
+  echo "  Skipped: ${#_TRIAGE_SKIPPED[@]}"
+  echo "  Edited:  ${#_TRIAGE_EDITED[@]}"
+
+  if (( ${#_TRIAGE_MOVED[@]} > 0 )); then
+    echo ""
+    gum style --faint "Moved:"
+    for item in "${_TRIAGE_MOVED[@]}"; do
+      echo "  $item"
+    done
+  fi
+
+  if (( ${#_TRIAGE_DELETED[@]} > 0 )); then
+    echo ""
+    gum style --faint "Deleted:"
+    for item in "${_TRIAGE_DELETED[@]}"; do
+      echo "  $item"
+    done
+  fi
+
+  local has_changes
+  has_changes="$(cd "$SB_DIR" && git status --porcelain 2>/dev/null)"
+  if [[ -n "$has_changes" ]]; then
+    echo ""
+    if gum confirm "Commit changes to second-brain?"; then
+      (cd "$SB_DIR" && git add -A && git commit -m "triage: process inbox items")
+    fi
+  fi
+}
+
+_triage() {
+  cd "$SB_DIR" || exit 1
+
+  local -a files=()
+  while IFS= read -r line; do
+    [[ -n "$line" ]] && files+=("$line")
+  done < <(find "$SB_DIR/inbox" -maxdepth 1 -type f ! -name '.*' -print0 \
+    | xargs -0 stat -f '%m %N' 2>/dev/null \
+    | sort -n \
+    | cut -d' ' -f2-)
+
+  if (( ${#files[@]} == 0 )); then
+    gum style --foreground 2 "Inbox is empty ✓"
+    return 0
+  fi
+
+  local total=${#files[@]}
+  gum style --bold "Inbox Triage: $total items"
+  echo ""
+
+  _TRIAGE_MOVED=()
+  _TRIAGE_DELETED=()
+  _TRIAGE_SKIPPED=()
+  _TRIAGE_EDITED=()
+
+  local i=0
+  for f in "${files[@]}"; do
+    (( ++i ))
+    local fname
+    fname="$(basename "$f")"
+
+    echo ""
+    gum style --bold --foreground 4 "[$i/$total] $fname"
+    _triage_preview "$f"
+
+    while true; do
+      local action
+      if ! action=$(gum choose --header "Action:" \
+        "Move to Project" \
+        "Move to Resource" \
+        "Move to Area" \
+        "Edit" \
+        "Delete" \
+        "Skip" \
+        "Quit"); then
+        _triage_summary
+        return 0
+      fi
+
+      case "$action" in
+        "Move to Project")
+          if _triage_move "$f" "projects"; then break; fi
+          ;;
+        "Move to Resource")
+          if _triage_move "$f" "resources"; then break; fi
+          ;;
+        "Move to Area")
+          if _triage_move "$f" "areas"; then break; fi
+          ;;
+        "Edit")
+          "${EDITOR:-vim}" "$f"
+          _TRIAGE_EDITED+=("$fname")
+          echo ""
+          gum style --bold --foreground 4 "[$i/$total] $fname"
+          _triage_preview "$f"
+          ;;
+        "Delete")
+          if _triage_delete "$f"; then break; fi
+          ;;
+        "Skip")
+          _TRIAGE_SKIPPED+=("$fname")
+          break
+          ;;
+        "Quit")
+          _triage_summary
+          return 0
+          ;;
+      esac
+    done
+  done
+
+  _triage_summary
+}
+
 _show_help() {
   cat <<'HELP'
 second-brain — Manage Second Brain environment variables
@@ -204,25 +468,30 @@ OVERVIEW
 USAGE
   second-brain <command> [arguments]
 
-COMMANDS
-  status                      Show current project and tags (key=value format)
+COMMANDS (aliases shown in parens)
+  status (s)                  Show current project and tags (key=value format)
 
-  project                     Get current SB_TASK_PROJECT value
-  project set <name>          Set SB_TASK_PROJECT in ./mise.local.toml
-  project unset               Remove SB_TASK_PROJECT from ./mise.local.toml
-  project list [--all]        List projects in $SB_DIR/projects/
+  project (p)                 Get current SB_TASK_PROJECT value
+  project set (s) <name>      Set SB_TASK_PROJECT in ./mise.local.toml
+  project unset (u)           Remove SB_TASK_PROJECT from ./mise.local.toml
+  project list (l, ls) [--all] [--flat]
+                              List projects in $SB_DIR/projects/ with subfolders
                               Current project marked with *
-                              --all includes archived projects
-  project archive <name>      Move project to $SB_DIR/archive/
-  project unarchive <name>    Restore project from $SB_DIR/archive/
+                              --all    include archived projects
+                              --flat   plain names only, no tree or markers (scriptable)
+  project archive (a) <name>  Move project to $SB_DIR/archive/
+  project unarchive (ua) <name>
+                              Restore project from $SB_DIR/archive/
 
-  inbox [title]               Capture a note to the inbox (opens in editor)
+  inbox (i) [title]           Capture a note to the inbox (opens in editor)
   inbox --encrypt [title]     Capture an encrypted note to the inbox
 
+  triage (t)                  Walk through inbox items and file them (weekly review)
+
   tags                        Get current SB_TASK_TAGS value (comma-separated)
-  tag add <tag>               Add a tag (no-op if already present)
-  tag rm <tag>                Remove a tag
-  tag clear                   Remove all tags
+  tag add (a) <tag>           Add a tag (no-op if already present)
+  tag rm (r) <tag>            Remove a tag
+  tag clear (c)               Remove all tags
 
   help, --help, -h            Show this help
 
@@ -253,31 +522,31 @@ HELP
 cmd="${1:-status}"
 
 case "$cmd" in
-  status)
+  status|s)
     echo "SB_TASK_PROJECT=$(_current_project)"
     echo "SB_TASK_TAGS=$(_current_tags)"
     ;;
-  project)
+  project|p)
     subcmd="${2:-}"
     case "$subcmd" in
       "")
         _current_project
         ;;
-      set)
+      set|s)
         [[ -z "${3:-}" ]] && { echo "Usage: second-brain project set <name>" >&2; exit 1; }
         _write_key SB_TASK_PROJECT "$3"
         ;;
-      unset)
+      unset|u)
         _remove_key SB_TASK_PROJECT
         ;;
-      list)
-        _project_list "${3:-}"
+      list|l|ls)
+        shift 2; _project_list "$@"
         ;;
-      archive)
+      archive|a)
         [[ -z "${3:-}" ]] && { echo "Usage: second-brain project archive <name>" >&2; exit 1; }
         _project_archive "$3"
         ;;
-      unarchive)
+      unarchive|ua)
         [[ -z "${3:-}" ]] && { echo "Usage: second-brain project unarchive <name>" >&2; exit 1; }
         _project_unarchive "$3"
         ;;
@@ -288,7 +557,7 @@ case "$cmd" in
         ;;
     esac
     ;;
-  inbox)
+  inbox|i)
     shift
     if [[ "${1:-}" == "--encrypt" ]]; then
       shift
@@ -297,21 +566,24 @@ case "$cmd" in
       _inbox "$@"
     fi
     ;;
+  triage|t)
+    _triage
+    ;;
   tags)
     _current_tags
     ;;
   tag)
     subcmd="${2:-}"
     case "$subcmd" in
-      add)
+      add|a)
         [[ -z "${3:-}" ]] && { echo "Usage: second-brain tag add <tag>" >&2; exit 1; }
         _tag_add "$3"
         ;;
-      rm)
+      rm|r)
         [[ -z "${3:-}" ]] && { echo "Usage: second-brain tag rm <tag>" >&2; exit 1; }
         _tag_rm "$3"
         ;;
-      clear)
+      clear|c)
         _remove_key SB_TASK_TAGS
         ;;
       *)
