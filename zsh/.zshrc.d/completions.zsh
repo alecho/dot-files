@@ -71,9 +71,14 @@ function _second-brain {
 
   local -a top_cmds=(
     'status:Show current project and tags'
+    's:Alias for status'
     'project:Get/set project or manage project lifecycle'
+    'p:Alias for project'
     'inbox:Capture a note to the inbox'
+    'i:Alias for inbox'
     'tags:Get current tags'
+    'triage:Walk through inbox items and file them'
+    't:Alias for triage'
     'tag:Add, remove, or clear tags'
     'help:Show help'
   )
@@ -89,13 +94,19 @@ function _second-brain {
       ;;
     args)
       case $line[1] in
-        project)
+        project|p)
           local -a project_cmds=(
             'set:Set SB_TASK_PROJECT in mise.local.toml'
+            's:Alias for set'
             'unset:Remove SB_TASK_PROJECT from mise.local.toml'
+            'u:Alias for unset'
             'list:List projects (--all includes archived)'
+            'l:Alias for list'
+            'ls:Alias for list'
             'archive:Move a project to the archive'
+            'a:Alias for archive'
             'unarchive:Restore a project from the archive'
+            'ua:Alias for unarchive'
           )
           _arguments -C \
             '1: :->subcmd' \
@@ -108,22 +119,31 @@ function _second-brain {
             project_args)
               local sb_dir="${SB_DIR:-$HOME/Library/Mobile Documents/com~apple~CloudDocs/second-brain}"
               case $line[1] in
-                archive)
+                set|s)
                   local -a projects=()
                   if [[ -d "$sb_dir/projects" ]]; then
                     projects=("$sb_dir"/projects/*(/:t))
                   fi
                   _describe 'project' projects
                   ;;
-                unarchive)
+                archive|a)
+                  local -a projects=()
+                  if [[ -d "$sb_dir/projects" ]]; then
+                    projects=("$sb_dir"/projects/*(/:t))
+                  fi
+                  _describe 'project' projects
+                  ;;
+                unarchive|ua)
                   local -a archived=()
                   if [[ -d "$sb_dir/archive" ]]; then
                     archived=("$sb_dir"/archive/*(/:t))
                   fi
                   _describe 'archived project' archived
                   ;;
-                list)
-                  _arguments '--all[Include archived projects]'
+                list|l|ls)
+                  _arguments \
+                    '--all[Include archived projects]' \
+                    '--flat[Plain names only, no tree or markers]'
                   ;;
               esac
               ;;
@@ -132,8 +152,11 @@ function _second-brain {
         tag)
           local -a tag_cmds=(
             'add:Add a tag'
+            'a:Alias for add'
             'rm:Remove a tag'
+            'r:Alias for rm'
             'clear:Remove all tags'
+            'c:Alias for clear'
           )
           _arguments -C \
             '1: :->subcmd' \
@@ -145,7 +168,7 @@ function _second-brain {
               ;;
             tag_args)
               case $line[1] in
-                rm)
+                rm|r)
                   local current_tags
                   current_tags="$(mise set SB_TASK_TAGS 2>/dev/null)"
                   if [[ -n "$current_tags" ]]; then
@@ -157,7 +180,7 @@ function _second-brain {
               ;;
           esac
           ;;
-        inbox)
+        inbox|i)
           _arguments '--encrypt[Encrypt the note]'
           ;;
       esac

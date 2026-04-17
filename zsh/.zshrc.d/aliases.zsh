@@ -79,6 +79,43 @@ alias wtl='wt list'
 alias wts='wt switch'
 alias wtr='wt remove'
 alias wtm='wt merge'
+wtpr() {
+  local repo_dir
+  repo_dir="$(git rev-parse --show-toplevel 2>/dev/null)" || {
+    echo "Not in a git repo" >&2; return 1
+  }
+  local repo
+  repo="$(git -C "$repo_dir" remote get-url origin)"
+
+  local prs
+  prs=$(gh pr list -R "$repo" \
+    --json number,title,author,createdAt,reviewDecision \
+    --limit 50 | \
+    jq -r '.[] | [
+      "#\(.number)",
+      .createdAt[:10],
+      .author.login,
+      (if .reviewDecision == "APPROVED" then "✓ approved"
+       elif .reviewDecision == "CHANGES_REQUESTED" then "✗ changes"
+       elif .reviewDecision == "REVIEW_REQUIRED" then "● pending"
+       else "○ no review" end),
+      .title
+    ] | @tsv' | column -t -s $'\t')
+
+  [[ -z "$prs" ]] && { echo "No open pull requests found." >&2; return 1; }
+
+  local selection
+  selection=$(echo "$prs" | gum filter \
+    --placeholder "Select a PR..." \
+    --header "PR       Date        Author               Review         Title" \
+    --value "${1:-}")
+
+  [[ -z "$selection" ]] && return 0
+
+  local pr_num
+  pr_num=$(echo "$selection" | grep -oE '#[0-9]+' | head -1 | tr -d '#')
+  wt switch "pr:${pr_num}"
+}
 
 # Ruby Gem
 alias gin="cat ~/.default-gems | xargs gem install"

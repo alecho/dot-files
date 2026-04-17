@@ -8,16 +8,16 @@ alias zel='zellij'
 _linear_status_emoji() {
   case "${1:l}" in
     # Started statuses (Product Dev workflow)
-    in\ progress*)          echo "🚧" ;;
-    acceptance\ testing*)   echo "🧪" ;;
-    awaiting\ review*)      echo "⏳" ;;
-    code\ review*)          echo "👀" ;;
+    in\ progress*|ip)       echo "󰣪" ;;
+    acc*|at)                echo "󰙨" ;;
+    aw*|ar)                 echo "󰈈" ;;
+    code*|cr)               echo "" ;;
     # Lifecycle statuses
-    triage*)                echo "🔍" ;;
-    backlog*)               echo "📋" ;;
-    todo*)                  echo "📝" ;;
-    done*)                  echo "✅" ;;
-    cancel*)                echo "❌" ;;
+    tri*|t)                 echo "🔍" ;;
+    back*|b)                echo "📋" ;;
+    todo*|td)               echo "📝" ;;
+    done*|d)                echo "✅" ;;
+    cancel*|x)              echo "❌" ;;
     *)                      echo "❓" ;;
   esac
 }
@@ -43,22 +43,10 @@ zt-status() {
   fi
 
   local status_type="$*"
-  case "${status_type:l}" in
-    ip) status_type="in progress" ;;
-    at) status_type="acceptance testing" ;;
-    ar) status_type="awaiting review" ;;
-    cr) status_type="code review" ;;
-    t)  status_type="triage" ;;
-    b)  status_type="backlog" ;;
-    td) status_type="todo" ;;
-    d)  status_type="done" ;;
-    x)  status_type="canceled" ;;
-  esac
-
   if [[ -z "$status_type" ]]; then
     echo "Usage: zt-status <status>" >&2
-    echo "  in progress (ip), acceptance testing (at), awaiting review (ar), code review (cr)" >&2
-    echo "  triage (t), backlog (b), todo (td), done (d), canceled (x)" >&2
+    echo "  in progress (ip), acceptance testing (acc/at), awaiting review (aw/ar), code review (code/cr)" >&2
+    echo "  triage (tri/t), backlog (back/b), todo (td), done (d), canceled (x)" >&2
     return 1
   fi
 
