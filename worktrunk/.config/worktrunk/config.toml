@@ -18,14 +18,42 @@ zellij action new-tab --name "$(printf '\uef81') {{ branch }}" --layout "$LAYOUT
 """
 
 # Close the zellij tab when removing a worktree.
+# Tab names may be modified by plugins (zt-status, zellij-attention) adding emojis,
+# so we match on the branch name substring and extract the actual tab name.
 [pre-remove]
 zellij = """\
-TAB="$(printf '\uef81') {{ branch }}"; \
-[ -n "$ZELLIJ" ] && zellij action query-tab-names 2>/dev/null | grep -qF "$TAB" && \
-zellij action go-to-tab-name "$TAB" && zellij action close-tab || true\
+[ -z "$ZELLIJ" ] && exit 0; \
+TABS=$(zellij action query-tab-names 2>/dev/null) || exit 0; \
+TAB=$(echo "$TABS" | grep -F '{{ branch }}' | head -1); \
+[ -z "$TAB" ] && exit 0; \
+[ "$(echo "$TABS" | wc -l)" -le 1 ] && exit 0; \
+CURRENT=$(zellij action dump-layout 2>/dev/null \
+  | sed -n 's/.*tab.*name=\"\\([^\"]*\\)\".*focus=true.*/\\1/p; s/.*tab.*focus=true.*name=\"\\([^\"]*\\)\".*/\\1/p' \
+  | head -1); \
+zellij action go-to-tab-name "$TAB" && zellij action close-tab; \
+[ -n "$CURRENT" ] && [ "$CURRENT" != "$TAB" ] && zellij action go-to-tab-name "$CURRENT"; \
+true\
 """
 
-[projects]
+[projects."github.com/Simpliphy-Inc/omniapp"]
+worktree-path = "~/Code/omniapp/{{ branch | sanitize }}"
+
+[projects."github.com/Simpliphy-Inc/omniapp".list]
+url = "http://localhost:{{ branch | hash_port }}"
+
+[projects."github.com/Simpliphy-Inc/omniapp".post-create]
+setup = """\
+WORKSPACE_ROOT={{ primary_worktree_path }}/.. \
+WORKSPACE_PATH={{ worktree_path }} \
+WORKSPACE_PORT={{ branch | hash_port }} \
+{{ primary_worktree_path }}/../.mise/tasks/setup\
+"""
+
+[projects."github.com/Simpliphy-Inc/omniapp".pre-remove]
+docker = """\
+NAME=$(grep -o 'COMPOSE_PROJECT_NAME = \"[^\"]*\"' mise.local.toml 2>/dev/null | sed 's/.*\"\\([^\"]*\\)\".*/\\1/'); \
+[ -n \"$NAME\" ] && docker compose -p \"$NAME\" down 2>/dev/null || true\
+"""
 
 # # User Configuration
 #
