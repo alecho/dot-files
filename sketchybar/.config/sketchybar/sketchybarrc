@@ -18,12 +18,75 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
+##### Power Menu #####
+ICON_POWER=""
+ICON_LOCK=""
+ICON_SLEEP="󰤄"
+ICON_RESTART="󰜉"
+ICON_SHUTDOWN=""
+
+sketchybar --add item power left \
+           --set power \
+                 icon="$ICON_POWER" \
+                 icon.font="Hack Nerd Font:Bold:20.0" \
+                 icon.color=0xffbd93f9 \
+                 label.drawing=off \
+                 padding_right=10 \
+                 popup.background.color=0xe0282a36 \
+                 popup.background.corner_radius=10 \
+                 popup.background.border_color=0xffbd93f9 \
+                 popup.background.border_width=1 \
+                 click_script="sketchybar --set power popup.drawing=toggle"
+
+sketchybar --add item power.lock popup.power \
+           --set power.lock \
+                 icon="$ICON_LOCK" \
+                 label="Lock" \
+                 icon.padding_left=10 \
+                 label.padding_right=10 \
+                 click_script="pmset displaysleepnow; sketchybar --set power popup.drawing=off"
+
+sketchybar --add item power.sleep popup.power \
+           --set power.sleep \
+                 icon="$ICON_SLEEP" \
+                 label="Sleep" \
+                 icon.padding_left=10 \
+                 label.padding_right=10 \
+                 click_script="pmset sleepnow; sketchybar --set power popup.drawing=off"
+
+sketchybar --add item power.restart popup.power \
+           --set power.restart \
+                 icon="$ICON_RESTART" \
+                 label="Restart" \
+                 icon.padding_left=10 \
+                 label.padding_right=10 \
+                 click_script="osascript -e 'tell app \"System Events\" to restart'; sketchybar --set power popup.drawing=off"
+
+sketchybar --add item power.shutdown popup.power \
+           --set power.shutdown \
+                 icon="$ICON_SHUTDOWN" \
+                 label="Shut Down" \
+                 icon.padding_left=10 \
+                 label.padding_right=10 \
+                 click_script="osascript -e 'tell app \"System Events\" to shut down'; sketchybar --set power popup.drawing=off"
+
 ##### AeroSpace Workspace Indicators #####
 sketchybar --add event aerospace_workspace_change
 
+MONITOR_COUNT=$(aerospace list-monitors | wc -l | tr -d ' ')
+
 for sid in 1 2 3 4 5 6 7 8 9; do
+  display_args=()
+  if [ "$MONITOR_COUNT" -gt 1 ]; then
+    if [ "$sid" -le 5 ]; then
+      display_args=(display=1)
+    else
+      display_args=(display=2)
+    fi
+  fi
   sketchybar --add item space."$sid" left \
              --set space."$sid" \
+                   "${display_args[@]}" \
                    icon="$sid" \
                    icon.padding_left=7 \
                    icon.padding_right=7 \
@@ -52,7 +115,13 @@ sketchybar --add item clock right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
            --subscribe battery system_woke power_source_change \
            --add item weather right \
-           --set weather update_freq=600 padding_right=15 script="$PLUGIN_DIR/weather.sh"
+           --set weather update_freq=600 padding_right=80 \
+                         popup.background.color=0xe0282a36 \
+                         popup.background.corner_radius=10 \
+                         popup.background.border_color=0xffbd93f9 \
+                         popup.background.border_width=1 \
+                         click_script="sketchybar --set weather popup.drawing=toggle" \
+                         script="$PLUGIN_DIR/weather.sh"
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
