@@ -7,13 +7,15 @@
 
 omniapp.code-workspace
 
+AGENTS.md
+.agents/
+
 CLAUDE.md
 CLAUDE.local.md
 .claude/
 .mcp.json
 
 # Codex
-AGENTS.md
 .codex
 *.codexplan
 
@@ -22,6 +24,7 @@ AGENTS.md
 
 ### mise en place ###
 mise.local.toml
+.mise.local.toml
 mise.*.local.toml
 .mise/
 
