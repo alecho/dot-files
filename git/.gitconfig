@@ -38,6 +38,19 @@
 	cnv = commit -v --no-verify
 	cnvm = commit -v --no-verify -m
 	clear = "!clear"
+	; Clone <url> into ~/Code/<name>/main, where <name> defaults to the
+	; repo name from the URL and can be overridden as the second argument.
+	clone-in-project = "!f() { \
+	  set -e; \
+	  url=\"$1\"; \
+	  if [ -z \"$url\" ]; then echo 'Usage: git clone-in-project <url> [project-name]' >&2; exit 1; fi; \
+	  name=\"${2:-$(basename \"$url\" .git)}\"; \
+	  dir=\"$HOME/Code/$name\"; \
+	  if [ -e \"$dir/main\" ]; then echo \"$dir/main already exists\" >&2; exit 1; fi; \
+	  mkdir -p \"$dir\"; \
+	  git clone \"$url\" \"$dir/main\"; \
+	  echo \"Cloned to $dir/main\"; \
+	}; f"
 	co = checkout
 	cof = "!git checkout $(git branch | fzf)"
 	com = "!git checkout ${TRUNK_BRANCH:-main}"
