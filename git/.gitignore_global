@@ -5,6 +5,8 @@
 .windsurfrules
 .c
 
+.worktreeinclude
+
 omniapp.code-workspace
 
 AGENTS.md
