@@ -61,9 +61,6 @@ compdef _zellij zellij
 # DO NOT eval "$(zellij setup --generate-completion zsh)" here; it can
 # trigger `_arguments` outside a completion context.
 
-# 1Password completion
-eval $(op completion zsh)
-
 # second-brain completion
 function _second-brain {
   local state context line
