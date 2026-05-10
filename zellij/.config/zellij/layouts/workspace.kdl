@@ -13,11 +13,7 @@ layout {
         pane split_direction="vertical" {
             pane name="claude"
             pane name="editor"
-            pane split_direction="horizontal" {
-                pane name="rails"
-                pane name="php"
-                pane name="shell"
-            }
+            pane name="shell"
         }
     }
 }
