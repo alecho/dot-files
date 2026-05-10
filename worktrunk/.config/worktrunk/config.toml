@@ -1,6 +1,11 @@
 worktree-path = "~/Code/worktrees/{{ repo }}/{{ branch | sanitize }}"
 skip-commit-generation-prompt = true
 
+# Preserve individual commits by default on `wt merge`. Pass --squash explicitly
+# when squashing is desired (e.g., normal feature -> development merges).
+[merge]
+squash = false
+
 # Set the workspace codename as a branch marker in `wt list`.
 # Reads codename from mise.local.toml; skips if not found.
 [post-start]
