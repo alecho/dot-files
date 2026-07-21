@@ -1,14 +1,14 @@
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+sketchybar --bar position=top height=26 blur_radius=30 color=0x40000000
 
 ##### Changing Defaults #####
 default=(
   padding_left=5
   padding_right=5
-  icon.font="Hack Nerd Font:Bold:17.0"
-  label.font="Hack Nerd Font:Bold:14.0"
+  icon.font="Hack Nerd Font:Bold:14.0"
+  label.font="Hack Nerd Font:Bold:12.0"
   icon.color=0xffffffff
   label.color=0xffffffff
   icon.padding_left=4
@@ -92,7 +92,7 @@ for sid in 1 2 3 4 5 6 7 8 9; do
                    icon.padding_right=7 \
                    background.color=0x40ffffff \
                    background.corner_radius=5 \
-                   background.height=25 \
+                   background.height=20 \
                    label.drawing=off \
                    script="$PLUGIN_DIR/aerospace.sh $sid" \
                    click_script="aerospace workspace $sid" \
@@ -104,6 +104,7 @@ sketchybar --add event aerospace_mode_change
 sketchybar --add item aerospace_mode left \
            --set aerospace_mode \
                  drawing=off \
+                 update_freq=1 \
                  label.color=0xffbd93f9 \
                  script="$PLUGIN_DIR/aerospace_mode.sh" \
            --subscribe aerospace_mode aerospace_mode_change

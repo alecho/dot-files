@@ -11,7 +11,7 @@ config-version = 2
 # Run Sketchybar together with AeroSpace
 # sketchybar has a built-in detection of already running process,
 # so it won't be run twice on AeroSpace restart
-after-startup-command = ['exec-and-forget sketchybar', 'exec-and-forget borders']
+after-startup-command = ['exec-and-forget sketchybar', 'exec-and-forget borders', 'exec-and-forget /Users/andrewlechowicz/.config/sketchybar/plugins/aerospace_mode_listener.sh']
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -73,7 +73,7 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 # A callback that runs every time binding mode changes
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
-on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change MODE=$AEROSPACE_MODE']
+on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change']
 
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -93,7 +93,7 @@ on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change M
     inner.vertical =   8
     outer.left =       8
     outer.bottom =     8
-    outer.top =        40
+    outer.top =        26
     outer.right =      8
 
 # 'main' binding mode declaration
@@ -134,22 +134,26 @@ on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change M
     ctrl-alt-cmd-shift-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    cmd-left = 'focus left'
-    cmd-down = 'focus down'
-    cmd-up = 'focus up'
-    cmd-right = 'focus right'
+    cmd-h = 'focus left'
+    cmd-j = 'focus down'
+    cmd-k = 'focus up'
+    cmd-l = 'focus right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
-    cmd-shift-left = 'move left'
-    cmd-shift-down = 'move down'
-    cmd-shift-up = 'move up'
-    cmd-shift-right = 'move right'
+    cmd-shift-h = 'move left'
+    cmd-shift-j = 'move down'
+    cmd-shift-k = 'move up'
+    cmd-shift-l = 'move right'
 
-    #
-    ctrl-alt-cmd-shift-left = ['join-with left']
-    ctrl-alt-cmd-shift-down = ['join-with down']
-    ctrl-alt-cmd-shift-up = ['join-with up']
-    ctrl-alt-shift-right = ['join-with right']
+    # See: https://nikitabobko.github.io/AeroSpace/commands#join-with
+    cmd-left = 'join-with left'
+    cmd-down = 'join-with down'
+    cmd-up = 'join-with up'
+    cmd-right = 'join-with right'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#focus-monitor
+    cmd-alt-h = 'focus-monitor --wrap-around prev'
+    cmd-alt-l = 'focus-monitor --wrap-around next'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
     ctrl-alt-cmd-shift-minus = 'resize smart -50'
@@ -187,6 +191,9 @@ on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change M
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     ctrl-alt-cmd-shift-semicolon = 'mode service'
 
+    # Escape into passthrough: all keys go to the app until you press super-a again (or esc)
+    ctrl-alt-cmd-shift-a = 'mode passthrough'
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
@@ -201,6 +208,12 @@ on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change M
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+# 'passthrough' binding mode: nothing is bound, so every key goes to the focused
+# app. Only the exit keys are bound. Toggle in with super-a from main.
+[mode.passthrough.binding]
+    ctrl-alt-cmd-shift-a = 'mode main'
+    esc = 'mode main'
 
 # Always-float apps
 [[on-window-detected]]
@@ -229,4 +242,8 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.weather'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Cypress'
 run = 'layout floating'
