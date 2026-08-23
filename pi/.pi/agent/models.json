@@ -1,0 +1,27 @@
+{
+  "providers": {
+    "ollama": {
+      "api": "openai-completions",
+      "apiKey": "ollama",
+      "baseUrl": "http://127.0.0.1:11434/v1",
+      "models": [
+        {
+          "_launch": true,
+          "id": "gemma4:26b",
+          "input": [
+            "text"
+          ],
+          "reasoning": true
+        },
+        {
+          "_launch": true,
+          "contextWindow": 131072,
+          "id": "phi3.5:latest",
+          "input": [
+            "text"
+          ]
+        }
+      ]
+    }
+  }
+}

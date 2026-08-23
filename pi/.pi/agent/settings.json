@@ -1,0 +1,11 @@
+{
+  "defaultModel": "claude-opus-5",
+  "defaultProvider": "anthropic",
+  "defaultThinkingLevel": "high",
+  "lastChangelogVersion": "0.84.2",
+  "packages": [
+    "npm:@firstpick/pi-themes-bundle",
+    "npm:@ollama/pi-web-search"
+  ],
+  "theme": "dracula"
+}

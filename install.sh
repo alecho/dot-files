@@ -96,7 +96,21 @@ gum style --foreground 39 "Step 5: Creating symlinks using GNU Stow..."
 cd "$DEST_DIR"
 if ls -d */ &>/dev/null; then
   gum confirm "Do you want to create symlinks for all directories?" && {
-    ls -d */ | xargs -I {} stow --adopt --target="$HOME" {}
+    for pkg in $(ls -d */ | tr -d '/'); do
+      case "$pkg" in
+      pi | agents)
+        # --no-folding forces per-file symlinks. Without it, on a machine where
+        # ~/.pi or ~/.agents does not exist yet, stow would symlink the whole
+        # directory into this repo and pi would then write auth.json,
+        # models-store.json and sessions/ straight into version control.
+        mkdir -p "$HOME/.pi/agent" "$HOME/.agents/skills"
+        stow --adopt --no-folding --target="$HOME" "$pkg"
+        ;;
+      *)
+        stow --adopt --target="$HOME" "$pkg"
+        ;;
+      esac
+    done
     gum style --foreground 76 "Symlinks created successfully!"
   } || {
     gum style --foreground 76 "Skipping symlink creation."
@@ -105,7 +119,26 @@ else
   gum style --foreground 196 "No directories found for stow. Skipping symlinks."
 fi
 
-# Step 6: Install Oh My Zsh
+# Step 6: Restore pi packages
+# settings.json is the manifest; the payloads under ~/.pi/agent/npm are not
+# tracked, so reinstall them here.
+gum style --foreground 39 "Step 6: Restoring pi packages..."
+PI_SETTINGS="$HOME/.pi/agent/settings.json"
+if command -v pi &>/dev/null && [ -f "$PI_SETTINGS" ]; then
+  PI_PACKAGES=$(jq -r '(.packages // [])[] | if type == "string" then . else .source end' "$PI_SETTINGS")
+  if [[ -n "$PI_PACKAGES" ]]; then
+    for pkg in $PI_PACKAGES; do
+      gum style --foreground 39 "Installing pi package $pkg..."
+      pi install "$pkg" || gum style --foreground 196 "Failed to install $pkg; continuing."
+    done
+  else
+    gum style --foreground 76 "No pi packages listed in settings.json. Skipping."
+  fi
+else
+  gum style --foreground 76 "pi or its settings.json not found. Skipping pi packages."
+fi
+
+# Step 7: Install Oh My Zsh
 gum style --foreground 39 "Step 7: Installing Oh My Zsh..."
 if [ -d "$HOME/.oh-my-zsh" ]; then
   gum style --foreground 76 "Oh My Zsh is already installed. Skipping installation."

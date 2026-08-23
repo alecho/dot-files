@@ -12,3 +12,21 @@ zsh/.zshrc.d/local.zsh
 # Editor/tool backup files (e.g. config.kdl.pre-frame-style.bak)
 *.bak
 
+# ~/.gitignore_global ignores .pi/ and .agents/ so agent state never leaks into
+# project repos. This repo is where they are meant to live, so re-include the
+# package directories. Git will not descend into an ignored directory, so these
+# negations must name the directories themselves.
+!pi/.pi/
+!agents/.agents/
+
+# pi: credentials, caches and machine-local state.
+# Guards against stow folding ~/.pi into the repo on a fresh machine,
+# which would make pi write secrets here. Only settings.json and
+# models.json are tracked; plugins rehydrate from settings.json `packages`.
+pi/.pi/agent/auth.json
+pi/.pi/agent/models-store.json
+pi/.pi/agent/trust.json
+pi/.pi/agent/npm/
+pi/.pi/agent/git/
+pi/.pi/agent/sessions/
+
