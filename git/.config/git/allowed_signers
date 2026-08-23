@@ -1,0 +1,4 @@
+# Trusted SSH signing keys for git commit/tag verification.
+# Format: <principal(s)> [namespaces="..."] <keytype> <base64-key>
+# Add one line per machine key; all machines share this file via stow.
+andrew@alecho.com namespaces="git" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObUnvTkR8v3dtFZ2sVG5czLREzoTpZi24qdY7IpMo5J

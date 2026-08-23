@@ -170,8 +170,12 @@
 [rerere]
 	enabled = 1
 [gpg]
-	program = /opt/homebrew/bin/gpg
+	; SSH signing: portable across machines, no GnuPG/pinentry required.
+	; Per-machine public key is set as user.signingkey in ~/.gitconfig.local
+	format = ssh
 [commit]
+	gpgsign = true
+[tag]
 	gpgsign = true
 [merge "npm-merge-driver"]
 	name = automatically merge npm lockfiles
@@ -197,4 +201,4 @@
 [absorb]
 	oneFixupPerCommit = true
 [gpg "ssh"]
-	allowedSignersFile = /Users/andrewlechowicz/.config/git/allowed_signers
+	allowedSignersFile = ~/.config/git/allowed_signers
