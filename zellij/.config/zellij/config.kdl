@@ -213,6 +213,13 @@ advanced_mouse_actions false
 //
 // pane_frames true
 
+// Style of pane frames (added in zellij 0.45 by PR #5318)
+// Options:
+//   - none
+//   - full   (the previous default: full frames drawn around panes)
+//   - titles (the current default: separator + per-pane title line)
+pane_frame_style "full"
+
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
 //   - true (default)
