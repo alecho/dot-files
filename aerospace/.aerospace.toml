@@ -91,10 +91,12 @@ on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_change']
 [gaps]
     inner.horizontal = 8
     inner.vertical =   8
-    outer.left =       8
-    outer.bottom =     8
-    outer.top =        26
-    outer.right =      8
+    # ponytail: outer gaps = roughly half borders width (width 5, see borders/.config/borders/bordersrc);
+    # top adds sketchybar height 26. Bump if either changes.
+    outer.left =       3
+    outer.bottom =     3
+    outer.top =        29
+    outer.right =      3
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -246,4 +248,8 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Cypress'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
 run = 'layout floating'
