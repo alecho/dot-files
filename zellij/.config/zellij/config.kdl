@@ -21,6 +21,13 @@ keybinds {
         bind "Alt p" { SwitchToMode "pane"; }
         bind "Alt r" { SwitchToMode "resize"; }
         bind "Alt t" { SwitchToMode "tab"; }
+        bind "Alt y" {
+            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/room.wasm" {
+                floating true
+                move_to_focused_tab true
+                ignore_case true
+            }
+        }
         bind "Alt /" { SwitchToMode "search"; }
         bind "Alt m" { SwitchToMode "move"; }
         bind "Alt s" { SwitchToMode "session"; }
@@ -39,7 +46,7 @@ keybinds {
         bind "Alt J" { MovePane "Down"; }
         bind "Alt K" { MovePane "Up"; }
         bind "Alt Left" { NewPane "Left"; }
-        bind "Alt Right" { NewPane "Right"; }
+        unbind "Alt Right"
         bind "Alt Down" { NewPane "Down"; }
         bind "Alt Up" { NewPane "Up"; }
         bind "Alt =" { Resize "Increase"; }
@@ -63,6 +70,9 @@ keybinds {
         bind "j" { NewPane "Down"; }
         bind "k" { NewPane "Up"; }
         bind "d" { CloseFocus; }
+        bind "b" { BreakPane; }
+        bind "Alt ." { BreakPaneRight; }
+        bind "Alt ," { BreakPaneLeft; }
         bind "Alt h" { MoveFocus "Left"; }
         bind "Alt l" { MoveFocus "Right"; }
         bind "Alt j" { MoveFocus "Down"; }
