@@ -14,12 +14,12 @@ NAME=$(grep -o 'WORKSPACE_NAME = "[^"]*"' mise.local.toml 2>/dev/null | sed 's/.
 [ -n "$NAME" ] && wt config state marker set "$NAME" || true\
 """
 
-# Create a zellij tab for the workspace after setup completes.
+# Create a single-pane zellij tab for the workspace after setup completes.
 zellij = """\
-LAYOUT="$HOME/.config/zellij/layouts/workspace.kdl"; \
-[ -n "$ZELLIJ" ] && [ -f "$LAYOUT" ] && \
-zellij action new-tab --name "$(printf '\uef81') {{ branch }}" --layout "$LAYOUT" --cwd "{{ worktree_path }}" \
-|| true\
+if [ -n "$ZELLIJ" ]; then \
+  DIR="{{ worktree_path }}"; case "$DIR" in "~"/*) DIR="$HOME/${DIR#~/}";; esac; \
+  zellij action new-tab --name "$(printf '\uef81') {{ branch }}" --cwd "$DIR" --layout default; \
+fi || true\
 """
 
 # Close the zellij tab when removing a worktree.
@@ -52,6 +52,20 @@ WORKSPACE_ROOT={{ primary_worktree_path }}/.. \
 WORKSPACE_PATH={{ worktree_path }} \
 WORKSPACE_PORT={{ branch | hash_port }} \
 {{ primary_worktree_path }}/../.mise/tasks/setup\
+"""
+
+[projects."github.com/Simpliphy-Inc/omniapp".post-start]
+shared-skills = """\
+WORKSPACE_ROOT={{ primary_worktree_path }}/.. \
+WORKSPACE_PATH={{ worktree_path }} \
+{{ primary_worktree_path }}/../.mise/tasks/link-shared-skills\
+"""
+
+# Bring the dev environment (docker) up so a fresh worktree is ready to use.
+# Symmetric with the [pre-remove] docker hook that stops it. Idempotent: re-running
+# `mise run start` on an already-up stack is a no-op.
+docker = """\
+cd {{ worktree_path }} && mise run start 2>/dev/null || true\
 """
 
 [projects."github.com/Simpliphy-Inc/omniapp".pre-remove]
