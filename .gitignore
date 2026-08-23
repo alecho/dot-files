@@ -9,3 +9,6 @@ tmuxinator/.config/tmuxinator/*.local.yml
 # Local zsh config (machine-specific)
 zsh/.zshrc.d/local.zsh
 
+# Editor/tool backup files (e.g. config.kdl.pre-frame-style.bak)
+*.bak
+
