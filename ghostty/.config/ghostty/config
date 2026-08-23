@@ -2,6 +2,9 @@ theme = Dracula
 link-url = true
 font-family =  FiraCode Nerd Font Mono Reg
 keybind = shift+enter=text:\n
+# Prevent Option+Right from being translated to Alt+f / word-forward
+keybind = alt+right=ignore
 background-opacity = 0.97
 cursor-style = block
 cursor-style-blink = false
+desktop-notifications = true
