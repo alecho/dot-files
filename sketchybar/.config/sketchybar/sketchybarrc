@@ -104,7 +104,6 @@ sketchybar --add event aerospace_mode_change
 sketchybar --add item aerospace_mode left \
            --set aerospace_mode \
                  drawing=off \
-                 update_freq=1 \
                  label.color=0xffbd93f9 \
                  script="$PLUGIN_DIR/aerospace_mode.sh" \
            --subscribe aerospace_mode aerospace_mode_change
@@ -115,6 +114,11 @@ sketchybar --add item clock right \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
            --subscribe battery system_woke power_source_change \
+           --add item caffeine right \
+           --set caffeine update_freq=30 label.drawing=off \
+                          script="$PLUGIN_DIR/caffeine.sh" \
+                          click_script="$PLUGIN_DIR/caffeine.sh toggle" \
+           --subscribe caffeine system_woke \
            --add item weather right \
            --set weather update_freq=600 padding_right=80 \
                          popup.background.color=0xe0282a36 \
