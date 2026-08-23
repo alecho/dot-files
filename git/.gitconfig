@@ -196,3 +196,5 @@
 	markUnblamableLines = true
 [absorb]
 	oneFixupPerCommit = true
+[gpg "ssh"]
+	allowedSignersFile = /Users/andrewlechowicz/.config/git/allowed_signers

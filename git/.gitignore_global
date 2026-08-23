@@ -11,6 +11,9 @@ omniapp.code-workspace
 
 AGENTS.md
 .agents/
+plans/
+PLAN.md
+IMPL.md
 
 CLAUDE.md
 CLAUDE.local.md
@@ -20,6 +23,10 @@ CLAUDE.local.md
 # Codex
 .codex
 *.codexplan
+
+# Pi
+.pi/
+.pi-subagents/
 
 # custom nvim session data
 .sessions%**
