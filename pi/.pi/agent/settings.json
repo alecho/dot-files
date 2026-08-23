@@ -1,11 +1,38 @@
 {
-  "defaultModel": "claude-opus-5",
-  "defaultProvider": "anthropic",
-  "defaultThinkingLevel": "high",
   "lastChangelogVersion": "0.84.2",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.6-sol",
+  "theme": "dracula",
   "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-subagents",
+    "npm:pi-web-access",
+    "npm:@plannotator/pi-extension",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:pi-intercom",
+    "npm:pi-simplify",
+    "npm:pi-ponytail",
+    "git:github.com/majorgilles/pi-grill-me",
+    {
+      "source": "git:github.com/AminBlg/SimpleEnglish@379728b51981b6d2ee1de0f201164483a9648972",
+      "prompts": []
+    },
+    "npm:pi-autoresearch",
+    "npm:pi-goal-x",
     "npm:@firstpick/pi-themes-bundle",
     "npm:@ollama/pi-web-search"
   ],
-  "theme": "dracula"
+  "hideThinkingBlock": true,
+  "defaultThinkingLevel": "high",
+  "subagents": {
+    "agentOverrides": {
+      "planner": {
+        "defaultContext": "fresh"
+      },
+      "worker": {
+        "defaultContext": "fresh"
+      }
+    }
+  }
 }
