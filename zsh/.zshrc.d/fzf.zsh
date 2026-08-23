@@ -68,7 +68,7 @@ select-git-hash-with-fzf() {
     commits=$(git lol)
     selected=$(echo "$commits" | fzf +m --height 40% --reverse \
         --preview 'git show --color=always {1}' \
-        --preview-window=right:60%)
+        --preview-window=up:60%:wrap)
     if [[ -n $selected ]]; then
         commit_hash=$(echo "$selected" | awk '{print $1}')
         LBUFFER+="$(echo $commit_hash | tr -d '\n')"

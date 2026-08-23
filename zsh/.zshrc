@@ -13,11 +13,6 @@ for file in ~/.zshrc.d/*.zsh; do
   source "$file"
 done
 
-# iTerm2 shell integration
-if [ -f ~/.iterm2_shell_integration.zsh ]; then
-  source ~/.iterm2_shell_integration.zsh
-fi
-
 # First-run commands
 if [[ -z "$SOURCED_ONCE" ]]; then
   export SOURCED_ONCE=1

@@ -1,7 +1,7 @@
 # General Aliases
 
 # Navigation
-alias c='claude'
+alias c='pi'
 alias code='cd ~/Code'
 alias dot='cd ~/dotfiles'
 alias des='cd ~/Desktop'
@@ -39,34 +39,38 @@ alias llllllt='lsd -A --tree --depth=6'
 alias lllllllt='lsd -A --tree --depth=7'
 alias llllllllt='lsd -A --tree --depth=8'
 
-# Find a file by walking up the directory tree, then edit it
+# Find a file or directory by walking up the directory tree, then edit it
 vimup() {
-  local file="$1"
+  local target="$1"
   local dir="$PWD"
   while [[ "$dir" != "/" ]]; do
-    if [[ -f "$dir/$file" ]]; then
-      vim "$dir/$file"
+    if [[ -e "$dir/$target" ]]; then
+      vim "$dir/$target"
       return
     fi
     dir="${dir:h}"
   done
-  echo "No $file found in any parent directory"
+  echo "No $target found in any parent directory"
 }
 
 # Edit rc files
+alias vimagents='vimup .agents/'
 alias vime='vimup .envrc'
-alias vimv='vim ~/.config/nvim/'
-alias vimz='vim ~/.zshrc'
-alias vimzl='vim ~/.zshrc.d/local.zsh'
-alias vimzellij='vim ~/.config/zellij/config.kdl'
 alias vimg='vim ~/.gitconfig'
 alias vimgi='vimup .gitignore'
 alias vimgig='vim ~/.gitignore_global'
 alias vimm='vim mise.toml'
 alias vimml='vim mise.local.toml'
+alias vimpi='vimup .pi/'
+alias vimpig='vim ~/.pi'
 alias vims='vim ~/.config/starship.toml'
 alias vimsshc='vim ~/.ssh/config'
+alias vimv='vim ~/.config/nvim/'
 alias vimwt='vimup wt.toml'
+alias vimz='vim ~/.zshrc'
+alias vimalises='vim ~/.zshrc.d/aliases.zsh'
+alias vimzellij='vim ~/.config/zellij/config.kdl'
+alias vimzl='vim ~/.zshrc.d/local.zsh'
 
 alias reload='source ~/.zshrc'
 
@@ -74,7 +78,8 @@ alias reload='source ~/.zshrc'
 alias work='ruby ~/scripts/work.rb'
 
 # Worktrunk
-alias wtc='wt switch --create'
+alias wtc='wt switch --create --no-cd'
+alias wtcd='wt switch --create'
 alias wtl='wt list'
 alias wts='wt switch'
 alias wtr='wt remove'

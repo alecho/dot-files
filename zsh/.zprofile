@@ -94,8 +94,7 @@ export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --theme=Dr
 export FZF_COMPLETION_TRIGGER='**'
 export FZF_COMPLETION_OPTS='--border --info=inline'
 
-# mise version manager
-export MISE_DEFAULT_CONFIG_FILENAME="mise.local.toml"
+# mise version manager (MISE_DEFAULT_CONFIG_FILENAME set in .zshenv)
 eval "$(mise activate zsh)"
 
 # Added by Windsurf
