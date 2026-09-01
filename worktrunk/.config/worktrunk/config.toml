@@ -71,7 +71,7 @@ cd {{ worktree_path }} && mise run start 2>/dev/null || true\
 [projects."github.com/Simpliphy-Inc/omniapp".pre-remove]
 docker = """\
 NAME=$(grep -o 'COMPOSE_PROJECT_NAME = \"[^\"]*\"' mise.local.toml 2>/dev/null | sed 's/.*\"\\([^\"]*\\)\".*/\\1/'); \
-[ -n \"$NAME\" ] && docker compose -p \"$NAME\" down 2>/dev/null || true\
+[ -n \"$NAME\" ] && docker compose -p \"$NAME\" down --volumes --remove-orphans 2>/dev/null || true\
 """
 
 # # User Configuration
