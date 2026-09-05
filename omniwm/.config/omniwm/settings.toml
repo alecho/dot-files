@@ -3,7 +3,7 @@ monitorDwindleOverrides = []
 monitorGapOverrides = []
 monitorNiriOverrides = []
 monitorOrientationOverrides = []
-schemaVersion = 1
+schemaVersion = 2
 
 [appearance]
 mode = "dark"
@@ -64,8 +64,8 @@ updateChecksEnabled = true
 [gestures]
 fingerCount = 3
 invertDirection = true
-mouseMoveModifierKey = "option"
-mouseResizeModifierKey = "option"
+mouseMoveModifierKey = "command"
+mouseResizeModifierKey = "command"
 scrollEnabled = true
 scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
@@ -125,12 +125,12 @@ red = 0.3
 [quakeTerminal]
 animationDuration = 0.2
 autoHide = false
-backgroundBlurRadius = 0
+backgroundBlurRadius = 30
 backgroundEffect = "standardBlur"
 enabled = true
 heightPercent = 50.0
 monitorMode = "focusedWindow"
-opacity = 1.0
+opacity = 0.9
 position = "center"
 widthPercent = 50.0
 
@@ -448,6 +448,78 @@ binding = "Shift+Command+9"
 id = "moveToWorkspace.8"
 
 [[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.1"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.1"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.2"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.2"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.3"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.3"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.4"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.4"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.5"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.5"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.6"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.6"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.7"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.7"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.8"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.8"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.9"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.9"
+
+[[hotkeys]]
 binding = "Hyper+Tab"
 id = "workspaceBackAndForth"
 
@@ -460,19 +532,19 @@ binding = "Unassigned"
 id = "switchWorkspace.previous"
 
 [[hotkeys]]
-binding = "Command+H"
+binding = "Command+Left Arrow"
 id = "focus.left"
 
 [[hotkeys]]
-binding = "Command+J"
+binding = "Command+Down Arrow"
 id = "focus.down"
 
 [[hotkeys]]
-binding = "Command+K"
+binding = "Command+Up Arrow"
 id = "focus.up"
 
 [[hotkeys]]
-binding = "Command+L"
+binding = "Command+Right Arrow"
 id = "focus.right"
 
 [[hotkeys]]
@@ -572,19 +644,19 @@ binding = "Unassigned"
 id = "moveColumnToWorkspace.8"
 
 [[hotkeys]]
-binding = "Shift+Command+H"
+binding = "Shift+Command+Left Arrow"
 id = "move.left"
 
 [[hotkeys]]
-binding = "Shift+Command+J"
+binding = "Shift+Command+Down Arrow"
 id = "move.down"
 
 [[hotkeys]]
-binding = "Shift+Command+K"
+binding = "Shift+Command+Up Arrow"
 id = "move.up"
 
 [[hotkeys]]
-binding = "Shift+Command+L"
+binding = "Shift+Command+Right Arrow"
 id = "move.right"
 
 [[hotkeys]]
@@ -945,6 +1017,10 @@ id = "toggleFocusedWindowFloating"
 
 [[hotkeys]]
 binding = "Unassigned"
+id = "closeFocusedWindow"
+
+[[hotkeys]]
+binding = "Unassigned"
 id = "openMenuAnywhere"
 
 [[hotkeys]]
@@ -1049,7 +1125,7 @@ type = "secondary"
 
 [[workspaces]]
 id = "3EF92BE3-4359-49B6-B6BD-0D1177443D68"
-layoutType = "niri"
+layoutType = "dwindle"
 name = "9"
 
 [workspaces.monitorAssignment]
