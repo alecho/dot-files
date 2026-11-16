@@ -277,3 +277,20 @@ NAME=$(grep -o 'COMPOSE_PROJECT_NAME = \"[^\"]*\"' mise.local.toml 2>/dev/null |
 #
 # """
 # <!-- DEFAULT_SQUASH_TEMPLATE_END -->
+
+[projects."github.com/Simpliphy-Inc/MobileApp"]
+worktree-path = "~/Code/MobileApp/{{ branch | sanitize }}"
+
+[projects."github.com/Simpliphy-Inc/MobileApp".post-create]
+setup = """\
+WORKSPACE_ROOT={{ primary_worktree_path }}/.. \
+WORKSPACE_PATH={{ worktree_path }} \
+{{ primary_worktree_path }}/../.mise/tasks/setup\
+"""
+
+[projects."github.com/Simpliphy-Inc/MobileApp".post-start]
+shared-skills = """\
+WORKSPACE_ROOT={{ primary_worktree_path }}/.. \
+WORKSPACE_PATH={{ worktree_path }} \
+{{ primary_worktree_path}}/../.mise/tasks/link-shared-skills\
+"""

@@ -45,10 +45,10 @@ keybinds {
         bind "Alt L" { MovePane "Right"; }
         bind "Alt J" { MovePane "Down"; }
         bind "Alt K" { MovePane "Up"; }
-        bind "Alt Left" { NewPane "Left"; }
-        unbind "Alt Right"
-        bind "Alt Down" { NewPane "Down"; }
-        bind "Alt Up" { NewPane "Up"; }
+        bind "Alt Left" { MoveFocus "Left"; }
+        bind "Alt Right" { MoveFocus "Right"; }
+        bind "Alt Down" { MoveFocus "Down"; }
+        bind "Alt Up" { MoveFocus "Up"; }
         bind "Alt =" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt x" { CloseFocus; }
@@ -65,10 +65,10 @@ keybinds {
     pane clear-defaults=false {
         bind "Enter" "Esc" "Space" { SwitchToMode "normal"; }
         bind "r" { SwitchToMode "renamepane"; }
-        bind "h" { NewPane "Left"; }
-        bind "l" { NewPane "Right"; }
-        bind "j" { NewPane "Down"; }
-        bind "k" { NewPane "Up"; }
+        bind "h" { NewPane "Left"; SwitchToMode "normal"; }
+        bind "l" { NewPane "Right"; SwitchToMode "normal"; }
+        bind "j" { NewPane "Down"; SwitchToMode "normal"; }
+        bind "k" { NewPane "Up"; SwitchToMode "normal"; }
         bind "d" { CloseFocus; }
         bind "b" { BreakPane; }
         bind "Alt ." { BreakPaneRight; }

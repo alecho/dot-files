@@ -33,14 +33,7 @@ $kubernetes\
 ${custom.workspace}\
 ${custom.directory}\
 $vcsh\
-$fossil_branch\
-$git_branch\
-$git_commit\
-$git_state\
-$git_metrics\
-$git_status\
-$hg_branch\
-$pijul_channel\
+$vcs\
 $docker_context\
 $package\
 $c\
@@ -177,16 +170,21 @@ truncation_length = 24
 
 [git_status]
 style = "white"
-format = '([$all_status$ahead_behind]($style) )'
+format = '([$conflicted$stashed$worktree_added$worktree_deleted$worktree_modified$worktree_typechanged$index_added$index_deleted$index_modified$index_typechanged$renamed$untracked$ahead_behind]($style) )'
 ahead = " [+${count}](bold green)"
 behind = " [-${count}](bold red)"
 diverged = "[+${ahead_count}](bold green) [-${behind_count}](bold red)"
-modified = "[M](bold red)"
 stashed = "[ ](bold yellow)"
-staged = "[S](bold green)"
-renamed = "[R](bold green)"
-deleted = "[D](bold red)"
 conflicted = "[U](bold red)"
+worktree_added = "[A](bold red)"
+worktree_deleted = "[D](bold red)"
+worktree_modified = "[M](bold red)"
+worktree_typechanged = "[T](bold red)"
+index_added = "[A](bold green)"
+index_deleted = "[D](bold green)"
+index_modified = "[M](bold green)"
+index_typechanged = "[T](bold green)"
+renamed = "[R](bold green)"
 
 [git_state]
 style = "bold bright-yellow"

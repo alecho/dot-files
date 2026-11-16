@@ -9,6 +9,15 @@
       "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
       "installedAt": "2026-05-24T03:59:16.158Z",
       "updatedAt": "2026-05-24T03:59:16.158Z"
+    },
+    "figma-design-to-code": {
+      "source": "figma/mcp-server-guide",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
+      "skillPath": "skills/figma-design-to-code/SKILL.md",
+      "skillFolderHash": "80699efd9135e0ef1c17cef81e463b8c2a9a17e6",
+      "installedAt": "2026-09-12T13:49:27.316Z",
+      "updatedAt": "2026-09-12T13:49:27.316Z"
     }
   },
   "dismissed": {

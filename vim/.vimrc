@@ -67,6 +67,7 @@ nnoremap <C-X> :Bclose!<CR>
 " set pastetoggle=<C-g>
 
 filetype plugin indent on
+autocmd BufRead,BufNewFile *.herb setfiletype eruby.html
 
 " Disabled arrow keys N00b!
 noremap <Up> <NOP>

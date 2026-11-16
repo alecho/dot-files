@@ -5,17 +5,52 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Change Fn + [ to Esc",
+                        "description": "Moonlander: use Command + Tab for OmniWM workspaces",
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "is_keyboard": true,
+                                                "product_id": 6505,
+                                                "vendor_id": 12951
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
                                 "from": {
-                                    "key_code": "open_bracket",
+                                    "key_code": "tab",
                                     "modifiers": {
-                                        "mandatory": ["fn"],
+                                        "mandatory": ["command", "shift"],
                                         "optional": ["caps_lock"]
                                     }
                                 },
-                                "to": [{ "key_code": "escape" }],
+                                "to": [{ "key_code": "f19" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "is_keyboard": true,
+                                                "product_id": 6505,
+                                                "vendor_id": 12951
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["caps_lock"]
+                                    }
+                                },
+                                "to": [{ "key_code": "f18" }],
                                 "type": "basic"
                             }
                         ]
@@ -55,7 +90,13 @@
                         "product_id": 6505,
                         "vendor_id": 12951
                     },
-                    "ignore": true
+                    "ignore": false,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "f9" },
+                            "to": [{ "key_code": "fn" }]
+                        }
+                    ]
                 },
                 {
                     "identifiers": {

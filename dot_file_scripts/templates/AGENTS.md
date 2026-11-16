@@ -106,9 +106,12 @@ When asked to lint or audit the wiki:
 
 ### Browsing the wiki
 
-The `.wiki/` directory is an `nb` local notebook. To browse as rendered HTML:
+The `.wiki/` directory is a `zk` notebook. Useful commands:
 
-    nb browse --gui
+    zk list --limit 20
+    zk list --match "your topic" --limit 5
+    zk list --orphan
+    zk list --missing-backlink
 
 ### Rules
 

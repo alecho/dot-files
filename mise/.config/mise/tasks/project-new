@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+#MISE description="Create a project workspace under ~/Code"
+#MISE interactive=true
+
+set -euo pipefail
+
+for command in gum git; do
+  command -v "$command" >/dev/null 2>&1 || {
+    echo "project-new: $command is required" >&2
+    exit 1
+  }
+done
+
+name=$(gum input --header "Project name" --placeholder "my-project")
+if [[ ! "$name" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || [[ "$name" == "." || "$name" == ".." ]]; then
+  echo "project-new: use letters, numbers, dots, underscores, or hyphens" >&2
+  exit 1
+fi
+
+workspace="$HOME/Code/$name"
+repo="$workspace/main"
+if [[ -e "$workspace" && ! -d "$workspace" ]]; then
+  echo "project-new: destination exists and is not a directory: $workspace" >&2
+  exit 1
+fi
+if [[ -d "$workspace" ]] && [[ -n "$(find "$workspace" -mindepth 1 -maxdepth 1 -print -quit)" ]]; then
+  echo "project-new: refusing to overwrite non-empty destination: $workspace" >&2
+  exit 1
+fi
+
+source=$(gum choose --header "Repository source" \
+  "Initialize a new Git repository" \
+  "Clone an existing repository URL")
+url=""
+if [[ "$source" == "Clone an existing repository URL" ]]; then
+  url=$(gum input --header "Repository URL" --placeholder "git@github.com:owner/repo.git")
+  [[ -n "$url" ]] || { echo "project-new: repository URL is required" >&2; exit 1; }
+fi
+
+create_wiki=false
+gum confirm "Create a project-local .wiki zk notebook?" && create_wiki=true
+create_agents=false
+gum confirm "Create AGENTS.md from the dotfiles template?" && create_agents=true
+
+if [[ "$create_wiki" == true ]]; then
+  command -v zk >/dev/null 2>&1 || { echo "project-new: zk is required to create the wiki" >&2; exit 1; }
+fi
+
+templates="${DOTFILES_DIR:-$HOME/dotfiles}/dot_file_scripts/templates"
+if [[ "$create_agents" == true && ! -f "$templates/AGENTS.md" ]]; then
+  echo "project-new: AGENTS.md template not found at $templates/AGENTS.md" >&2
+  exit 1
+fi
+if [[ "$create_wiki" == true && ! -d "$templates/wiki" ]]; then
+  echo "project-new: wiki templates not found at $templates/wiki" >&2
+  exit 1
+fi
+
+workspace_created=false
+if [[ ! -d "$workspace" ]]; then
+  mkdir -p "$workspace"
+  workspace_created=true
+fi
+cleanup() {
+  status=$?
+  if [[ $status -ne 0 && "$workspace_created" == true ]]; then
+    rm -rf "$workspace"
+  fi
+  exit "$status"
+}
+trap cleanup EXIT
+trap 'exit 130' HUP INT TERM
+
+if [[ "$source" == "Initialize a new Git repository" ]]; then
+  mkdir "$repo"
+  git -C "$repo" init -b main
+else
+  git clone "$url" "$repo"
+fi
+trunk=$(git -C "$repo" symbolic-ref --quiet --short HEAD 2>/dev/null || printf 'main')
+toml_trunk=$(printf '%s' "$trunk" | sed 's/\\/\\\\/g; s/"/\\"/g')
+printf '[env]\nTRUNK_BRANCH = "%s"\n' "$toml_trunk" > "$workspace/.mise.toml"
+mise trust "$workspace/.mise.toml" >/dev/null
+
+render() {
+  escaped_name=$(printf '%s' "$name" | sed 's/[&|\\]/\\&/g')
+  escaped_workspace=$(printf '%s' "$workspace" | sed 's/[&|\\]/\\&/g')
+  sed -e "s|{{PROJECT_NAME}}|$escaped_name|g" \
+    -e "s|{{PROJECT_DIR}}|$escaped_workspace|g" \
+    -e "s|{{DATE}}|$(date +%Y-%m-%d)|g" \
+    "$1"
+}
+
+if [[ "$create_wiki" == true ]]; then
+  zk init "$workspace/.wiki" --no-input
+  for template in "$templates/wiki"/*.md; do
+    render "$template" > "$workspace/.wiki/$(basename "$template")"
+  done
+  printf '.audits/\n.zk/notebook.db\n' > "$workspace/.wiki/.gitignore"
+fi
+
+if [[ "$create_agents" == true ]]; then
+  if [[ "$create_wiki" == true ]]; then
+    render "$templates/AGENTS.md" > "$workspace/AGENTS.md"
+  else
+    render "$templates/AGENTS.md" | sed '/^## Wiki$/,$d' > "$workspace/AGENTS.md"
+  fi
+  ln -s AGENTS.md "$workspace/CLAUDE.md"
+fi
+
+trap - EXIT HUP INT TERM
+printf 'Created %s (repository: %s, trunk: %s)\n' "$workspace" "$repo" "$trunk"

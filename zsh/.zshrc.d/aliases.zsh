@@ -15,8 +15,11 @@ alias clc="fc -ln -1 | awk '{\$1=\$1}1' ORS='' | pbcopy"
 # Tools
 alias sm="awk 'NF{sum+=\$1} END {print sum}'"
 alias cat="bat"
+alias glow='glow -w $COLUMNS'
 alias vim='nvim'
 alias lcat='lolcat'
+alias lg='lazygit'
+alias mr='mise run'
 alias f="python select_and_run_command.py"
 alias ff='print -z $(fzf)'
 
@@ -31,13 +34,13 @@ alias lll='lsd -Al'
 alias ld='lsd -Ad'
 alias lf='lsd -Af'
 alias lt='lsd -A --tree --depth=1'
-alias llt='lsd -A --tree --depth=2'
-alias lllt='lsd -A --tree --depth=3'
-alias llllt='lsd -A --tree --depth=4'
-alias lllllt='lsd -A --tree --depth=5'
-alias llllllt='lsd -A --tree --depth=6'
-alias lllllllt='lsd -A --tree --depth=7'
-alias llllllllt='lsd -A --tree --depth=8'
+alias ltt='lsd -A --tree --depth=2'
+alias lttt='lsd -A --tree --depth=3'
+alias ltttt='lsd -A --tree --depth=4'
+alias lttttt='lsd -A --tree --depth=5'
+alias ltttttt='lsd -A --tree --depth=6'
+alias lttttttt='lsd -A --tree --depth=7'
+alias ltttttttt='lsd -A --tree --depth=8'
 
 # Find a file or directory by walking up the directory tree, then edit it
 vimup() {

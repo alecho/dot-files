@@ -154,6 +154,8 @@ cask "font-hack-nerd-font"
 cask "font-victor-mono-nerd-font"
 # Client for the Google Drive storage service
 cask "google-drive"
+# Keyboard customizer for macOS
+cask "karabiner-elements"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # App that enables mouse-free UI interaction

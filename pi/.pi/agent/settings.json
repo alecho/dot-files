@@ -1,11 +1,10 @@
 {
-  "lastChangelogVersion": "0.84.4",
+  "lastChangelogVersion": "1.5.2",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
+  "defaultModel": "gpt-6.1-sol",
   "theme": "dracula",
   "externalEditor": "pi-editor",
   "packages": [
-    "npm:pi-mcp-adapter",
     "npm:pi-subagents",
     "npm:pi-web-access",
     "npm:@plannotator/pi-extension",
@@ -28,7 +27,7 @@
     },
     "git:github.com/coreyryanhanson/pi-grill-me"
   ],
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "subagents": {
     "agentOverrides": {
@@ -39,5 +38,25 @@
         "defaultContext": "fresh"
       }
     }
-  }
+  },
+  "deviceId": "239e6831-ad22-4261-9dd8-57902ab0614a",
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.88.1",
+    "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.48.0",
+    "{\"source\":\"npm:pi-autoresearch\",\"scope\":\"user\"}": "1.9.0"
+  },
+  "enabledModels": [
+    "anthropic/claude-fable-5",
+    "anthropic/claude-fable-5-1",
+    "anthropic/claude-haiku-5-5",
+    "anthropic/claude-opus-5",
+    "anthropic/claude-opus-5-5",
+    "anthropic/claude-sonnet-5",
+    "anthropic/claude-sonnet-5-5",
+    "openai-codex/gpt-6-astra",
+    "openai-codex/gpt-6-luna",
+    "openai-codex/gpt-6-sol",
+    "openai-codex/gpt-6.1-sol",
+    "openai-codex/gpt-6.1-terra"
+  ]
 }

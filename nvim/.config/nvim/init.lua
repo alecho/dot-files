@@ -19,6 +19,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.filetype.add({ extension = { herb = "eruby.html" } })
+
 -- Add keymapping for Lazy
 vim.keymap.set("n", "<leader>z", ":Lazy<CR>", { noremap = true, silent = true })
 
