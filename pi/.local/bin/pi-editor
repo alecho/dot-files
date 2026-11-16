@@ -6,7 +6,7 @@ import sys
 
 origin = os.environ.get("ZELLIJ_PANE_ID")
 if not os.environ.get("ZELLIJ") or not origin:
-    os.execvp("nvim", ["nvim", *sys.argv[1:]])
+    os.execvp("nvim", ["nvim", "+startinsert", *sys.argv[1:]])
 
 panes = json.loads(subprocess.check_output(["zellij", "action", "list-panes", "--geometry", "--json"]))
 parent = next(p for p in panes if not p["is_plugin"] and str(p["id"]) == origin.removeprefix("terminal_"))
@@ -19,7 +19,7 @@ try:
     status = subprocess.call([
         "zellij", "run", "--floating", "--close-on-exit", "--blocking", "--name", "pi-prompt",
         "--width", str(width), "--height", str(height), "--x", str(x), "--y", str(y),
-        "--", "nvim", *sys.argv[1:],
+        "--", "nvim", "+startinsert", *sys.argv[1:],
     ])
 finally:
     subprocess.run(["zellij", "action", "focus-pane-id", origin], stdout=subprocess.DEVNULL)

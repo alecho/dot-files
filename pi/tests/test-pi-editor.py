@@ -38,12 +38,12 @@ with tempfile.TemporaryDirectory() as directory:
                 run = calls[1]
                 assert run[:2] == ["zellij", "run"]
                 assert "--blocking" in run and "--close-on-exit" in run
-                assert run[-3:] == ["--", "nvim", "/tmp/prompt with spaces.md"]
+                assert run[-4:] == ["--", "nvim", "+startinsert", "/tmp/prompt with spaces.md"]
                 x, y, columns, rows = geometry
                 expected = dict(width=columns, height=min(15, rows), x=x, y=y + max(0, rows-15))
                 for key, value in expected.items():
                     assert run[run.index("--" + key) + 1] == str(value)
                 assert calls[2:] == [["zellij", "action", "focus-pane-id", "1"]]
             else:
-                assert calls == [["nvim", "/tmp/prompt with spaces.md"]]
+                assert calls == [["nvim", "+startinsert", "/tmp/prompt with spaces.md"]]
 print("PASS: parent-relative size and position, exit status, focus, quoting, and fallback")
