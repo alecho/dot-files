@@ -21,11 +21,11 @@ return {
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 
-    keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = true })
-    keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = true })
-    keymap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})<CR>",
+    keymap("n", "[d", "<cmd>lua vim.diagnostic.jump({count = -1})<CR>", { noremap = true, silent = true })
+    keymap("n", "]d", "<cmd>lua vim.diagnostic.jump({count = 1})<CR>", { noremap = true, silent = true })
+    keymap("n", "[e", "<cmd>lua vim.diagnostic.jump({count = -1, severity = vim.diagnostic.severity.ERROR})<CR>",
       { noremap = true, silent = true })
-    keymap("n", "]e", "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})<CR>",
+    keymap("n", "]e", "<cmd>lua vim.diagnostic.jump({count = 1, severity = vim.diagnostic.severity.ERROR})<CR>",
       { noremap = true, silent = true })
     vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>")
     vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>")

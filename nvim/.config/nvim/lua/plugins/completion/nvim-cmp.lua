@@ -12,7 +12,7 @@ return {
   },
   config = function()
     local has_words_before = function()
-      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+      if vim.bo.buftype == "prompt" then return false end
       -- eventually will need to be: local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
       local line, col = unpack(vim.api.nvim_win_get_cursor(0))
       return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
@@ -36,7 +36,6 @@ return {
           ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
           symbol_map = {
             Copilot = "",
-            Codeium = "",
           },
 
           -- The function below will be called before any actual modifications from lspkind
@@ -98,7 +97,6 @@ return {
       sources = {
         -- AI Source
         -- { name = "copilot",    group_index = 2 },
-        { name = "codeium",    group_index = 2 },
         -- Other Sources
         { name = "treesitter", group_index = 2 },
         { name = "buffer",     group_index = 2 },

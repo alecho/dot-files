@@ -4,7 +4,7 @@ if vim.env and vim.env.HOME and vim.env.PATH then
 end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -36,6 +36,13 @@ vim.opt.spelllang = "en_us"
 vim.opt.autowrite = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.termguicolors = true
+vim.diagnostic.config({
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+    end,
+  },
+})
 
 -- Set colorscheme
 vim.cmd('colorscheme dracula')
@@ -56,18 +63,16 @@ local autocmds = {
   },
 }
 
--- Register autocmds
-for _, group in pairs(autocmds) do
-  for _, cmd in pairs(group.commands) do
-    vim.api.nvim_exec('augroup MyAutocmds', true)
-    vim.api.nvim_exec('autocmd! *', true)
-
-    for _, event in pairs(group.events) do -- allow multiple events with same settings
-      vim.api.nvim_exec('autocmd ' .. event .. ' ' .. group.glob .. ' ' .. cmd, true)
-    end
-
-    vim.api.nvim_exec('augroup END', true)
-  end
+-- Register all commands without clearing earlier entries.
+local autocmd_group = vim.api.nvim_create_augroup("MyAutocmds", { clear = true })
+for _, group in ipairs(autocmds) do
+  vim.api.nvim_create_autocmd(group.events, {
+    group = autocmd_group,
+    pattern = group.glob,
+    callback = function()
+      for _, cmd in ipairs(group.commands) do vim.cmd(cmd) end
+    end,
+  })
 end
 
 vim.api.nvim_create_autocmd("FileType", {

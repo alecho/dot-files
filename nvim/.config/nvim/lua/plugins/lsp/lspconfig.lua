@@ -22,10 +22,10 @@ return {
         end
         local opts = { buffer = bufnr, noremap = true, silent = true }
         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "[e", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, opts)
-        vim.keymap.set("n", "]e", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+        vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
+        vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, opts)
+        vim.keymap.set("n", "[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, opts)
+        vim.keymap.set("n", "]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end, opts)
       end,
     })
 

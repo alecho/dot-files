@@ -8,7 +8,7 @@ local function get_plugin_dirs()
     "_backup",
   }
   
-  local handle = vim.loop.fs_scandir(vim.fn.stdpath("config") .. "/lua/plugins")
+  local handle = vim.uv.fs_scandir(vim.fn.stdpath("config") .. "/lua/plugins")
   if handle then
     local function is_excluded(name)
       for _, excluded in ipairs(exclude_dirs) do
@@ -20,7 +20,7 @@ local function get_plugin_dirs()
     end
     
     while true do
-      local name, type = vim.loop.fs_scandir_next(handle)
+      local name, type = vim.uv.fs_scandir_next(handle)
       if not name then break end
       
       if type == "directory" and not is_excluded(name) then
