@@ -3,3 +3,4 @@
 # Add one line per machine key; all machines share this file via stow.
 andrew@alecho.com namespaces="git" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObUnvTkR8v3dtFZ2sVG5czLREzoTpZi24qdY7IpMo5J
 andrew@alecho.com namespaces="git" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPKNDwlDCiwVuCEAsNovRMWhH/N8NgUFYUoCNgSDjwo
+dot@alecho.com namespaces="git" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG1kd3fHX31GmkJze7Mi/IbqeyGkanpbij5sl/B2k+0J  Dot second-brain signing (Omarchy)
